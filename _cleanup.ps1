@@ -2,8 +2,8 @@
 
 Write-Output $PSCommandPath
 Write-Output $('-' * $PSCommandPath.Length)
-Get-ChildItem ('*.o', '*.ppu') | ForEach-Object ({
+Get-ChildItem ('*.o', '*.ppu') -Recurse | ForEach-Object ({
 
-    Write-Output 'Removing:' $_.Name
+    Write-Output "Removing: $($_.Name)"
     Remove-Item $_
 })

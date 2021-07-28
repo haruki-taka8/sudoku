@@ -1,9 +1,15 @@
 program sudoku;
 
-uses types, auxiliary, io, endgame, getHint,
-     removeNakedPair, removePointingPair,
-     removeNakedSingle, removeHiddenSingle,
-     removeRemainingOfInt;
+uses types                in 'Modules\types.pas',
+     auxiliary            in 'Modules\auxiliary.pas',
+     io                   in 'Modules\io.pas',
+     endgame              in 'Modules\endgame.pas',      
+     getHint              in 'Modules\getHint.pas',     
+     removeNakedPair      in 'Modules\removeNakedPair.pas',   
+     removePointingPair   in 'Modules\removePointingPair.pas',
+     removeNakedSingle    in 'Modules\removeNakedSingle.pas',
+     removeHiddenSingle   in 'Modules\removeHiddenSingle.pas',
+     removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
 
 var
     // Global variables, use with caution
