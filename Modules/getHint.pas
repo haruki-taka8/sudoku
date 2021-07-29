@@ -9,7 +9,7 @@ implementation
 uses auxiliary;
 
 procedure GetHint (InputGrid : TIntegerGrid; var hint : TStringGrid);
-var x, y, p, q, thisCellY, thisCellX, HintPos : integer;
+var x, y, p, q, ThisY, ThisX, HintPos : integer;
 begin
     // Returns a TStringGrid of hints given a TIntegerGrid
 
@@ -26,12 +26,12 @@ begin
                 for p := 0 to 2 do
                     for q := 0 to 2 do
                     begin
-                        thisCellY := 3 * (y div 3) + p;
-                        thisCellX := 3 * (x div 3) + q;
+                        ThisY := 3 * (y div 3) + p;
+                        ThisX := 3 * (x div 3) + q;
                                     
-                        if InputGrid[thisCellY, thisCellX] <> 0 then
+                        if InputGrid[ThisY, ThisX] <> 0 then
                         begin
-                            HintPos := pos(SBA_IntToStr(InputGrid[thisCellY, thisCellX]), hint[y, x]);
+                            HintPos := pos(SBA_IntToStr(InputGrid[ThisY, ThisX]), hint[y, x]);
                             if HintPos <> 0 then hint[y, x] := SBA_RemoveAt(hint[y, x], HintPos);
                         end;
                     end;

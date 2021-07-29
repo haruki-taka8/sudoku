@@ -4,6 +4,7 @@ interface
 uses types, auxiliary;
 procedure RemoveNakedSingle (var grid : TIntegerGrid; InputHint : TStringGrid);
 
+
 implementation
 
 procedure RemoveNakedSingle (var grid : TIntegerGrid; InputHint : TStringGrid);

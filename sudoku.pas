@@ -1,15 +1,16 @@
 program sudoku;
 
-uses types                in 'Modules\types.pas',
-     auxiliary            in 'Modules\auxiliary.pas',
-     io                   in 'Modules\io.pas',
-     endgame              in 'Modules\endgame.pas',      
-     getHint              in 'Modules\getHint.pas',     
-     removeNakedPair      in 'Modules\removeNakedPair.pas',   
-     removePointingPair   in 'Modules\removePointingPair.pas',
-     removeNakedSingle    in 'Modules\removeNakedSingle.pas',
-     removeHiddenSingle   in 'Modules\removeHiddenSingle.pas',
-     removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
+uses 
+    types                in 'Modules\types.pas',
+    auxiliary            in 'Modules\auxiliary.pas',
+    io                   in 'Modules\io.pas',
+    endgame              in 'Modules\endgame.pas',      
+    getHint              in 'Modules\getHint.pas',     
+    removeNakedPair      in 'Modules\removeNakedPair.pas',   
+    removePointingPair   in 'Modules\removePointingPair.pas',
+    removeNakedSingle    in 'Modules\removeNakedSingle.pas',
+    removeHiddenSingle   in 'Modules\removeHiddenSingle.pas',
+    removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
 
 var
     // Global variables, use with caution
@@ -26,7 +27,7 @@ begin
         oldGrid := grid;
         
         // Solve
-        // Took me an hour to realize the Interface.Implementation convention
+        // Took me an hour to realize the Unit.Interface convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.GetHint(grid, hint);
         RemoveNakedPair.RemoveNakedPair(hint);
@@ -41,6 +42,7 @@ begin
         
         if IsRepeated(grid, oldGrid) then
         begin
+            WriteHint(hint);
             writeln;
             writeln('REPETITION DETECTED; BAILING!');
             break;
@@ -49,6 +51,5 @@ begin
     end;
     
     WriteGrid(grid);
-    if IsSolved(grid) then
-        writeln('Solved!');
+    if IsSolved(grid) then writeln('SOLVED!');
 end.

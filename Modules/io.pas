@@ -46,6 +46,7 @@ begin
         else
             writeln;
     end;
+
     writeln;
     writeln;
 end;
@@ -60,14 +61,14 @@ begin
     begin
         for x := 0 to 8 do
         begin
-            write(InputHint[y, x]:(x+9));
+            write(InputHint[y, x]:(x+8));
             if ((x = 2) or (x = 5)) then write('|');
         end;
         
         if ((y = 2) or (y = 5)) then
         begin
             writeln;
-            writeln('------------------------------+---------------------------------------+------------------------------------------------');
+            writeln('---------------------------+------------------------------------+---------------------------------------------');
         end
         else
             writeln;

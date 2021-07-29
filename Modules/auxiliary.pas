@@ -1,15 +1,15 @@
 unit auxiliary;
 
+interface
+function SBA_RemoveAt (Input : string; Position : integer) : string;
+function SBA_StrToInt (Input : string) : integer;
+function SBA_IntToStr (Input : integer) : string;
+
 // Auxiliary functions because Pascal has poor type support
 // If done in a .NET-compatible language, these functions are not required
 //      SBA_RemoveAt => '0123456'.Remove(at, 1)
 //      SBA_StrToInt => [Convert]::ToInt16('str')  or  [Int] 'str'
 //      SBA_IntToStr => [String] int               or  "int"
-
-interface
-function SBA_RemoveAt (Input : string; Position : integer) : string;
-function SBA_StrToInt (Input : string) : integer;
-function SBA_IntToStr (Input : integer) : string;
 
 
 implementation
