@@ -1,16 +1,18 @@
 program sudoku;
 
 uses 
-    types                in 'Modules\types.pas',
-    auxiliary            in 'Modules\auxiliary.pas',
-    io                   in 'Modules\io.pas',
-    endgame              in 'Modules\endgame.pas',      
-    getHint              in 'Modules\getHint.pas',     
-    removeNakedPair      in 'Modules\removeNakedPair.pas',   
-    removePointingPair   in 'Modules\removePointingPair.pas',
-    removeNakedSingle    in 'Modules\removeNakedSingle.pas',
-    removeHiddenSingle   in 'Modules\removeHiddenSingle.pas',
-    removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
+    types          in 'Modules\General\types.pas',
+    auxiliary      in 'Modules\General\auxiliary.pas',
+    io             in 'Modules\General\io.pas',
+    endgame        in 'Modules\General\endgame.pas',      
+    GetHint        in 'Modules\General\getHint.pas',     
+    NakedPair      in 'Modules\Solving\nakedPair.pas',
+    PointingPair   in 'Modules\Solving\pointingPair.pas',
+    NakedSingle    in 'Modules\Solving\nakedSingle.pas',
+    HiddenSingle   in 'Modules\Solving\hiddenSingle.pas',
+    Visual         in 'Modules\Solving\visual.pas';
+    // removeHiddenPair     in 'Modules\removeHiddenPair.pas',
+    // removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
 
 var
     // Global variables, use with caution
@@ -30,12 +32,12 @@ begin
         // Took me an hour to realize the Unit.Interface convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.GetHint(grid, hint);
-        RemoveNakedPair.RemoveNakedPair(hint);
-        RemovePointingPair.RemovePointingPair(hint);
+        NakedPair.RemoveHint(hint);
+        // PointingPair.RemoveHint(hint);
         
-        RemoveNakedSingle.RemoveNakedSingle(grid, hint);
-        RemoveHiddenSingle.RemoveHiddenSingle(grid, hint);
-        RemoveRemainingOfInt.RemoveRemainingOfInt(grid, hint);
+        NakedSingle.SolveCell(grid, hint);
+        HiddenSingle.SolveCell(grid, hint);
+        Visual.SolveCell(grid, hint);
         
         // Repeatition Detection
         if VERBOSE then writeln;

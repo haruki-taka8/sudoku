@@ -62,6 +62,7 @@ begin
         for x := 0 to 8 do
         begin
             write(InputHint[y, x]:(x+8));
+            // write(InputHint[y, x],',');
             if ((x = 2) or (x = 5)) then write('|');
         end;
         

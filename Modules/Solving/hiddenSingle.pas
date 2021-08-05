@@ -1,13 +1,13 @@
-unit removeHiddenSingle;
+unit hiddenSingle;
 
 interface
 uses types, auxiliary;
-procedure RemoveHiddenSingle (var grid : TIntegerGrid; InputHint : TStringGrid);
+procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 
 
 implementation
 
-procedure RemoveHiddenSingle (var grid : TIntegerGrid; InputHint : TStringGrid);
+procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 var x, y, p, q, r, s, ThisX, ThisY : integer;
     ThisHint : string;
     IsHiddenSingle : boolean;
@@ -32,7 +32,7 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         if VERBOSE then
-                            writeln('Set (', y, ',', x, ') to ', ThisHint, ' by hidden single, column');
+                            writeln('Set (', y, ',', x, ') as ', ThisHint, ' by hidden single, column');
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -49,7 +49,7 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         if VERBOSE then
-                            writeln('Set (', y, ',', x, ') to ', ThisHint, ' by hidden single, row');
+                            writeln('Set (', y, ',', x, ') as ', ThisHint, ' by hidden single, row');
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -72,7 +72,7 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         if VERBOSE then
-                            writeln('Set (', y, ',', x, ') to ', ThisHint, ' by hidden single, subgrid');
+                            writeln('Set (', y, ',', x, ') as ', ThisHint, ' by hidden single, subgrid');
                         break;
                     end;
                 end;

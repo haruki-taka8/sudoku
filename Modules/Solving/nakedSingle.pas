@@ -1,13 +1,14 @@
-unit removeNakedSingle;
+unit nakedSingle;
 
 interface
 uses types, auxiliary;
-procedure RemoveNakedSingle (var grid : TIntegerGrid; InputHint : TStringGrid);
+procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 
+// Naked single = cell with only one hint
 
 implementation
 
-procedure RemoveNakedSingle (var grid : TIntegerGrid; InputHint : TStringGrid);
+procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 var x, y : integer;
 begin
     for y := 0 to 8 do
@@ -17,7 +18,7 @@ begin
                 grid[y, x] := SBA_StrToInt(InputHint[y, x]);
                 
                 if VERBOSE then
-                    writeln('Set (', y, ',', x, ') to ', InputHint[y, x], ' by naked single');
+                    writeln('Set (', y, ',', x, ') as ', InputHint[y, x], ' by naked single');
             end;
 end;
 

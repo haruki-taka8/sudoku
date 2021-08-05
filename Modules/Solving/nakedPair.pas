@@ -1,13 +1,13 @@
-unit removeNakedPair;
+unit nakedPair;
 
 interface
 uses types, auxiliary;
-procedure RemoveNakedPair (var hint : TStringGrid);
+procedure RemoveHint (var hint : TStringGrid);
 
 
 implementation
 
-procedure RemoveNakedPair (var hint : TStringGrid);
+procedure RemoveHint (var hint : TStringGrid);
 var x, y, p, r, s, u, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
 begin
