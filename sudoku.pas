@@ -33,7 +33,7 @@ begin
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.GetHint(grid, hint);
         NakedPair.RemoveHint(hint);
-        // PointingPair.RemoveHint(hint);
+        PointingPair.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);

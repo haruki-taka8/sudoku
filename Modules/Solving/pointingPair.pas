@@ -18,72 +18,73 @@ begin
 end;
 
 procedure RemoveHint (var hint: TStringGrid);
-var x, y, p, q, r, s, ThisX, ThisY, LeftX, LeftY, Count : integer;
-    Cell1, Cell2, Cell3 : integer;
+var x, y, p, r, s, LeftX, LeftY : integer;
+    CountInAlign, CountInSubgrid : integer;
 begin
     for y := 0 to 8 do
         for x := 0 to 8 do
             for p := 1 to 9 do
             begin
-                Count := 0;
-                LeftX := 3 * (x div 3);
-                LeftY := 3 * (y div 3);
+                // Columns
+                CountInAlign := 0;
+                CountInSubgrid := 0;
+                LeftX := 3*(x div 3);
+                LeftY := 3*(y div 3);
 
-                // Row (claiming)
-                for r := 0 to 2 do
-                    for s := 0 to 2 do
-                    begin
-                        ThisX := LeftX + s;
-                        ThisY := LeftY + r;
+                // For top to bottom of subgrid
+                for r := LeftY to LeftY+2 do
+                    if pos(SBA_IntToStr(p), hint[r, x]) <> 0 then
+                        CountInAlign := CountInAlign + 1;
 
-                        if (Contains(hint[ThisY, ThisX], p)) = 1 then
-                            Count := Count + 1;
-                    end;
+                // Total count of P, CountInSubgrid in subgrid (must be equal to CountInAlign)
+                for r := LeftY to LeftY+2 do
+                    for s := LeftX to LeftX+2 do
+                        if pos(SBA_IntToStr(p), hint[r, s]) <> 0 then
+                            CountInSubgrid := CountInSubgrid + 1;
 
-                Cell1 := Contains(hint[y, LeftX],   p);
-                Cell2 := Contains(hint[y, LeftX+1], p);
-                Cell3 := Contains(hint[y, LeftX+2], p);
-                if ((Cell1+Cell2+Cell3) = 2) and (Count = 2) then
+                if (CountInAlign = CountInSubgrid) and ((CountInAlign = 2) or (CountInAlign = 3)) then
                 begin
-                    // Remove from row
-                    for q := 0 to 8 do
-                        if (pos(SBA_IntToStr(p), hint[y, q]) <> 0) and ((q div 3) <> (x div 3)) then
+                    // Remove from the same column except within the subgrid
+                    for r := 0 to 8 do
+                        if ((y div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[r, x]) <> 0) then
                         begin
-                            hint[y, q] := SBA_RemoveAt(hint[y, q], pos(SBA_IntToStr(p), hint[y, q]));
-            
+                            hint[r, x] := SBA_RemoveAt(hint[r, x], pos(SBA_IntToStr(p), hint[r, x]));
+
                             if VERBOSE then
-                                writeln('Remove ', p, ' from (', y, ',', q, ') by pointing pair, row-row');
-                        end;
-
-                    // Remove from subgrid?
-                end;
-
-
-                // Column (claiming)
-                for r := 0 to 2 do
-                    for s := 0 to 2 do
-                    begin
-                        ThisX := LeftX + s;
-                        ThisY := LeftY + r;
-
-                        if (Contains(hint[ThisY, ThisX], p)) = 1 then
-                            Count := Count + 1;
-                    end;
-
-                Cell1 := Contains(hint[LeftY, x],   p);
-                Cell2 := Contains(hint[LeftY+1, x], p);
-                Cell3 := Contains(hint[LeftY+2, x], p);
-                if ((Cell1+Cell2+Cell3) = 2) and (Count = 2) then
-                begin
-                    for q := 0 to 8 do
-                        if (pos(SBA_IntToStr(p), hint[q, x]) <> 0) and ((q div 3) <> (x div 3)) then
-                        begin
-                            hint[q, x] := SBA_RemoveAt(hint[q, x], pos(SBA_IntToStr(p), hint[q, x]));
-            
-                            if VERBOSE then
-                                writeln('Remove ', p, ' from (', q, ',', x, ') by pointing pair, col-col' )
+                                writeln('Remove ', p, ' from (', r, ',', x, ') by pointing pair, column');
                         end;
                 end;
+
+                // Rows
+                CountInAlign := 0;
+                CountInSubgrid := 0;
+                LeftX := 3*(x div 3);
+                LeftY := 3*(y div 3);
+
+                // For left end to right end of subgrid
+                for r := LeftX to LeftX+2 do
+                    if pos(SBA_IntToStr(p), hint[y, r]) <> 0 then
+                        CountInAlign := CountInAlign + 1;
+
+                // Total count of P, CountInSubgrid in subgrid (must be equal to CountInAlign)
+                for r := LeftY to LeftY+2 do
+                    for s := LeftX to LeftX+2 do
+                        if pos(SBA_IntToStr(p), hint[r, s]) <> 0 then
+                            CountInSubgrid := CountInSubgrid + 1;
+
+                if (CountInAlign = CountInSubgrid) and ((CountInAlign = 2) or (CountInAlign = 3)) then
+                begin
+                    // Remove from the same row except within the subgrid
+                    for r := 0 to 8 do
+                        if ((x div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[y, r]) <> 0) then
+                        begin
+                            hint[y, r] := SBA_RemoveAt(hint[y, r], pos(SBA_IntToStr(p), hint[y, r]));
+
+                            if VERBOSE then
+                                writeln('Remove ', p, ' from (', y, ',', r, ') by pointing pair, row');
+                        end;
+                end;
+
             end;
 end;
 
