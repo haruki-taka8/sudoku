@@ -22,6 +22,7 @@ var
 
 begin
     ReadGrid(grid);
+    GetHint.GetHint(grid, hint);
     
     // Solving loop
     while not IsSolved(grid) do
@@ -31,7 +32,7 @@ begin
         // Solve
         // Took me an hour to realize the Unit.Interface convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
-        GetHint.GetHint(grid, hint);
+        GetHint.RemoveSolved(grid, hint);
         NakedPair.RemoveHint(hint);
         PointingPair.RemoveHint(hint);
         
