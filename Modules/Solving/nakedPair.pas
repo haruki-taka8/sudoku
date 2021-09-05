@@ -8,7 +8,7 @@ procedure RemoveHint (var hint : TStringGrid);
 implementation
 
 procedure RemoveHint (var hint : TStringGrid);
-var x, y, p, r, s, u, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
+var x, y, p, r, s, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
 begin
     for y := 0 to 8 do
@@ -16,12 +16,12 @@ begin
             if length(hint[y, x]) = 2 then
             begin
                 // Elimination: Row (Horizontal matches)
-                PairX := 0;
-                PairY := 0;
-                SubX := 0;
-                SubY := 0;
-                PairSubX := 0;
-                PairSubY := 0;
+                PairX := -1;
+                PairY := -1;
+                SubX := -1;
+                SubY := -1;
+                PairSubX := -1;
+                PairSubY := -1;
                 
                 for p := 0 to 8 do
                     if (hint[y, x] = hint[y, p]) and (x <> p) then
@@ -31,7 +31,7 @@ begin
                         break;
                     end;
                 
-                if PairX <> 0 then
+                if PairX <> -1 then
                 begin
                     // Remove others from row
                     for p := 0 to 8 do
@@ -69,7 +69,7 @@ begin
                                 ThisX := 3 * SubX + s;
                                 ThisY := 3 * SubY + r;
                                 
-                                if ((ThisX <> x) or (ThisY <> y)) and ((ThisX <> PairX) or (ThisY <> PairY)) then
+                                if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                                 begin
                                     if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
                                     begin
@@ -92,12 +92,12 @@ begin
                 end;
                     
                 // Elimination: Column (Vertical matches)
-                PairX := 0;
-                PairY := 0;
-                SubX := 0;
-                SubY := 0;
-                PairSubX := 0;
-                PairSubY := 0;
+                PairX := -1;
+                PairY := -1;
+                SubX := -1;
+                SubY := -1;
+                PairSubX := -1;
+                PairSubY := -1;
                 
                 for p := 0 to 8 do
                     if (hint[y, x] = hint[p, x]) and (y <> p) then
@@ -107,7 +107,7 @@ begin
                         break;
                     end;
                 
-                if PairY <> 0 then
+                if PairY <> -1 then
                 begin
                     // Remove others from column
                     for p := 0 to 8 do
@@ -146,7 +146,7 @@ begin
                                 ThisX := 3 * SubX + s;
                                 ThisY := 3 * SubY + r;
                                 
-                                if ((ThisX <> x) or (ThisY <> y)) and ((ThisX <> PairX) or (ThisY <> PairY)) then
+                                if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                                 begin
                                     if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
                                     begin
@@ -168,12 +168,12 @@ begin
                 end;
                 
                 // Elimination: Subgrid
-                PairX := 0;
-                PairY := 0;
+                PairX := -1;
+                PairY := -1;
                 SubX := x div 3;
                 SubY := y div 3;
-                PairSubX := 0;
-                PairSubY := 0;
+                PairSubX := -1;
+                PairSubY := -1;
                 
                 for r := 0 to 2 do
                     for s := 0 to 2 do
@@ -189,15 +189,15 @@ begin
                         end;
                     end;
                     
-                if PairX <> 0 then
+                if PairX <> -1 then
                 begin
                     for r := 0 to 2 do
-                        for u := 0 to 2 do
+                        for s := 0 to 2 do
                         begin
                             ThisX := 3 * SubX + s;
                             ThisY := 3 * SubY + r;
                             
-                            if ((ThisX <> x) or (ThisY <> y)) and ((ThisX <> PairX) or (ThisY <> PairY)) then
+                            if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                             begin
                                 if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
                                 begin
