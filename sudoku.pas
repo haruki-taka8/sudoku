@@ -10,9 +10,8 @@ uses
     PointingPair   in 'Modules\Solving\pointingPair.pas',
     NakedSingle    in 'Modules\Solving\nakedSingle.pas',
     HiddenSingle   in 'Modules\Solving\hiddenSingle.pas',
-    Visual         in 'Modules\Solving\visual.pas';
-    // removeHiddenPair     in 'Modules\removeHiddenPair.pas',
-    // removeRemainingOfInt in 'Modules\removeRemainingOfInt.pas';
+    Visual         in 'Modules\Solving\visual.pas',
+    HiddenPair     in 'Modules\Solving\HiddenPair.pas';
 
 var
     // Global variables, use with caution
@@ -33,6 +32,7 @@ begin
         // Took me an hour to realize the Unit.Interface convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.RemoveSolved(grid, hint);
+        HiddenPair.RemoveHint(hint);
         NakedPair.RemoveHint(hint);
         PointingPair.RemoveHint(hint);
         
