@@ -14,7 +14,9 @@ var
     y, x, i : integer;
 
 begin
-    i := 0;
+    // I know this is ridiculous, but hear me out!
+    // Without the following lines, Pascal causes a memory corruption!
+    // https://www.cvedetails.com/vulnerability-list/opmemc-1/memory-corruption.html
     Output[0] := '';
     Output[1] := '';
     Output[2] := '';
@@ -52,10 +54,10 @@ begin
     Output[34] := '';
     Output[35] := '';
 
+    i := 0;
     for y := 1 to length(Input)-1 do
         for x := y+1 to length(Input) do
         begin
-            // Output[i] := ''; // Without this line, Pascal SOMETIMES causes in a memory leak
             Output[i] := Input[y] + Input[x];
             i := i + 1;
         end;
@@ -65,7 +67,7 @@ end;
 
 
 procedure RemoveHint (var hint : TStringGrid);
-var x, y, p, q, i, PairX, PairY, LeftX, LeftY, Matches : integer;
+var x, y, p, q, i, PairX, PairY, LeftX, LeftY, ExactTotal, Total : integer;
     ThisCombo : combination;
 
 begin
@@ -78,7 +80,8 @@ begin
                     if ThisCombo[i] <> '' then
                     begin
                         // Row
-                        Matches := 0;
+                        ExactTotal := 0;
+                        Total      := 0;
                         PairX   := -1;
                         PairY   := -1;
 
@@ -86,7 +89,7 @@ begin
                         for q := 0 to 8 do
                             if (pos(ThisCombo[i][1], hint[y, q]) <> 0) and (pos(ThisCombo[i][2], hint[y, q]) <> 0) then
                             begin
-                                Matches := Matches + 1;
+                                ExactTotal := ExactTotal + 1;
                                 PairX := q;
                                 PairY := y;
                             end;
@@ -94,10 +97,10 @@ begin
                         // Second pass: any digit matches
                         for q := 0 to 8 do
                             if (pos(ThisCombo[i][1], hint[y, q]) <> 0) or (pos(ThisCombo[i][2], hint[y, q]) <> 0) then
-                                Matches := Matches + 1;
+                                Total := Total + 1;
 
                         // (Matches-2) because second pass counts the cells counted in first pass
-                        if ((Matches-2) = 2) and (x <> PairX) and (PairX <> -1) and (PairY <> -1) then
+                        if (ExactTotal = 2) and (Total = 2) and (x <> PairX) and (PairX <> -1) and (PairY <> -1) then
                         begin
                             // Remove other candidates from (y, x) and (PairY, PairX)
                             hint[y, x] := ThisCombo[i];
@@ -109,7 +112,8 @@ begin
 
 
                         // Column
-                        Matches := 0;
+                        ExactTotal := 0;
+                        Total := 0;
                         PairX   := -1;
                         PairY   := -1;
 
@@ -117,7 +121,7 @@ begin
                         for q := 0 to 8 do
                             if (pos(ThisCombo[i][1], hint[q, x]) <> 0) and (pos(ThisCombo[i][2], hint[q, x]) <> 0) then
                             begin
-                                Matches := Matches + 1;
+                                ExactTotal := ExactTotal + 1;
                                 PairX := x;
                                 PairY := q;
                             end;
@@ -125,10 +129,9 @@ begin
                         // Second pass: any digit matches
                         for q := 0 to 8 do
                             if (pos(ThisCombo[i][1], hint[q, x]) <> 0) or (pos(ThisCombo[i][2], hint[q, x]) <> 0) then
-                                Matches := Matches + 1;
+                                Total := Total + 1;
 
-                        // (Matches-2) because second pass counts the cells counted in first pass
-                        if ((Matches-2) = 2) and (y <> PairY) and (PairX <> -1) and (PairY <> -1) then
+                        if (ExactTotal = 2) and (Total = 2) and (y <> PairY) and (PairX <> -1) and (PairY <> -1) then
                         begin
                             // Remove other candidates from (y, x) and (PairY, PairX)
                             hint[y, x] := ThisCombo[i];
@@ -140,7 +143,8 @@ begin
 
     
                         // Subgrid
-                        Matches := 0;
+                        ExactTotal := 0;
+                        Total      := 0;
                         LeftX   := 3*(x div 3);
                         LeftY   := 3*(y div 3);
                         PairX   := -1;
@@ -151,7 +155,7 @@ begin
                             for p := LeftX to LeftX+2 do
                                 if (pos(ThisCombo[i][1], hint[q, p]) <> 0) and (pos(ThisCombo[i][2], hint[q, p]) <> 0) then
                                 begin
-                                    Matches := Matches + 1;
+                                    ExactTotal := ExactTotal + 1;
                                     PairX := p;
                                     PairY := q;
                                 end;
@@ -160,12 +164,9 @@ begin
                         for q := LeftY to LeftY+2 do
                             for p := LeftX to LeftX+2 do
                                 if (pos(ThisCombo[i][1], hint[q, p]) <> 0) or (pos(ThisCombo[i][2], hint[q, p]) <> 0) then
-                                    Matches := Matches + 1;
+                                    Total := Total + 1;
 
-                        // WRITELN('! ~ ', y, ',', x, ' ~ ', PairY, ',', PairX, ' ~ ', ThisCombo[i], ' ~ ', Matches);
-
-                        // (Matches-2) because second pass counts the cells counted in first pass
-                        if ((Matches-2) = 2) and ((x <> PairX) or (y <> PairY)) and (PairX <> -1) and (PairY <> -1) then
+                        if (ExactTotal = 2) and (Total = 2) and ((x <> PairX) or (y <> PairY)) and (PairX <> -1) and (PairY <> -1) then
                             // Two IF statments because Pascal does NOT support short-circuit evaluation NOR out-of-bound indexing
                             // https://en.wikipedia.org/wiki/Short-circuit_evaluation
                             // Combining the IFs may result in a overflow (runtime error 216).
