@@ -1,17 +1,18 @@
 program sudoku;
 
 uses 
-    types          in 'Modules\General\types.pas',
-    auxiliary      in 'Modules\General\auxiliary.pas',
-    io             in 'Modules\General\io.pas',
-    endgame        in 'Modules\General\endgame.pas',      
-    GetHint        in 'Modules\General\getHint.pas',     
-    NakedPair      in 'Modules\Solving\nakedPair.pas',
-    PointingPair   in 'Modules\Solving\pointingPair.pas',
-    NakedSingle    in 'Modules\Solving\nakedSingle.pas',
-    HiddenSingle   in 'Modules\Solving\hiddenSingle.pas',
-    Visual         in 'Modules\Solving\visual.pas',
-    HiddenPair     in 'Modules\Solving\HiddenPair.pas';
+    types        in 'Modules\General\types.pas',
+    auxiliary    in 'Modules\General\auxiliary.pas',
+    io           in 'Modules\General\io.pas',
+    endgame      in 'Modules\General\endgame.pas',      
+    GetHint      in 'Modules\General\getHint.pas', 
+    NakedSingle  in 'Modules\Solving\nakedSingle.pas',
+    NakedPair    in 'Modules\Solving\nakedPair.pas',
+    HiddenSingle in 'Modules\Solving\hiddenSingle.pas',
+    HiddenPair   in 'Modules\Solving\hiddenPair.pas',
+    PointingPair in 'Modules\Solving\pointingPair.pas',
+    ClaimingPair in 'Modules\Solving\claimingPair.pas',
+    Visual       in 'Modules\Solving\visual.pas';
 
 var
     // Global variables, use with caution
@@ -22,11 +23,19 @@ var
 begin
     ReadGrid(grid);
     GetHint.GetHint(grid, hint);
+
+    // WRITEGRID(grid);
+    WRITEHINT(hint);
     
+    // WriteHint(hint);
+    // ClaimingPair.RemoveHint(hint);
+    // WriteHint(hint);
+
     // Solving loop
     while not IsSolved(grid) do
     begin
         oldGrid := grid;
+
         
         // Solve
         // Took me an hour to realize the Unit.Interface convention
@@ -34,6 +43,7 @@ begin
         GetHint.RemoveSolved(grid, hint);
         HiddenPair.RemoveHint(hint);
         NakedPair.RemoveHint(hint);
+        ClaimingPair.RemoveHint(hint);
         PointingPair.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
