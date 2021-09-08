@@ -12,6 +12,7 @@ uses
     HiddenPair   in 'Modules\Solving\hiddenPair.pas',
     PointingPair in 'Modules\Solving\pointingPair.pas',
     ClaimingPair in 'Modules\Solving\claimingPair.pas',
+    NakedTriple  in 'Modules\Solving\nakedTriple.pas',
     Visual       in 'Modules\Solving\visual.pas';
 
 var
@@ -24,25 +25,19 @@ begin
     ReadGrid(grid);
     GetHint.GetHint(grid, hint);
 
-    // WRITEGRID(grid);
-    WRITEHINT(hint);
-    
-    // WriteHint(hint);
-    // ClaimingPair.RemoveHint(hint);
-    // WriteHint(hint);
-
     // Solving loop
     while not IsSolved(grid) do
     begin
         oldGrid := grid;
 
-        
         // Solve
         // Took me an hour to realize the Unit.Interface convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.RemoveSolved(grid, hint);
+        
         HiddenPair.RemoveHint(hint);
         NakedPair.RemoveHint(hint);
+        NakedTriple.RemoveHint(hint);
         ClaimingPair.RemoveHint(hint);
         PointingPair.RemoveHint(hint);
         
