@@ -17,8 +17,14 @@ function SBA_IntToStr (Input : integer) : string;
 implementation
 
 function SBA_RemoveAt (Input : string; Position : integer) : string;
+var Result : string;
 begin
-    SBA_RemoveAt := copy(Input, 1, Position-1) + copy(Input, Position+1, 8);
+    if Position = 0 then
+        Result := Input
+    else
+        Result := copy(Input, 1, Position-1) + copy(Input, Position+1, 8);
+
+    SBA_RemoveAt := Result;
 end;
 
 function SBA_StrToInt (Input : string) : integer;
