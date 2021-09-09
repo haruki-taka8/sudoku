@@ -13,9 +13,10 @@ Sorry, code is terrible, I know.
 | Naked pair                           | Hidden triplets/quads            |
 | Hidden single                        | ...                              |
 | Hidden pair                          |                                  |
-| Pointing pair (Locked candidates #1) |                                  |
+| Pointing pair (Locked candidates #1) |                                  |
 | Claiming pair (Locked candidates #2) |                                  |
 | Naked triplets                       |                                  |
+| Locked triplets                      |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
 <br>
 

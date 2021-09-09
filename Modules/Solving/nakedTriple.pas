@@ -14,13 +14,18 @@ procedure RemoveHint (var hint : TStringGrid);
 var ShouldNotHave, ThisCell : string;
     NakedTripleCells : array [0..8] of boolean;
     y, x, p, q, r, s, SubgridCellID, LeftX, LeftY, NakedTripleCount : integer;
+    LockedLeftX, LockedLeftY : integer;
+    IsLockedTriple, HasNakedTriple : boolean;
 begin
     for y := 0 to 8 do
         for x := 0 to 8 do
             if length(hint[y, x]) = 3 then
             begin
                 // Row
+                IsLockedTriple := true;
+                HasNakedTriple := false;
                 NakedTripleCount := 0;
+
                 ShouldNotHave := '123456789';
                 for p := 1 to 3 do
                     ShouldNotHave := SBA_RemoveAt(ShouldNotHave, pos(hint[y, x][p], ShouldNotHave));
@@ -40,15 +45,20 @@ begin
                         begin
                             NakedTripleCells[p] := true;
                             NakedTripleCount := NakedTripleCount + 1;
+                            LockedLeftX := 3*(p div 3);
+                            LockedLeftY := 3*(y div 3);
                         end;
                     end;
                 end;
 
                 // Remove hints in the same row
+                IsLockedTriple := true;
                 if NakedTripleCount = 3 then
                     for p := 0 to 8 do
+                    begin
                         if (not NakedTripleCells[p]) and (hint[y, p] <> '') then
                         begin
+                            HasNakedTriple := true;
                             for q := 1 to 3 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][q], hint[y, p]));
 
@@ -56,8 +66,28 @@ begin
                                 writeln('Remove ', hint[y, x], ' from (', y, ',', p, ') based on row ', y, ' by naked triples, row-row');
                         end;
 
+                        if NakedTripleCells[p] and (3*(p div 3) <> LockedLeftX) then
+                            IsLockedTriple := false;
+                    end;
+
+                // Locked triple
+                if IsLockedTriple and HasNakedTriple and (LockedLeftX <> -1) then
+                    for r := LockedLeftX to LockedLeftX+2 do
+                        for s := LockedLeftY to LockedLeftY+2 do
+                            if (s <> y) and (hint[s, r] <> '') then
+                            begin
+                                for q := 1 to 3 do
+                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(hint[y, x][q], hint[s, r]));
+
+                                if VERBOSE then
+                                    writeln('Remove ', hint[y, x], ' from (', s, ',', r, ') based on sub ', (3*(s div 3)+(r div 3)) ,' by naked triples, row-sub, locked');
+                            end;
+
+
 
                 // Column
+                IsLockedTriple := true;
+                HasNakedTriple := false;
                 NakedTripleCount := 0;
                 ShouldNotHave := '123456789';
                 for p := 1 to 3 do
@@ -78,24 +108,46 @@ begin
                         begin
                             NakedTripleCells[p] := true;
                             NakedTripleCount := NakedTripleCount + 1;
+                            LockedLeftX := 3*(x div 3);
+                            LockedLeftY := 3*(p div 3);
                         end;
                     end;
                 end;
 
                 // Remove hints in the same column
+                IsLockedTriple := true;
                 if NakedTripleCount = 3 then
                     for p := 0 to 8 do
+                    begin
                         if (not NakedTripleCells[p]) and (hint[p, x] <> '') then
                         begin
+                            HasNakedTriple := true;
                             for q := 1 to 3 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][q], hint[p, x]));
 
                             if VERBOSE then
                                 writeln('Remove ', hint[y, x], ' from (', p, ',', x, ') based on col ', x, ' by naked triples, col-col');
-                            
                         end;
 
+                        if NakedTripleCells[p] and (3*(p div 3) <> LockedLeftY) then
+                            IsLockedTriple := false;
+                    end;
+
+                // Locked triple
+                if IsLockedTriple and HasNakedTriple and (LockedLeftY <> -1) then
+                    for r := LockedLeftX to LockedLeftX+2 do
+                        for s := LockedLeftY to LockedLeftY+2 do
+                            if (r <> x) and (hint[s, r] <> '') then
+                            begin
+                                for q := 1 to 3 do
+                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(hint[y, x][q], hint[s, r]));
+
+                                if VERBOSE then
+                                    writeln('Remove ', hint[y, x], ' from (', s, ',', r, ') based on sub ', (3*(s div 3)+(r div 3)) ,' by naked triples, col-sub, locked');
+                            end;
+
                 
+
                 // Subgrid
                 NakedTripleCount := 0;
                 ShouldNotHave := '123456789';
@@ -111,7 +163,6 @@ begin
                 SubgridCellID := 0;
                 LeftX := 3*(x div 3);
                 LeftY := 3*(y div 3);
-                // for p := 0 to 8 do
                 for r := LeftX to LeftX+2 do
                     for s := LeftY to LeftY+2 do
                     begin
@@ -135,7 +186,6 @@ begin
 
                 // Remove hints in the same subgrid
                 SubgridCellID := 0;
-
                 if NakedTripleCount = 3 then
                     for r := LeftX to LeftX+2 do
                         for s := LeftY to LeftY+2 do
