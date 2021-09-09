@@ -69,7 +69,6 @@ end;
 procedure RemoveHint (var hint : TStringGrid);
 var x, y, p, q, i, PairX, PairY, LeftX, LeftY, ExactTotal, Total : integer;
     ThisCombo : twoCombination;
-    // Combination : string;
 
 begin
     for y := 0 to 8 do
@@ -109,8 +108,7 @@ begin
                                 hint[y, x] := ThisCombo[i];
                                 hint[PairY, PairX] := ThisCombo[i];
 
-                                if VERBOSE then
-                                    writeln('Hint (', y, ',', x, ') and (', PairY, ',', PairX, ') as ', ThisCombo[i][1], ThisCombo[i][2], ' by hidden pair, row');
+                                WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                             end;
                         end;
 
@@ -143,8 +141,7 @@ begin
                                 hint[y, x] := ThisCombo[i];
                                 hint[PairY, PairX] := ThisCombo[i];
 
-                                if VERBOSE then
-                                    writeln('Hint (', y, ',', x, ') and (', PairY, ',', PairX, ') as ', ThisCombo[i], ' by hidden pair, column');
+                                WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                             end;
                         end;
 
@@ -185,8 +182,7 @@ begin
                                     hint[y, x] := ThisCombo[i];
                                     hint[PairY, PairX] := ThisCombo[i];
 
-                                    if VERBOSE then
-                                        writeln('Hint (', y, ',', x, ') and (', PairY, ',', PairX, ') as ', ThisCombo[i], ' by hidden pair, subgrid');
+                                    WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
                                 end;
                         end;
                     end;

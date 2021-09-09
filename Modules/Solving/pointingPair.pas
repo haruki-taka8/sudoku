@@ -1,7 +1,7 @@
 unit pointingPair;
 
 interface
-uses types, auxiliary;
+uses types, auxiliary, io;
 procedure RemoveHint (var hint : TStringGrid);
 
 implementation
@@ -36,23 +36,9 @@ begin
                     // Pointing
                     for r := 0 to 8 do
                         if ((y div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[r, x]) <> 0) then
-                        begin
                             hint[r, x] := SBA_RemoveAt(hint[r, x], pos(SBA_IntToStr(p), hint[r, x]));
 
-                            if VERBOSE then
-                                writeln('Remove ', p, ' from (', r, ',', x, ') by locked candidates, col-col pointing');
-                        end;
-
-                    // Claiming
-                    // for r := LeftY to LeftY+2 do
-                    //     for s := LeftX to LeftX+2 do
-                    //         if (s <> x) and (pos(SBA_IntToStr(p), hint[r, s]) <> 0) then
-                    //         begin
-                    //             hint[r, s] := SBA_RemoveAt(hint[r, s], pos(SBA_IntToStr(p), hint[r, s]));
-
-                    //             if VERBOSE then
-                    //                 writeln('Remove ', p, ' from (', r, ',', s, ') by locked candidates, col-sub claiming');
-                    //         end;
+                        WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] ⇒ row '+SBA_IntToStr(y)+' - subgrid');
                 end;
 
                 // Rows
@@ -78,12 +64,9 @@ begin
                     // Pointing
                     for r := 0 to 8 do
                         if ((x div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[y, r]) <> 0) then
-                        begin
                             hint[y, r] := SBA_RemoveAt(hint[y, r], pos(SBA_IntToStr(p), hint[y, r]));
-
-                            if VERBOSE then
-                                writeln('Remove ', p, ' from (', y, ',', r, ') by locked candidates, row-row pointing');
-                        end;
+                    
+                    WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] ⇒ col '+SBA_IntToStr(x)+' - subgrid');
                 end;
 
             end;

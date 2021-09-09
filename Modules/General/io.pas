@@ -5,6 +5,8 @@ uses types;
 procedure ReadGrid (var grid : TIntegerGrid);
 procedure WriteGrid (InputGrid : TIntegerGrid);
 procedure WriteHint (InputHint : TStringGrid);
+procedure WriteStepCell (y, x, Cell : integer; Algorithm, Details : string);
+procedure WriteStepHint (y, x : integer; Algorithm, Details : string);
 
 
 implementation
@@ -74,6 +76,19 @@ begin
         else
             writeln;
     end;
+end;
+
+
+procedure WriteStepCell (y, x, Cell : integer; Algorithm, Details : string);
+begin
+    if VERBOSE then
+        writeln('(', y, ',', x, ') = ', Cell, ' | ', Algorithm, '    ', Details);
+end;
+
+procedure WriteStepHint (y, x : integer; Algorithm, Details : string);
+begin
+    if VERBOSE then
+        writeln('(', y, ',', x, ')     | ', Algorithm, '    ', Details);
 end;
 
 end.

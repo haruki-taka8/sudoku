@@ -1,7 +1,7 @@
 unit visual;
 
 interface
-uses types, auxiliary;
+uses types, auxiliary, io;
 procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 
 // Remove visual, aka Visual Elimination or The Brady Bunch Technique.
@@ -63,20 +63,10 @@ begin
                     if CanindateCount = 1 then
                     begin
                         grid[y, x] := i;
-
-                        if VERBOSE then
-                            writeln('Set (', y, ',', x, ') as ', i, ' by visual elimination');
+                        WriteStepCell(y, x, grid[y, x], 'Visual Elimination', '');
                     end;
                 end;
     end;
 end;
 end.
-// foreach Number
-//     set non-zero as possible
-//     remove in same row
-//     remove in same column
-//     remove in same subgrid
-//     if only one remaining in block
-//         set that as Number
 
-// require data type TBooleanGrid/ or just use TIntegerGrid

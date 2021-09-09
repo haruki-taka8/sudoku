@@ -34,15 +34,14 @@ begin
                     // IF there are no number P outside of subgrid and in row X
                     // Remove from subgrid
                     if (Total = 2) and (SubgridTotal = 2) then
+                    begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
                                 if (s <> y) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
-                                begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
 
-                                    if VERBOSE then
-                                        writeln('Remove ', p, ' from (', s, ',', r, ') based on row ', y ,' by locked candidates, row-sub claiming');
-                                end;
+                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] ∵ row '+SBA_IntToStr(y));
+                    end;
 
                     // Column
                     SubgridTotal := 0;
@@ -61,15 +60,14 @@ begin
                     // IF there are no number P outside of subgrid and in row X
                     // Remove from subgrid
                     if (Total = 2) and (SubgridTotal = 2) then
+                    begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
                                 if (r <> x) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
-                                begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
 
-                                    if VERBOSE then
-                                        writeln('Remove ', p, ' from (', s, ',', r, ') based on col ', x ,' by locked candidates, col-sub claiming');
-                                end;
+                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] ∵ col '+SBA_IntToStr(x));
+                    end;
                 end;
 end;
 
