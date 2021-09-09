@@ -8,7 +8,7 @@ procedure RemoveHint (var hint : TStringGrid);
 implementation
 
 procedure RemoveHint (var hint : TStringGrid);
-var x, y, p, r, s, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
+var x, y, p, r, s, i, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
 begin
     for y := 0 to 8 do
@@ -17,11 +17,6 @@ begin
             begin
                 // Elimination: Row (Horizontal matches)
                 PairX := -1;
-                PairY := -1;
-                SubX := -1;
-                SubY := -1;
-                PairSubX := -1;
-                PairSubY := -1;
                 
                 for p := 0 to 8 do
                     if (hint[y, x] = hint[y, p]) and (x <> p) then
@@ -37,30 +32,19 @@ begin
                     for p := 0 to 8 do
                         if (p <> x) and (p <> PairX) then
                         begin
-                            if pos(hint[y, x][1], hint[y, p]) <> 0 then
-                            begin
-                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][1], hint[y, p]));
-                                
-                                if VERBOSE then
-                                    writeln('Remove ', hint[y, x][1], ' from (', y, ',', p, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-row, 0');
-                            end;
-                            if pos(hint[y, x][2], hint[y, p]) <> 0 then
-                            begin
-                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][2], hint[y, p]));
-                                
-                                if VERBOSE then
-                                    writeln('Remove ', hint[y, x][2], ' from (', y, ',', p, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-row, 1');
-                            end;
+                            for i := 1 to 2 do
+                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
+
+                            if VERBOSE then
+                                writeln('Remove ', hint[y, x], ' from (', y, ',', p, ') by naked pair of (',y,',',x,') and (',y,',',PairX,'), row-row');
                         end;
                         
                     // Remove others from subgrid
                     SubX := x div 3;
                     SubY := y div 3;
                     PairSubX := PairX div 3;
-                    PairSubY := PairY div 3;
                     
-                    if (SubX = PairSubX) and (SubY = PairSubY) then
-                    begin
+                    if SubX = PairSubX then
                         // The matched naked pair is within the same subgrid
                         // eliminate others from the same subgrid
                         for r := 0 to 2 do
@@ -71,33 +55,17 @@ begin
                                 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                                 begin
-                                    if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
-                                    begin
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][1], hint[ThisY, ThisX]));
-                                        
-                                        if VERBOSE then
-                                            writeln('Remove ', hint[y, x][1], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-sub, 0');
-                                    end;
-                                    if pos(hint[y, x][2], hint[ThisY, ThisX]) <> 0 then
-                                    begin
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][2], hint[ThisY, ThisX]));
-                                        
-                                        if VERBOSE then
-                                            writeln('Remove ', hint[y, x][2], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-sub, 1');
-                                    end;
+                                    for i := 1 to 2 do
+                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+
+                                    if VERBOSE then
+                                        writeln('Remove ', hint[y, x], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-sub');
                                 end;
                             end;
-                    end;
-                    
                 end;
                     
                 // Elimination: Column (Vertical matches)
-                PairX := -1;
                 PairY := -1;
-                SubX := -1;
-                SubY := -1;
-                PairSubX := -1;
-                PairSubY := -1;
                 
                 for p := 0 to 8 do
                     if (hint[y, x] = hint[p, x]) and (y <> p) then
@@ -113,21 +81,11 @@ begin
                     for p := 0 to 8 do
                         if (p <> y) and (p <> PairY) then
                         begin
-                        
-                            if pos(hint[y, x][1], hint[p, x]) <> 0 then
-                            begin
-                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][1], hint[p, x]));
-                                
-                                if VERBOSE then
-                                    writeln('Remove ', hint[y, x][1], ' from (', p, ',', x, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), col-col, 0');
-                            end;
-                            if pos(hint[y, x][2], hint[p, x]) <> 0 then
-                            begin
-                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][2], hint[p, x]));
-                                
-                                if VERBOSE then
-                                    writeln('Remove ', hint[y, x][2], ' from (', p, ',', x, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), col-col, 1');
-                            end;
+                            for i := 1 to 2 do
+                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
+
+                            if VERBOSE then
+                                writeln('Remove ', hint[y, x], ' from (', p, ',', x, ') by naked pair of (',y,',',x,') and (',PairY,',',x,'), col-col');
                         end;
                         
                     // Remove others from subgrid
@@ -136,8 +94,7 @@ begin
                     PairSubX := PairX div 3;
                     PairSubY := PairY div 3;
                     
-                    if (SubX = PairSubX) and (SubY = PairSubY) then
-                    begin
+                    if SubY = PairSubY then
                         // The matched naked pair is within the same subgrid
                         // eliminate others from the same subgrid
                         for r := 0 to 2 do
@@ -148,23 +105,13 @@ begin
                                 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                                 begin
-                                    if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
-                                    begin
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][1], hint[ThisY, ThisX]));
-                                        
-                                        if VERBOSE then
-                                            writeln('Remove ', hint[y, x][1], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), col-sub, 0');
-                                    end;
-                                    if pos(hint[y, x][2], hint[ThisY, ThisX]) <> 0 then
-                                    begin
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][2], hint[ThisY, ThisX]));
-                                        
-                                        if VERBOSE then
-                                            writeln('Remove ', hint[y, x][2], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), col-sub, 1');
-                                    end;
+                                    for i := 1 to 2 do
+                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+
+                                    if VERBOSE then
+                                        writeln('Remove ', hint[y, x], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), col-sub');
                                 end;
                             end;
-                    end;
                 end;
                 
                 // Elimination: Subgrid
@@ -172,8 +119,6 @@ begin
                 PairY := -1;
                 SubX := x div 3;
                 SubY := y div 3;
-                PairSubX := -1;
-                PairSubY := -1;
                 
                 for r := 0 to 2 do
                     for s := 0 to 2 do
@@ -190,7 +135,6 @@ begin
                     end;
                     
                 if PairX <> -1 then
-                begin
                     for r := 0 to 2 do
                         for s := 0 to 2 do
                         begin
@@ -199,23 +143,13 @@ begin
                             
                             if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                             begin
-                                if pos(hint[y, x][1], hint[ThisY, ThisX]) <> 0 then
-                                begin
-                                    hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][1], hint[ThisY, ThisX]));
-                                    
-                                    if VERBOSE then
-                                        writeln('Remove ', hint[y, x][1], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), sub-sub, 0');
-                                end;
-                                if pos(hint[y, x][2], hint[ThisY, ThisX]) <> 0 then
-                                begin
-                                    hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][2], hint[ThisY, ThisX]));
-                                    
-                                    if VERBOSE then
-                                        writeln('Remove ', hint[y, x][2], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), sub-sub, 1');
-                                end;
+                                for i := 1 to 2 do
+                                    hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+
+                                if VERBOSE then
+                                    writeln('Remove ', hint[y, x], ' from (', ThisY, ',', ThisX, ') by naked pair of (',y,',',x,') and (',PairY,',',PairX,'), row-row');
                             end;
                         end;
-                end;
             end;
 end;
 
