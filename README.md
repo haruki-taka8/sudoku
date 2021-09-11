@@ -7,18 +7,22 @@ Sorry, code is terrible, I know.
 <br><br>
 
 ## 🧪 Algorithms
-| ✔️ Supported                        | ❌ WIP/Not Supported             |
-|--------------------------------------|----------------------------------|
-| Naked single                         | Naked quads                      |
-| Naked pair                           | Hidden triplets/quads            |
-| Hidden single                        | ...                              |
-| Hidden pair                          |                                  |
-| Pointing pair (Locked candidates #1) |                                  |
-| Claiming pair (Locked candidates #2) |                                  |
-| Naked triplets                       |                                  |
-| Locked triplets                      |                                  |
+| ✔️ Supported                         | ❌ WIP/Not Supported             |
+|---------------------------------------|----------------------------------|
+| Naked singles                         | Pointing triples                 |
+| Naked pairs                           | Naked quads                      |
+| Hidden singles                        | Hidden quads                     |
+| Hidden pairs                          | ...                              |
+| Pointing pairs (Locked candidates #1) |                                  |
+| Claiming pairs (Locked candidates #2) |                                  |
+| Naked triples                         |                                  |
+| Locked triples¹                       |                                  |
+| Hidden triples¹                       |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
-<br>
+
+¹ Partial support: support for triplets that have at least one cell with all three candidates
+<br><br>
+
 
 ## 💡 Todo
 * Include more algorithms
