@@ -10,6 +10,7 @@ implementation
 procedure RemoveHint (var hint : TStringGrid);
 var y, x, p, q, r, s, LeftX, LeftY : integer;
     SubgridTotal, Total : integer;
+    HasRemoved : boolean;
 
 begin
     for y := 0 to 8 do
@@ -18,6 +19,7 @@ begin
                 if pos(SBA_IntToStr(p), hint[y, x]) <> 0 then
                 begin
                     // Row
+                    HasRemoved := false;
                     SubgridTotal := 0;
                     Total := 0;
                     LeftX := 3*(x div 3);
@@ -38,12 +40,17 @@ begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
                                 if (s <> y) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
+                                begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
+                                    HasRemoved := true;
+                                end;
 
-                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
+                        if HasRemoved then
+                            WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
                     end;
 
                     // Column
+                    HasRemoved := false;
                     SubgridTotal := 0;
                     Total := 0;
                     LeftX := 3*(x div 3);
@@ -64,9 +71,13 @@ begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
                                 if (r <> x) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
+                                begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
+                                    HasRemoved := true;
+                                end;
 
-                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
+                        if HasRemoved then
+                            WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
                     end;
                 end;
 end;
