@@ -1,4 +1,4 @@
-unit pointingPair;
+unit pointingPairTriple;
 
 interface
 uses types, auxiliary, io;
@@ -8,6 +8,9 @@ implementation
 procedure RemoveHint (var hint: TStringGrid);
 var x, y, p, r, s, LeftX, LeftY : integer;
     CountInAlign, CountInSubgrid : integer;
+    HasRemoved : boolean;
+    RemoveMode : string;
+
 begin
     for y := 0 to 8 do
         for x := 0 to 8 do
@@ -16,6 +19,7 @@ begin
                 // Columns
                 CountInAlign := 0;
                 CountInSubgrid := 0;
+                HasRemoved := false;
                 LeftX := 3*(x div 3);
                 LeftY := 3*(y div 3);
 
@@ -36,14 +40,24 @@ begin
                     // Pointing
                     for r := 0 to 8 do
                         if ((y div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[r, x]) <> 0) then
+                        begin
                             hint[r, x] := SBA_RemoveAt(hint[r, x], pos(SBA_IntToStr(p), hint[r, x]));
+                            HasRemoved := true
+                        end;
 
-                        WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] for row '+SBA_IntToStr(y)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
+                        if CountInAlign = 2 then
+                            RemoveMode := 'Pair'
+                        else
+                            RemoveMode := 'Triple';
+
+                        if HasRemoved then
+                            WriteStepHint(y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for col '+SBA_IntToStr(y)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
                 // Rows
                 CountInAlign := 0;
                 CountInSubgrid := 0;
+                HasRemoved := false;
                 LeftX := 3*(x div 3);
                 LeftY := 3*(y div 3);
 
@@ -64,9 +78,18 @@ begin
                     // Pointing
                     for r := 0 to 8 do
                         if ((x div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[y, r]) <> 0) then
+                        begin
                             hint[y, r] := SBA_RemoveAt(hint[y, r], pos(SBA_IntToStr(p), hint[y, r]));
+                            HasRemoved := true;
+                        end;
                     
-                    WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] for col '+SBA_IntToStr(x)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
+                    if CountInAlign = 2 then
+                        RemoveMode := 'Pair'
+                    else
+                        RemoveMode := 'Triple';
+
+                    if HasRemoved then
+                        WriteStepHint(y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for row '+SBA_IntToStr(x)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
             end;
