@@ -10,11 +10,14 @@ implementation
 procedure RemoveHint (var hint : TStringGrid);
 var x, y, p, r, s, i, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
+    IsLockedPair : boolean;
 begin
     for y := 0 to 8 do
         for x := 0 to 8 do
             if length(hint[y, x]) = 2 then
             begin
+                IsLockedPair := false;
+
                 // Elimination: Row (Horizontal matches)
                 PairX := -1;
                 
@@ -34,7 +37,7 @@ begin
                             for i := 1 to 2 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
 
-                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
+                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
                     
                         
                     // Remove others from subgrid
@@ -56,7 +59,9 @@ begin
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
                             end;
-                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                        
+                        IsLockedPair := true;
+                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                     end;
                 end;
                     
@@ -79,7 +84,7 @@ begin
                             for i := 1 to 2 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
 
-                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
+                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
                     
                     // Remove others from subgrid
                     SubX := x div 3;
@@ -102,44 +107,49 @@ begin
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
                             end;
                         
-                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                        
+                        IsLockedPair := true;
+                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                     end;
                 end;
                 
                 // Elimination: Subgrid
-                PairX := -1;
-                PairY := -1;
-                SubX := x div 3;
-                SubY := y div 3;
-                
-                for r := 0 to 2 do
-                    for s := 0 to 2 do
-                    begin
-                        ThisX := 3 * SubX + s;
-                        ThisY := 3 * SubY + r;
-                        
-                        if (length(hint[ThisY, ThisX]) = 2) and (hint[ThisY, ThisX] = hint[y, x]) and ((ThisX <> x) or (ThisY <> y)) then
-                        begin
-                            PairX := ThisX;
-                            PairY := ThisY;
-                            break;
-                        end;
-                    end;
-                    
-                if PairX <> -1 then
+                if not IsLockedPair then
                 begin
+                    PairX := -1;
+                    PairY := -1;
+                    SubX := x div 3;
+                    SubY := y div 3;
+
                     for r := 0 to 2 do
                         for s := 0 to 2 do
                         begin
                             ThisX := 3 * SubX + s;
                             ThisY := 3 * SubY + r;
-                            
-                            if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
-                                for i := 1 to 2 do
-                                    hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+
+                            if (length(hint[ThisY, ThisX]) = 2) and (hint[ThisY, ThisX] = hint[y, x]) and ((ThisX <> x) or (ThisY <> y)) then
+                            begin
+                                PairX := ThisX;
+                                PairY := ThisY;
+                                break;
+                            end;
                         end;
 
-                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] ∵('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                    if PairX <> -1 then
+                    begin
+                        for r := 0 to 2 do
+                            for s := 0 to 2 do
+                            begin
+                                ThisX := 3 * SubX + s;
+                                ThisY := 3 * SubY + r;
+
+                                if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
+                                    for i := 1 to 2 do
+                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                            end;
+
+                        WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                    end;
                 end;
             end;
 end;
