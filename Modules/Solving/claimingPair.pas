@@ -40,7 +40,7 @@ begin
                                 if (s <> y) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
 
-                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] ∵ row '+SBA_IntToStr(y));
+                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
                     end;
 
                     // Column
@@ -66,7 +66,7 @@ begin
                                 if (r <> x) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
 
-                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] ∵ col '+SBA_IntToStr(x));
+                        WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
                     end;
                 end;
 end;

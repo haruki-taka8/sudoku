@@ -38,7 +38,7 @@ begin
                         if ((y div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[r, x]) <> 0) then
                             hint[r, x] := SBA_RemoveAt(hint[r, x], pos(SBA_IntToStr(p), hint[r, x]));
 
-                        WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] ⇒ row '+SBA_IntToStr(y)+' - subgrid');
+                        WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] for row '+SBA_IntToStr(y)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
                 // Rows
@@ -66,7 +66,7 @@ begin
                         if ((x div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[y, r]) <> 0) then
                             hint[y, r] := SBA_RemoveAt(hint[y, r], pos(SBA_IntToStr(p), hint[y, r]));
                     
-                    WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] ⇒ col '+SBA_IntToStr(x)+' - subgrid');
+                    WriteStepHint(y, x, 'Pointing Pair', '-['+SBA_IntToStr(p)+'] for col '+SBA_IntToStr(x)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
             end;
