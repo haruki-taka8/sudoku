@@ -11,10 +11,10 @@ uses
     NakedPair    in 'Modules\Solving\nakedPair.pas',
     HiddenSingle in 'Modules\Solving\hiddenSingle.pas',
     HiddenPair   in 'Modules\Solving\hiddenPair.pas',
-    PointingPair in 'Modules\Solving\pointingPair.pas',
     ClaimingPair in 'Modules\Solving\claimingPair.pas',
     NakedTriple  in 'Modules\Solving\nakedTriple.pas',
-    Visual       in 'Modules\Solving\visual.pas';
+    Visual       in 'Modules\Solving\visual.pas',
+    PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas';
 
 var
     // Global variables, use with caution
@@ -29,9 +29,7 @@ begin
     WriteHint(hint);
 
     // Solving loop
-    // while not IsSolved(grid) do
-    i := 0;
-    while i < 16 do
+    for i := 1 to 16 do
     begin
         // oldGrid := grid;
 
@@ -45,7 +43,7 @@ begin
         NakedTriple.RemoveHint(hint);
         HiddenTriple.RemoveHint(hint);
         ClaimingPair.RemoveHint(hint);
-        PointingPair.RemoveHint(hint);
+        PointingPairTriple.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
@@ -62,8 +60,6 @@ begin
         //     break;
         // end;
         if IsSolved(grid) then break;
-
-        i := i + 1;
     end;
     
     WriteGrid(grid);
