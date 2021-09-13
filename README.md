@@ -9,18 +9,18 @@ Sorry, code is terrible, I know.
 ## 🧪 Algorithms
 | ✔️ Supported                         | ❌ WIP/Not Supported             |
 |---------------------------------------|----------------------------------|
-| Naked singles                         | Pointing triples                 |
+| Naked singles                         | X-Wing                           |
 | Naked pairs                           | Naked quads                      |
 | Hidden singles                        | Hidden quads                     |
 | Hidden pairs                          | ...                              |
 | Pointing pairs (Locked candidates #1) |                                  |
 | Claiming pairs (Locked candidates #2) |                                  |
+| Pointing triples                      |                                  |
 | Naked triples                         |                                  |
-| Locked triples¹                       |                                  |
-| Hidden triples¹                       |                                  |
+| Locked triples                        |                                  |
+| Hidden triples                        |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
 
-¹ Partial support: support for triplets that have at least one cell with all three candidates
 <br><br>
 
 
