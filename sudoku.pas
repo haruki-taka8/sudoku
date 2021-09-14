@@ -5,6 +5,7 @@ uses
     auxiliary    in 'Modules\General\auxiliary.pas',
     io           in 'Modules\General\io.pas',
     endgame      in 'Modules\General\endgame.pas',      
+    triple       in 'Modules\General\triple.pas',      
     GetHint      in 'Modules\General\getHint.pas',
     HiddenTriple in 'Modules\Solving\hiddenTriple.pas',
     NakedSingle  in 'Modules\Solving\nakedSingle.pas',
@@ -24,9 +25,14 @@ var
     i : integer;
 
 begin
-    ReadGrid(grid);
+    verbose := FALSE;
+    theme   := 'Switch';
+    input   := 'Space';
+    ReadConfiguration(verbose, theme, input);
+
+    ReadGrid(grid, input);
     GetHint.GetHint(grid, hint);
-    WriteHint(hint);
+    writeln;
 
     // Solving loop
     for i := 1 to 16 do
@@ -49,16 +55,7 @@ begin
         HiddenSingle.SolveCell(grid, hint);
         Visual.SolveCell(grid, hint);
         
-        // Repeatition Detection
-        if VERBOSE then writeln;
-        
-        // if IsRepeated(grid, oldGrid) then
-        // begin
-        //     WriteHint(hint);
-        //     writeln;
-        //     writeln('REPETITION DETECTED; BAILING!');
-        //     break;
-        // end;
+        if verbose then writeln;
         if IsSolved(grid) then break;
     end;
     
