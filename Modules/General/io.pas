@@ -52,20 +52,23 @@ end;
 procedure ReadGrid (var grid : TIntegerGrid; InputMode : string);
 var x, y, i : integer;
     ThisLine : string;
+
 begin
     // Returns Grid (and in the future, Given)
     
     // If pascal has something like $a, $b = 1, 2
     // it will be easier to pass by value rather than ref
+    for y := 0 to 8 do
+        for x := 0 to 8 do
+            grid[y, x] := 0;
+
     writeln('Input unsolved sudoku board (', InputMode, ' mode)');
 
     if InputMode = 'Space' then
-    begin
         for y := 0 to 8 do
             for x := 0 to 8 do
-                read(grid[y, x]);
-        writeln('asdsadasdas');
-    end
+                read(grid[y, x])
+                
     else if InputMode = 'Continuous' then
     begin
         readln(ThisLine);
