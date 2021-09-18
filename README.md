@@ -9,16 +9,17 @@ Sorry, code is terrible, I know.
 ## 🧪 Algorithms
 | ✔️ Supported                         | ❌ WIP/Not Supported             |
 |---------------------------------------|----------------------------------|
-| Naked singles                         | X-Wing                           |
-| Naked pairs                           | Naked quads                      |
-| Hidden singles                        | Hidden quads                     |
-| Hidden pairs                          | ...                              |
+| Naked singles                         | Naked quads                      |
+| Naked pairs                           | Hidden quads                     |
+| Hidden singles                        | ...                              |
+| Hidden pairs                          |                                  |
 | Pointing pairs (Locked candidates #1) |                                  |
 | Claiming pairs (Locked candidates #2) |                                  |
 | Pointing triples                      |                                  |
 | Naked triples                         |                                  |
 | Locked triples                        |                                  |
 | Hidden triples                        |                                  |
+| X-Wing                                |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
 
 <br><br>
