@@ -1,12 +1,13 @@
 program sudoku;
 
-uses 
+uses
     types        in 'Modules\General\types.pas',
     auxiliary    in 'Modules\General\auxiliary.pas',
     io           in 'Modules\General\io.pas',
     endgame      in 'Modules\General\endgame.pas',      
     triple       in 'Modules\General\triple.pas',      
     GetHint      in 'Modules\General\getHint.pas',
+    XWing        in 'Modules\Solving\xWing.pas',
     HiddenTriple in 'Modules\Solving\hiddenTriple.pas',
     NakedSingle  in 'Modules\Solving\nakedSingle.pas',
     NakedPair    in 'Modules\Solving\nakedPair.pas',
@@ -50,6 +51,7 @@ begin
         HiddenTriple.RemoveHint(hint);
         ClaimingPair.RemoveHint(hint);
         PointingPairTriple.RemoveHint(hint);
+        XWing.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
