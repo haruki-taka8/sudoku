@@ -51,7 +51,7 @@ begin
                             RemoveMode := 'Triple';
 
                         if HasRemoved then
-                            WriteStepHint(y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for col '+SBA_IntToStr(y)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
+                            WriteStepHint(fileHandler, y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for col '+SBA_IntToStr(y)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
                 // Rows
@@ -89,7 +89,7 @@ begin
                         RemoveMode := 'Triple';
 
                     if HasRemoved then
-                        WriteStepHint(y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for row '+SBA_IntToStr(x)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
+                        WriteStepHint(fileHandler, y, x, 'Pointing '+RemoveMode, '-['+SBA_IntToStr(p)+'] for row '+SBA_IntToStr(x)+' due to sub '+SBA_IntToStr(3*(y div 3)+(x div 3)));
                 end;
 
             end;

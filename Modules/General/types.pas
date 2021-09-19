@@ -8,6 +8,7 @@ type
 var
     verbose : boolean;
     theme, input : string;
+    fileHandler : Text;
 
 implementation
 end.

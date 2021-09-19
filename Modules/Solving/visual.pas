@@ -63,7 +63,7 @@ begin
                     if CanindateCount = 1 then
                     begin
                         grid[y, x] := i;
-                        WriteStepCell(y, x, grid[y, x], 'Visual Elimination', '');
+                        WriteStepCell(fileHandler, y, x, grid[y, x], 'Visual Elimination', '');
                     end;
                 end;
     end;

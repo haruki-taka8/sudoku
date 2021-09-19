@@ -31,7 +31,7 @@ begin
                     if IsHiddenSingle then
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
-                        WriteStepCell(y, x, grid[y, x], 'Hidden Single', '(column)');
+                        WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(column)');
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -47,7 +47,7 @@ begin
                     if IsHiddenSingle then
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
-                        WriteStepCell(y, x, grid[y, x], 'Hidden Single', '(row)');
+                        WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(row)');
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -69,7 +69,7 @@ begin
                     if IsHiddenSingle then
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
-                        WriteStepCell(y, x, grid[y, x], 'Hidden Single', '(subgrid)');
+                        WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(subgrid)');
                         break;
                     end;
                 end;

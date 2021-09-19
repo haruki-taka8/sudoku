@@ -1,7 +1,7 @@
 unit xWing;
 
 interface
-uses triple, types, auxiliary, io;
+uses types, auxiliary, io;
 procedure RemoveHint (var hint : TStringGrid);
 
 implementation
@@ -111,7 +111,7 @@ begin
                         end;
 
                         if HasRemoved then
-                            WriteStepHint(LT.y, LT.x, 'X-Wing', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for row '+SBA_IntToStr(LT.y)+'+'+SBA_IntToStr(LB.y));
+                            WriteStepHint(fileHandler, LT.y, LT.x, 'X-Wing', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for row '+SBA_IntToStr(LT.y)+'+'+SBA_IntToStr(LB.y));
                     end;
 
 
@@ -147,7 +147,7 @@ begin
                         end;
 
                         if HasRemoved then
-                            WriteStepHint(LT.y, LT.x, 'X-Wing', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for col '+SBA_IntToStr(LT.x)+'+'+SBA_IntToStr(RT.x));
+                            WriteStepHint(fileHandler, LT.y, LT.x, 'X-Wing', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for col '+SBA_IntToStr(LT.x)+'+'+SBA_IntToStr(RT.x));
                     end;
                 end;
             end;

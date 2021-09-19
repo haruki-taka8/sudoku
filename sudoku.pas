@@ -35,6 +35,7 @@ begin
     GetHint.GetHint(grid, hint);
     writeln;
 
+    if verbose then StartTranscript(fileHandler, grid);
     // Solving loop
     for i := 1 to 16 do
     begin
@@ -56,14 +57,16 @@ begin
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
         Visual.SolveCell(grid, hint);
-        
-        if verbose then writeln;
+
         if IsSolved(grid) then break;
     end;
     
-    WriteGrid(grid);
+    if verbose then StopTranscript(fileHandler);
+    
+    WriteGrid(grid, 1, 10);
     if IsSolved(grid) then
         writeln('SOLVED! - ', i, ' steps used!')
     else
         WriteHint(hint);
+
 end.

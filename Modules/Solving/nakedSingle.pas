@@ -16,7 +16,7 @@ begin
             if length(InputHint[y, x]) = 1 then
             begin
                 grid[y, x] := SBA_StrToInt(InputHint[y, x]);
-                WriteStepCell(y, x, grid[y, x], 'Naked  Single', '');
+                WriteStepCell(fileHandler, y, x, grid[y, x], 'Naked  Single', '');
             end;
 end;
 

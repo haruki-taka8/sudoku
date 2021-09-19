@@ -46,7 +46,7 @@ begin
                                 end;
 
                         if HasRemoved then
-                            WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
+                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
                     end;
 
                     // Column
@@ -77,7 +77,7 @@ begin
                                 end;
 
                         if HasRemoved then
-                            WriteStepHint(y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
+                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
                     end;
                 end;
 end;

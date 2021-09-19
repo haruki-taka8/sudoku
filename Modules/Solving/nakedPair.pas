@@ -37,7 +37,7 @@ begin
                             for i := 1 to 2 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
 
-                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
+                    WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
                     
                         
                     // Remove others from subgrid
@@ -61,7 +61,7 @@ begin
                             end;
                         
                         IsLockedPair := true;
-                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                        WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                     end;
                 end;
                     
@@ -84,7 +84,7 @@ begin
                             for i := 1 to 2 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
 
-                    WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
+                    WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
                     
                     // Remove others from subgrid
                     SubX := x div 3;
@@ -109,7 +109,7 @@ begin
                         
                         
                         IsLockedPair := true;
-                        WriteStepHint(y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                        WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                     end;
                 end;
                 
@@ -148,7 +148,7 @@ begin
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
                             end;
 
-                        WriteStepHint(y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
                     end;
                 end;
             end;

@@ -1,13 +1,16 @@
 unit io;
 
 interface
+// uses types, auxiliary, crt;
 uses types, auxiliary;
 procedure ReadConfiguration (var verbose : boolean; var theme, input : string);
 procedure ReadGrid (var grid : TIntegerGrid; InputMode : string);
-procedure WriteGrid (InputGrid : TIntegerGrid);
+procedure WriteGrid (InputGrid : TIntegerGrid; YOffset, XOffset : integer);
 procedure WriteHint (InputHint : TStringGrid);
-procedure WriteStepCell (y, x, Cell : integer; Algorithm, Details : string);
-procedure WriteStepHint (y, x : integer; Algorithm, Details : string);
+procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
+procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
+procedure StartTranscript (var fileHandler : Text; InputGrid : TIntegerGrid);
+procedure StopTranscript (var fileHandler : Text);
 
 
 implementation
@@ -94,11 +97,15 @@ begin
     end;
 end;
 
-procedure WriteGrid (InputGrid : TIntegerGrid);
+procedure WriteGrid (InputGrid : TIntegerGrid; YOffset, XOffset : integer);
 var x, y : integer;
+
 begin
     // Prints the grid
+    // writeln('Cursor postion: X=',WhereX,' Y=',WhereY);
+    // YOffset := YOffset + WhereY;
     
+    // GotoXY(XOffset, YOffset);
     for y := 0 to 8 do
     begin
         for x := 0 to 8 do
@@ -109,7 +116,7 @@ begin
                 write(InputGrid[y, x], ' ');
             if ((x = 2) or (x = 5)) then write('| ');
         end;
-        
+     
         if ((y = 2) or (y = 5)) then
         begin
             writeln;
@@ -118,9 +125,6 @@ begin
         else
             writeln;
     end;
-
-    writeln;
-    writeln;
 end;
 
 procedure WriteHint (InputHint : TStringGrid);
@@ -134,7 +138,6 @@ begin
         for x := 0 to 8 do
         begin
             write(InputHint[y, x]:(x+8));
-            // write(InputHint[y, x],',');
             if ((x = 2) or (x = 5)) then write('|');
         end;
         
@@ -149,16 +152,35 @@ begin
 end;
 
 
-procedure WriteStepCell (y, x, Cell : integer; Algorithm, Details : string);
+procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 begin
     if verbose then
-        writeln('(', y, ',', x, ') = ', Cell, ' | ', Algorithm, '    ', Details);
+        writeln(fileHandler, '(', y, ',', x, ') = ', Cell, ' | ', Algorithm, '    ', Details);
 end;
 
-procedure WriteStepHint (y, x : integer; Algorithm, Details : string);
+procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
 begin
     if verbose then
-        writeln('(', y, ',', x, ')     | ', Algorithm, '    ', Details);
+        writeln(fileHandler, '(', y, ',', x, ')     | ', Algorithm, '    ', Details);
+end;
+
+
+procedure StartTranscript (var fileHandler : Text; InputGrid : TIntegerGrid);
+var i : integer;
+    Filename : string;
+begin
+    Filename := 'Sudoku_Steps_';
+    for i := 0 to 8 do
+        Filename := Filename + SBA_IntToStr(InputGrid[0, i]);
+    Filename := Filename + '.txt';
+
+    assign(fileHandler, Filename);
+    rewrite(fileHandler);
+end;
+
+procedure StopTranscript (var fileHandler : Text);
+begin
+    close(fileHandler);
 end;
 
 end.

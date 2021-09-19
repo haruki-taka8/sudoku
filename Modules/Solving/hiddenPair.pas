@@ -108,7 +108,7 @@ begin
                                 hint[y, x] := ThisCombo[i];
                                 hint[PairY, PairX] := ThisCombo[i];
 
-                                WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                             end;
                         end;
 
@@ -141,7 +141,7 @@ begin
                                 hint[y, x] := ThisCombo[i];
                                 hint[PairY, PairX] := ThisCombo[i];
 
-                                WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                             end;
                         end;
 
@@ -182,7 +182,7 @@ begin
                                     hint[y, x] := ThisCombo[i];
                                     hint[PairY, PairX] := ThisCombo[i];
 
-                                    WriteStepHint(y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                                    WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo[i]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
                                 end;
                         end;
                     end;
