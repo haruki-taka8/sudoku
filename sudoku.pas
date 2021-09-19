@@ -1,6 +1,7 @@
 program sudoku;
 
 uses
+    crt,
     types        in 'Modules\General\types.pas',
     auxiliary    in 'Modules\General\auxiliary.pas',
     io           in 'Modules\General\io.pas',
@@ -20,9 +21,9 @@ uses
 
 var
     // Global variables, use with caution
-    grid    : TIntegerGrid;
-    // oldGrid : TIntegerGrid;
-    hint    : TStringGrid;
+    grid  : TIntegerGrid;
+    given : TBooleanGrid;
+    hint  : TStringGrid;
     i : integer;
 
 begin
@@ -31,7 +32,9 @@ begin
     input   := 'Space';
     ReadConfiguration(verbose, theme, input);
 
-    ReadGrid(grid, input);
+    ClrScr;
+    TextColor(White);
+    ReadGrid(grid, given, input);
     GetHint.GetHint(grid, hint);
     writeln;
 
@@ -63,10 +66,11 @@ begin
     
     if verbose then StopTranscript(fileHandler);
     
-    WriteGrid(grid, 1, 10);
-    if IsSolved(grid) then
-        writeln('SOLVED! - ', i, ' steps used!')
-    else
-        WriteHint(hint);
+    WriteResult(grid, given, theme);
+    // WriteGrid(grid, 1, 10);
+    // if IsSolved(grid) then
+    //     writeln('SOLVED! - ', i, ' steps used!')
+    // else
+    //     WriteHint(hint);
 
 end.
