@@ -10,19 +10,19 @@ It is possible to add/edit/remove code without having to change a large amount o
 <br>
 
 **Casing-Scope**
-* The casing of variables will denote the scope of the variable in question
+* The casing of a variable denote the its scope
   * `UPPERCASE`: global constant (none in use)
   * `camelCase`: global variable
   * `PascalCase`: local variable
-  * Metavariables like `i`, `j`, `k` are always in lowercase.
+  * Metavariables such as `i`, `j`, `k` are always in lowercase.
 <br>
 
 ## Each Submodule
-For modules that attempts to solve the sudoku board, the module interface exposes either or both procedures:
+For each module that attempts to solve the sudoku board, its interface exposes either or both procedures:
 
     procedure RemoveHint (var hint : TStringGrid);
     procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 
-The actual implementation (private) may include auxiliary functions that the main program needs not to know.
+The actual implementation (private) may include auxiliary function(s) that the main program needs not to know.
 
-Other modules, depending on their needs, may list differently named subroutines.
+Other modules, depending on their needs, may list differently-named subroutines.
