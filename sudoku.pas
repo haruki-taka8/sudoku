@@ -5,6 +5,7 @@ uses
     types        in 'Modules\General\types.pas',
     auxiliary    in 'Modules\General\auxiliary.pas',
     io           in 'Modules\General\io.pas',
+    ioGrid       in 'Modules\General\ioGrid.pas',
     endgame      in 'Modules\General\endgame.pas',      
     triple       in 'Modules\General\triple.pas',      
     GetHint      in 'Modules\General\getHint.pas',
@@ -42,8 +43,6 @@ begin
     // Solving loop
     for i := 1 to 16 do
     begin
-        // oldGrid := grid;
-
         // Solve
         // Took me an hour to realize the Unit.Implementation convention
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
@@ -64,13 +63,23 @@ begin
         if IsSolved(grid) then break;
     end;
     
-    if verbose then StopTranscript(fileHandler);
+    if verbose then
+    begin
+        writeln(fileHandler);
+        if IsSolved(grid) then
+            writeln(fileHandler, 'Solved in ', i, ' steps.')
+        else
+        begin
+            writeln(fileHandler, 'Unable to solve board. Hints shown below.');
+            writeln(fileHandler);
+            WriteHint(fileHandler, hint);
+        end;
+
+        StopTranscript(fileHandler);
+    end;
     
     WriteResult(grid, given, theme);
-    // WriteGrid(grid, 1, 10);
-    // if IsSolved(grid) then
-    //     writeln('SOLVED! - ', i, ' steps used!')
-    // else
-    //     WriteHint(hint);
-
+    
+    if not IsSolved(grid) then
+        writeln('Grid not solved, see log file for details.');
 end.
