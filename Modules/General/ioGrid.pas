@@ -12,7 +12,7 @@ var x, y, i : integer;
     ThisLine : string;
 
 begin
-    // Returns Grid (and in the future, Given)
+    // Returns Grid and Given
     
     // If pascal has something like $a, $b = 1, 2
     // it will be easier to pass by value rather than ref

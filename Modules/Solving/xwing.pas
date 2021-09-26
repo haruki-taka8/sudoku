@@ -10,12 +10,12 @@ type
         y : integer;
         x : integer;
     end;
-    TwoCombination = array [0..2015] of coordinates;
+    CoordCombination = array [0..2015] of coordinates;
 
 
-function GetTwoCombination (Count : integer) : TwoCombination;
+function GetCoordCombination (Count : integer) : CoordCombination;
 var y, x, i : integer;
-    Result : TwoCombination;
+    Result : CoordCombination;
 begin
     i := 0;
     for y := 0 to Count-2 do
@@ -32,7 +32,7 @@ begin
         Result[x].x := -1;
     end;
         
-    GetTwoCombination := Result;
+    GetCoordCombination := Result;
 end;
 
 procedure RemoveHint (var hint : TStringGrid);
@@ -60,7 +60,7 @@ begin
                     Count := Count + 1;
                 end;
 
-        for j in GetTwoCombination(Count) do
+        for j in GetCoordCombination(Count) do
             if ((j.y <> -1) and (j.x <> -1)) then
             begin
                 LT.y := possible[j.y].y;
