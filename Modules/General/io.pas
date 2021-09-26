@@ -56,7 +56,7 @@ begin
     begin
         for x := 0 to 8 do
         begin
-            write(InputHint[y, x]:(x+8));
+            write(fileHandler, InputHint[y, x]:(x+8));
             if ((x = 2) or (x = 5)) then write('|');
         end;
         
@@ -69,7 +69,6 @@ begin
             writeln(fileHandler);
     end;
 end;
-
 
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 begin
