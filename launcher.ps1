@@ -31,7 +31,7 @@ if (!(Test-Path '.\defaults.ini')) {
         '; ---------------------------------------------',
         '; Space       Delimit each number with space, 0 for empty cells, single or multi-line allowed',
         '; Continuous  No delimiter between characters, use space or 0 or . for empty cells, single line only'
-    ) | Out-File '.\defaults.ini'
+    ) | Out-File '.\defaults.ini' -Encoding ASCII
 
 }
 

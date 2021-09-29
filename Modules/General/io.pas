@@ -29,13 +29,11 @@ begin
         if DelimiterPos <> 0 then
         begin
             if copy(ThisLine, 1, 7) = 'verbose' then
-            begin
-                ThisLine := copy(ThisLine, DelimiterPos+1, 8);
-                if ThisLine = 'TRUE' then
+                if pos('TRUE', ThisLine) <> 0 then
                     verbose := TRUE
                 else
-                    verbose := FALSE;
-            end
+                    verbose := FALSE
+
             else if copy(ThisLine, 1, 5) = 'theme' then
                 theme := copy(ThisLine, DelimiterPos+1, 6)
 
