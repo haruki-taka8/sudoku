@@ -82,4 +82,7 @@ begin
     
     if not IsSolved(grid) then
         writeln('Grid not solved, see log file for details.');
+        
+    writeln('Press any key to exit');
+    readln();
 end.
