@@ -28,14 +28,15 @@ var
     i : integer;
 
 begin
-    verbose := FALSE;
-    theme   := 'Switch';
-    input   := 'Space';
-    ReadConfiguration(verbose, theme, input);
+    verbose   := FALSE;
+    theme     := 'Switch';
+    input     := 'Space';
+    inputFile := 'stdin';
+    ReadConfiguration(verbose, theme, input, inputFile);
 
     ClrScr;
     TextColor(White);
-    ReadGrid(grid, given, input);
+    ReadGrid(grid, given, input, inputFile);
     GetHint.GetHint(grid, hint);
     writeln;
 

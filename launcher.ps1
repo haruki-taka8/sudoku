@@ -14,6 +14,7 @@ if (!(Test-Path '.\defaults.ini')) {
         'verbose=TRUE',
         'theme=Switch',
         'input=Space',
+        'inputFile=',
         '',
         '; Option values are case and space-sensitive',
         '',
@@ -30,7 +31,13 @@ if (!(Test-Path '.\defaults.ini')) {
         '; input',
         '; ---------------------------------------------',
         '; Space       Delimit each number with space, 0 for empty cells, single or multi-line allowed',
-        '; Continuous  No delimiter between characters, use space or 0 or . for empty cells, single line only'
+        '; Continuous  No delimiter between characters, use space or 0 or . for empty cells, single line only',
+        '',
+        '',
+        '; inputFile',
+        '; ---------------------------------------------',
+        '; stdin OR a valid file name',
+        ''
     ) | Out-File '.\defaults.ini' -Encoding ASCII
 
 }

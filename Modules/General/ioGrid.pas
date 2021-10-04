@@ -2,37 +2,51 @@ unit ioGrid;
 
 interface
 uses types, auxiliary, crt;
-procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode : string);
+procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string);
 procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer);
 
 implementation
-procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode : string);
+procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
 var x, y, i : integer;
     ThisLine : string;
+    InputHandler : Text;
 
 begin
     // Returns Grid and Given
     
     // If pascal has something like $a, $b = 1, 2
     // it will be easier to pass by value rather than ref
+    if InputFile <> 'stdin' then
+    begin
+        assign(InputHandler, InputFile);
+        reset(InputHandler);
+    end;
+
     for y := 0 to 8 do
         for x := 0 to 8 do
             grid[y, x] := 0;
 
-    writeln('Input unsolved sudoku board (', InputMode, ' mode)');
+    if InputFile = 'stdin' then
+        writeln('Input unsolved sudoku board (', InputMode, ' mode)');
 
     if InputMode = 'Space' then
         for y := 0 to 8 do
             for x := 0 to 8 do
             begin
-                read(grid[y, x]);
+                if InputFile = 'stdin' then
+                    read(grid[y, x])
+                else
+                    read(InputHandler, grid[y, x]);
                 given[y, x] := grid[y, x] <> 0;
             end
                 
     else if InputMode = 'Continuous' then
     begin
-        readln(ThisLine);
+        if InputFile = 'stdin' then
+            read(ThisLine)
+        else
+            read(InputHandler, ThisLine);
 
         // Sanitize input ([ .] -> 0)
         for i := 1 to length(ThisLine) do
@@ -54,6 +68,9 @@ begin
             end;
         end;
     end;
+
+    if InputFile <> 'stdin' then
+        close(InputHandler);
 end;
 
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string);

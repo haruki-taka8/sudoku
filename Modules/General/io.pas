@@ -2,7 +2,7 @@ unit io;
 
 interface
 uses types, auxiliary;
-procedure ReadConfiguration (var verbose : boolean; var theme, input : string);
+procedure ReadConfiguration (var verbose : boolean; var theme, input, inputFile : string);
 procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
@@ -11,7 +11,7 @@ procedure StopTranscript (var fileHandler : Text);
 
 
 implementation
-procedure ReadConfiguration (var verbose : boolean; var theme, input : string);
+procedure ReadConfiguration (var verbose : boolean; var theme, input, inputFile : string);
 var Defaults : text;
     ThisLine : string;
     DelimiterPos : integer;
@@ -36,6 +36,9 @@ begin
 
             else if copy(ThisLine, 1, 5) = 'theme' then
                 theme := copy(ThisLine, DelimiterPos+1, 6)
+
+            else if copy(ThisLine, 1, 9) = 'inputFile' then
+                inputFile := copy(ThisLine, DelimiterPos+1, 10)
 
             else if copy(ThisLine, 1, 5) = 'input' then
                 input := copy(ThisLine, DelimiterPos+1, 10);

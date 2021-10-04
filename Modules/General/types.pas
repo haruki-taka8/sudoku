@@ -8,7 +8,7 @@ type
 
 var
     verbose : boolean;
-    theme, input : string;
+    theme, input, inputFile : string;
     fileHandler : Text;
 
 implementation
