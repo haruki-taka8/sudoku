@@ -206,7 +206,7 @@ procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffse
 var x, y : integer;
 
 begin
-    // Prints the grid   
+    // Prints the grid to STDIN and file if VERBOSE
     TextColor(White);
     for y := 0 to 8 do
     begin
@@ -214,8 +214,13 @@ begin
         for x := 0 to 8 do
         begin
             if InputGrid[y, x] = 0 then
-                write('. ')
+            begin
+                write('. ');
+
+                if verbose then write(fileHandler, '. ');
+            end
             else
+            begin
                 if InputGiven[y, x] then
                     write(InputGrid[y, x], ' ')
                 else
@@ -225,7 +230,14 @@ begin
                     TextColor(White);
                 end;
 
-            if ((x = 2) or (x = 5)) then write('| ');
+                if verbose then write(fileHandler, InputGrid[y, x], ' ');
+            end;
+            if ((x = 2) or (x = 5)) then
+            begin
+                write('| ');
+
+                if verbose then write(fileHandler, '| ');
+            end;
         end;
         YOffset := YOffset + 1;
      
@@ -234,10 +246,19 @@ begin
             writeln;
             GotoXY(XOffset, YOffset);
             writeln('------+-------+------');
+            if verbose then
+            begin
+                writeln(fileHandler);
+                writeln(fileHandler, '------+-------+------');
+            end;
+
             YOffset := YOffset + 1;
         end
         else
+        begin
             writeln;
+            if verbose then writeln(fileHandler);
+        end;
     end;
 end;
 

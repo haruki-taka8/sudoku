@@ -75,11 +75,13 @@ begin
             writeln(fileHandler);
             WriteHint(fileHandler, hint);
         end;
-
-        StopTranscript(fileHandler);
+        
+        writeln(fileHandler);
     end;
     
     WriteResult(grid, given, theme);
+
+    if verbose then StopTranscript(fileHandler);
     
     if not IsSolved(grid) then
         writeln('Grid not solved, see log file for details.');

@@ -50,9 +50,7 @@ end;
 
 procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
 var x, y : integer;
-begin
-    // Debug function; not for production use
-    
+begin    
     for y := 0 to 8 do
     begin
         for x := 0 to 8 do
