@@ -20,27 +20,12 @@ uses
     Visual       in 'Modules\Solving\visual.pas',
     PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas';
 
-var
-    // Global variables, use with caution
-    grid  : TIntegerGrid;
-    given : TBooleanGrid;
-    hint  : TStringGrid;
-    i : integer;
-
 begin
-    verbose   := FALSE;
-    theme     := 'Switch';
-    input     := 'Space';
-    inputFile := 'stdin';
-    ReadConfiguration(verbose, theme, input, inputFile);
-
-    ClrScr;
-    TextColor(White);
-    ReadGrid(grid, given, input, inputFile);
+    ReadConfiguration(config);
+    ReadGrid(grid, given, config.Input, config.InputFile);
     GetHint.GetHint(grid, hint);
-    writeln;
 
-    if verbose then StartTranscript(fileHandler, grid);
+    if Config.Verbose then StartTranscript(fileHandler, grid);
     // Solving loop
     for i := 1 to 16 do
     begin
@@ -63,8 +48,10 @@ begin
 
         if IsSolved(grid) then break;
     end;
-    
-    if verbose then
+
+    WriteResult(grid, given, Config.Theme);
+
+    if Config.Verbose then
     begin
         writeln(fileHandler);
         if IsSolved(grid) then
@@ -77,14 +64,8 @@ begin
         end;
         
         writeln(fileHandler);
+        StopTranscript(fileHandler);
     end;
-    
-    WriteResult(grid, given, theme);
-
-    if verbose then StopTranscript(fileHandler);
-    
-    if not IsSolved(grid) then
-        writeln('Grid not solved, see log file for details.');
         
     writeln('Press ENTER to exit.');
     readln();

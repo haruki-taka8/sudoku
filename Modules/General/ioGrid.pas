@@ -27,6 +27,9 @@ begin
         for x := 0 to 8 do
             grid[y, x] := 0;
 
+    ClrScr;
+    TextColor(White);
+
     if InputFile = 'stdin' then
         writeln('Input unsolved sudoku board (', InputMode, ' mode)');
 
@@ -207,6 +210,8 @@ var x, y : integer;
 
 begin
     // Prints the grid to STDIN and file if VERBOSE
+    if Config.Verbose then writeln(fileHandler);
+
     TextColor(White);
     for y := 0 to 8 do
     begin
@@ -217,7 +222,7 @@ begin
             begin
                 write('. ');
 
-                if verbose then write(fileHandler, '. ');
+                if Config.Verbose then write(fileHandler, '. ');
             end
             else
             begin
@@ -230,13 +235,13 @@ begin
                     TextColor(White);
                 end;
 
-                if verbose then write(fileHandler, InputGrid[y, x], ' ');
+                if Config.Verbose then write(fileHandler, InputGrid[y, x], ' ');
             end;
             if ((x = 2) or (x = 5)) then
             begin
                 write('| ');
 
-                if verbose then write(fileHandler, '| ');
+                if Config.Verbose then write(fileHandler, '| ');
             end;
         end;
         YOffset := YOffset + 1;
@@ -246,7 +251,7 @@ begin
             writeln;
             GotoXY(XOffset, YOffset);
             writeln('------+-------+------');
-            if verbose then
+            if Config.Verbose then
             begin
                 writeln(fileHandler);
                 writeln(fileHandler, '------+-------+------');
@@ -257,7 +262,7 @@ begin
         else
         begin
             writeln;
-            if verbose then writeln(fileHandler);
+            if Config.Verbose then writeln(fileHandler);
         end;
     end;
 end;

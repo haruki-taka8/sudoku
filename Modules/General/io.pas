@@ -2,7 +2,7 @@ unit io;
 
 interface
 uses types, auxiliary;
-procedure ReadConfiguration (var verbose : boolean; var theme, input, inputFile : string);
+procedure ReadConfiguration (var config : TConfiguration);
 procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
@@ -11,12 +11,17 @@ procedure StopTranscript (var fileHandler : Text);
 
 
 implementation
-procedure ReadConfiguration (var verbose : boolean; var theme, input, inputFile : string);
+procedure ReadConfiguration (var config : TConfiguration);
 var Defaults : text;
     ThisLine : string;
     DelimiterPos : integer;
 
 begin
+    Config.Verbose   := FALSE;
+    Config.Theme     := 'Switch';
+    Config.Input     := 'Space';
+    Config.InputFile := 'stdin';
+
     DelimiterPos := 0;
     assign(Defaults, 'defaults.ini');
     reset(Defaults);
@@ -30,18 +35,18 @@ begin
         begin
             if copy(ThisLine, 1, 7) = 'verbose' then
                 if pos('TRUE', ThisLine) <> 0 then
-                    verbose := TRUE
+                    Config.Verbose := TRUE
                 else
-                    verbose := FALSE
+                    Config.Verbose := FALSE
 
             else if copy(ThisLine, 1, 5) = 'theme' then
-                theme := copy(ThisLine, DelimiterPos+1, 6)
+                Config.Theme := copy(ThisLine, DelimiterPos+1, 6)
 
             else if copy(ThisLine, 1, 9) = 'inputFile' then
-                inputFile := copy(ThisLine, DelimiterPos+1, 10)
+                Config.InputFile := copy(ThisLine, DelimiterPos+1, 10)
 
             else if copy(ThisLine, 1, 5) = 'input' then
-                input := copy(ThisLine, DelimiterPos+1, 10);
+                Config.Input := copy(ThisLine, DelimiterPos+1, 10);
         end;
     end;
 
@@ -71,13 +76,13 @@ end;
 
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 begin
-    if verbose then
+    if Config.Verbose then
         writeln(fileHandler, '(', y, ',', x, ') = ', Cell, ' | ', Algorithm, '    ', Details);
 end;
 
 procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
 begin
-    if verbose then
+    if Config.Verbose then
         writeln(fileHandler, '(', y, ',', x, ')     | ', Algorithm, '    ', Details);
 end;
 
