@@ -14,7 +14,7 @@ if (!(Test-Path '.\defaults.ini')) {
         'verbose=TRUE',
         'theme=Switch',
         'input=Space',
-        'inputFile=',
+        'inputFile=stdin',
         '',
         '; Option values are case and space-sensitive',
         '',
