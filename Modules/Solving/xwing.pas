@@ -147,7 +147,7 @@ begin
                         end;
 
                         if HasRemoved then
-                            WriteStepHint(fileHandler, LT.y, LT.x, 'X-Wing', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for col '+SBA_IntToStr(LT.x)+'+'+SBA_IntToStr(RT.x));
+                            WriteStepHint(fileHandler, LT.y, LT.x, 'X-Wing ', '-['+SBA_IntToStr(i)+'] due to ('+SBA_IntToStr(LT.y)+','+SBA_IntToStr(LT.x)+')+('+SBA_IntToStr(RB.y)+','+SBA_IntToStr(RB.x)+') for col '+SBA_IntToStr(LT.x)+'+'+SBA_IntToStr(RT.x));
                     end;
                 end;
             end;

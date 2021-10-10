@@ -10,6 +10,7 @@ uses
     triple       in 'Modules\General\triple.pas',      
     GetHint      in 'Modules\General\getHint.pas',
     XWing        in 'Modules\Solving\xWing.pas',
+    XYWing       in 'Modules\Solving\xyWing.pas',
     HiddenTriple in 'Modules\Solving\hiddenTriple.pas',
     NakedSingle  in 'Modules\Solving\nakedSingle.pas',
     NakedPair    in 'Modules\Solving\nakedPair.pas',
@@ -41,6 +42,7 @@ begin
         ClaimingPair.RemoveHint(hint);
         PointingPairTriple.RemoveHint(hint);
         XWing.RemoveHint(hint);
+        XYWing.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
