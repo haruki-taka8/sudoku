@@ -2,10 +2,6 @@
 Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to solve it.
 <br><br>
 
-## 💌 Dear Future Maintainers
-Sorry, code is terrible, I know.
-<br><br>
-
 ## 🧪 Algorithms
 | ✔️ Supported                         | ❌ WIP/Not Supported             |
 |---------------------------------------|----------------------------------|
@@ -20,16 +16,14 @@ Sorry, code is terrible, I know.
 | Locked triples                        |                                  |
 | Hidden triples                        |                                  |
 | X-Wing                                |                                  |
+| XY-Wing                               |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
 
 <br><br>
 
 
 ## 💡 Todo
-* Include more algorithms
 * Detect invalid boards
-* Beautify output
+* Cleanup
+* Include more algorithms
 <br>
-
-## 🖊️ Documentation
-Since Wiki is not supported on private repositories, a folder of markdown files will be dedicated for illustrating the program usage and features.
