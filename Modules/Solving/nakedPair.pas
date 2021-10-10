@@ -11,6 +11,9 @@ procedure RemoveHint (var hint : TStringGrid);
 var x, y, p, r, s, i, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
     IsLockedPair : boolean;
+    HasRemoved : boolean;
+    OldHint : string;
+
 begin
     for y := 0 to 8 do
         for x := 0 to 8 do
@@ -19,6 +22,8 @@ begin
                 IsLockedPair := false;
 
                 // Elimination: Row (Horizontal matches)
+                OldHint := '';
+                HasRemoved := false;
                 PairX := -1;
                 
                 for p := 0 to 8 do
@@ -34,16 +39,24 @@ begin
                     // Remove others from row
                     for p := 0 to 8 do
                         if (p <> x) and (p <> PairX) then
+                        begin
+                            OldHint := hint[y, p];
                             for i := 1 to 2 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
 
-                    WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
+                            if hint[y, p] <> OldHint then HasRemoved := true;
+                        end;
+
+                    if HasRemoved then
+                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
                     
                         
                     // Remove others from subgrid
                     SubX := x div 3;
                     SubY := y div 3;
                     PairSubX := PairX div 3;
+                    OldHint := '';
+                    HasRemoved := false;
                     
                     if SubX = PairSubX then
                     begin
@@ -56,17 +69,25 @@ begin
                                 ThisY := 3 * SubY + r;
                                 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
+                                begin
+                                    OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+
+                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                end;
                             end;
                         
                         IsLockedPair := true;
-                        WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                        if HasRemoved then
+                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                     end;
                 end;
                     
                 // Elimination: Column (Vertical matches)
                 PairY := -1;
+                OldHint := '';
+                HasRemoved := false;
                 
                 for p := 0 to 8 do
                     if (hint[y, x] = hint[p, x]) and (y <> p) then
@@ -81,16 +102,24 @@ begin
                     // Remove others from column
                     for p := 0 to 8 do
                         if (p <> y) and (p <> PairY) then
+                        begin
+                            OldHint := hint[p, x];
                             for i := 1 to 2 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
 
-                    WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
+                            if hint[p, x] <> OldHint then HasRemoved := true;
+                        end;
+
+                    if HasRemoved then
+                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
                     
                     // Remove others from subgrid
                     SubX := x div 3;
                     SubY := y div 3;
                     PairSubX := PairX div 3;
                     PairSubY := PairY div 3;
+                    OldHint := '';
+                    HasRemoved := false;
                     
                     if SubY = PairSubY then
                     begin
@@ -103,13 +132,18 @@ begin
                                 ThisY := 3 * SubY + r;
                                 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
+                                begin
+                                    OldHint := '';
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                end;
                             end;
                         
                         
                         IsLockedPair := true;
-                        WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                        if HasRemoved then
+                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                     end;
                 end;
                 
@@ -120,6 +154,8 @@ begin
                     PairY := -1;
                     SubX := x div 3;
                     SubY := y div 3;
+                    OldHint := '';
+                    HasRemoved := false;
 
                     for r := 0 to 2 do
                         for s := 0 to 2 do
@@ -144,11 +180,16 @@ begin
                                 ThisY := 3 * SubY + r;
 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
+                                begin
+                                    OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                end;
                             end;
 
-                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                        if HasRemoved then
+                            WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
                     end;
                 end;
             end;

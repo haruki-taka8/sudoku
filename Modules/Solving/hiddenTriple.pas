@@ -11,10 +11,13 @@ procedure RemoveHint (var hint : TStringGrid);
 var y, x, p, r, s, HiddenTripleCount, SubgridCellID : integer;
     Hints, ThisCombo, ThisCell, ThisLetter : string;
     IsHiddenTriple : array [0..8] of boolean;
+    HasRemoved : boolean;
+
 begin
     // Row
     y := 0;
     x := 0;
+    HasRemoved := false;
     for y := 0 to 8 do
     begin
         Hints := '';
@@ -50,10 +53,13 @@ begin
                             ThisCell := '';
                             for ThisLetter in ThisCombo do
                                 if pos(ThisLetter, hint[y, p]) <> 0 then ThisCell := ThisCell + ThisLetter;
-                            hint[y, p] := ThisCell;                        
+
+                            if hint[y, p] <> ThisCell then HasRemoved := true;
+                            hint[y, p] := ThisCell;
                         end;
 
-                    WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for row '+SBA_IntToStr(y));
+                    if HasRemoved then
+                        WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for row '+SBA_IntToStr(y));
                 end;
             end;
     end;
@@ -61,6 +67,7 @@ begin
     // Column
     y := 0;
     x := 0;
+    HasRemoved := false;
     for x := 0 to 8 do
     begin
         Hints := '';
@@ -96,10 +103,13 @@ begin
                             ThisCell := '';
                             for ThisLetter in ThisCombo do
                                 if pos(ThisLetter, hint[p, x]) <> 0 then ThisCell := ThisCell + ThisLetter;
+                            
+                            if hint[p, x] <> ThisCell then HasRemoved := true;
                             hint[p, x] := ThisCell;                        
                         end;
 
-                    WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for col '+SBA_IntToStr(x));
+                    if HasRemoved then
+                        WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for col '+SBA_IntToStr(x));
                 end;
             end;
     end;
@@ -108,6 +118,7 @@ begin
     // Subgrid
     y := 0;
     x := 0;
+    HasRemoved := false;
     while y < 8 do
     begin
         while x < 8 do
@@ -153,12 +164,15 @@ begin
                                     ThisCell := '';
                                     for ThisLetter in ThisCombo do
                                         if pos(ThisLetter, hint[r, s]) <> 0 then ThisCell := ThisCell + ThisLetter;
+
+                                    if hint[r, s] <> ThisCell then HasRemoved := true;
                                     hint[r, s] := ThisCell;                        
                                 end;
                                 SubgridCellID := SubgridCellID + 1;
                             end;
 
-                        WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for sub '+SBA_IntToStr((3*(r div 3)+(s div 3))));
+                        if HasRemoved then
+                            WriteStepHint(fileHandler, y, x, 'Hidden Triple', '-[^'+ThisCombo+'] for sub '+SBA_IntToStr((3*(r div 3)+(s div 3))));
                     end;
                 end; 
             x := x + 3;
