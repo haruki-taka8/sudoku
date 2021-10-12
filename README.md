@@ -3,29 +3,44 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
 <br><br>
 
 ## 🧪 Algorithms
-| ✔️ Supported                         | ❌ WIP/Not Supported             |
-|---------------------------------------|----------------------------------|
-| Naked singles                         | Naked quads                      |
-| Naked pairs                           | Hidden quads                     |
-| Hidden singles                        | ...                              |
-| Hidden pairs                          |                                  |
-| Pointing pairs (Locked candidates #1) |                                  |
-| Claiming pairs (Locked candidates #2) |                                  |
-| Pointing triples                      |                                  |
-| Naked triples                         |                                  |
-| Locked triples                        |                                  |
-| Hidden triples                        |                                  |
-| X-Wing                                |                                  |
-| XY-Wing                               |                                  |
-| XYZ-Wing                              |                                  |
-| Swordfish                             |                                  |
-| [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
+#### ✔️ Supported
+<table>
+  <tr>
+    <td><b>Naked</b></td>
+    <td><b>Hidden</b></td>
+    <td><b>Intersections</b></td>
+    <td><b>Wings & Fish</b></td>
+  </tr>
+  <tr>
+    <td>Naked single</td>
+    <td>Hidden single</td>
+    <td>Pointing pair</td>
+    <td>X-Wing</td>
+  </tr>
+  <tr>
+    <td>Naked pair</td>
+    <td>Hidden pair</td>
+    <td>Pointing triple</td>
+    <td>XY-Wing</td>
+  </tr>
+  <tr>
+    <td>Naked triple</td>
+    <td>Hidden triple</td>
+    <td>Claiming pair</td>
+    <td>XYZ-Wing</td>
+  </tr>
+  <tr>
+    <td>Locked triple</td>
+    <td></td>
+    <td>Visual elimination</td>
+    <td>Swordfish</td>
+  </tr>
+</table>
 
-<br><br>
+#### ❌ Not Supported
+Naked quad, hidden quad, jellyfish, ...
 
 
 ## 💡 Todo
 * Detect invalid boards
 * Cleanup
-* Include more algorithms
-<br>
