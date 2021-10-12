@@ -2,25 +2,28 @@ program sudoku;
 
 uses
     crt,
-    types        in 'Modules\General\types.pas',
-    auxiliary    in 'Modules\General\auxiliary.pas',
-    io           in 'Modules\General\io.pas',
-    ioGrid       in 'Modules\General\ioGrid.pas',
-    endgame      in 'Modules\General\endgame.pas',      
-    triple       in 'Modules\General\triple.pas',      
-    GetHint      in 'Modules\General\getHint.pas',
-    XWing        in 'Modules\Solving\xWing.pas',
-    XYWing       in 'Modules\Solving\xyWing.pas',
-    Swordfish    in 'Modules\Solving\swordfish.pas',
-    HiddenTriple in 'Modules\Solving\hiddenTriple.pas',
-    NakedSingle  in 'Modules\Solving\nakedSingle.pas',
-    NakedPair    in 'Modules\Solving\nakedPair.pas',
-    HiddenSingle in 'Modules\Solving\hiddenSingle.pas',
-    HiddenPair   in 'Modules\Solving\hiddenPair.pas',
-    ClaimingPair in 'Modules\Solving\claimingPair.pas',
-    NakedTriple  in 'Modules\Solving\nakedTriple.pas',
-    Visual       in 'Modules\Solving\visual.pas',
-    PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas';
+    auxiliary          in 'Modules\General\auxiliary.pas',
+    endgame            in 'Modules\General\endgame.pas',
+    GetHint            in 'Modules\General\getHint.pas',
+    io                 in 'Modules\General\io.pas',
+    ioGrid             in 'Modules\General\ioGrid.pas',
+    triple             in 'Modules\General\triple.pas',
+    types              in 'Modules\General\types.pas',
+     
+    NakedPair          in 'Modules\Solving\nakedPair.pas',
+    HiddenPair         in 'Modules\Solving\hiddenPair.pas',
+    NakedTriple        in 'Modules\Solving\nakedTriple.pas',
+    HiddenTriple       in 'Modules\Solving\hiddenTriple.pas',
+    PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas',
+    ClaimingPair       in 'Modules\Solving\claimingPair.pas',
+    XWing              in 'Modules\Solving\xWing.pas',
+    XYWing             in 'Modules\Solving\xyWing.pas',
+    XYZWing            in 'Modules\Solving\xyzWing.pas',
+    Swordfish          in 'Modules\Solving\swordfish.pas',
+
+    NakedSingle        in 'Modules\Solving\nakedSingle.pas',
+    HiddenSingle       in 'Modules\Solving\hiddenSingle.pas',
+    Visual             in 'Modules\Solving\visual.pas';
 
 begin
     ReadConfiguration(config);
@@ -36,14 +39,15 @@ begin
         // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
         GetHint.RemoveSolved(grid, hint);
         
-        HiddenPair.RemoveHint(hint);
         NakedPair.RemoveHint(hint);
+        HiddenPair.RemoveHint(hint);
         NakedTriple.RemoveHint(hint);
         HiddenTriple.RemoveHint(hint);
-        ClaimingPair.RemoveHint(hint);
         PointingPairTriple.RemoveHint(hint);
+        ClaimingPair.RemoveHint(hint);
         XWing.RemoveHint(hint);
         XYWing.RemoveHint(hint);
+        XYZWing.RemoveHint(hint);
         Swordfish.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
@@ -73,4 +77,5 @@ begin
         
     writeln('Press ENTER to exit.');
     readln();
+    readln(); // No clue why, but two readln; are required
 end.
