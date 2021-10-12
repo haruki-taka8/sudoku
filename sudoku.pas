@@ -11,6 +11,7 @@ uses
     GetHint      in 'Modules\General\getHint.pas',
     XWing        in 'Modules\Solving\xWing.pas',
     XYWing       in 'Modules\Solving\xyWing.pas',
+    Swordfish    in 'Modules\Solving\swordfish.pas',
     HiddenTriple in 'Modules\Solving\hiddenTriple.pas',
     NakedSingle  in 'Modules\Solving\nakedSingle.pas',
     NakedPair    in 'Modules\Solving\nakedPair.pas',
@@ -43,6 +44,7 @@ begin
         PointingPairTriple.RemoveHint(hint);
         XWing.RemoveHint(hint);
         XYWing.RemoveHint(hint);
+        Swordfish.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);

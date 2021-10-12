@@ -17,6 +17,7 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
 | Hidden triples                        |                                  |
 | X-Wing                                |                                  |
 | XY-Wing                               |                                  |
+| Swordfish                             |                                  |
 | [Visual elimination](https://www.learn-sudoku.com/visual-elimination.html) ||
 
 <br><br>
