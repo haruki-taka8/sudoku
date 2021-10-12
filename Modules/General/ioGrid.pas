@@ -31,7 +31,7 @@ begin
     TextColor(White);
 
     if InputFile = 'stdin' then
-        writeln('Input unsolved sudoku board (', InputMode, ' mode)');
+        writeln('Input unsolved sudoku board (', InputMode, ' mode), -1 to exit');
 
     if InputMode = 'Space' then
         for y := 0 to 8 do
@@ -41,7 +41,11 @@ begin
                     read(grid[y, x])
                 else
                     read(InputHandler, grid[y, x]);
-                given[y, x] := grid[y, x] <> 0;
+
+                if grid[y, x] = -1 then
+                    halt(2)
+                else
+                    given[y, x] := grid[y, x] <> 0;
             end
                 
     else if InputMode = 'Continuous' then
