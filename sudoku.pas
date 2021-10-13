@@ -20,6 +20,7 @@ uses
     XYWing             in 'Modules\Solving\xyWing.pas',
     XYZWing            in 'Modules\Solving\xyzWing.pas',
     Swordfish          in 'Modules\Solving\swordfish.pas',
+    Jellyfish          in 'Modules\Solving\jellyfish.pas',
 
     NakedSingle        in 'Modules\Solving\nakedSingle.pas',
     HiddenSingle       in 'Modules\Solving\hiddenSingle.pas',
@@ -32,7 +33,7 @@ begin
 
     if Config.Verbose then StartTranscript(fileHandler, grid);
     // Solving loop
-    for i := 1 to 16 do
+    for i := 1 to 8 do
     begin
         // Solve
         // Took me an hour to realize the Unit.Implementation convention
@@ -49,6 +50,7 @@ begin
         XYWing.RemoveHint(hint);
         XYZWing.RemoveHint(hint);
         Swordfish.RemoveHint(hint);
+        Jellyfish.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
@@ -66,6 +68,7 @@ begin
             writeln(fileHandler, 'Solved in ', i, ' steps.')
         else
         begin
+            writeln('Unable to solve board. Hints shown in log file.');
             writeln(fileHandler, 'Unable to solve board. Hints shown below.');
             writeln(fileHandler);
             WriteHint(fileHandler, hint);
