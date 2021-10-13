@@ -7,7 +7,7 @@ type
     TStringGrid   = array [0..8, 0..8] of string[9];
     TConfiguration = record
         Verbose : boolean;
-        Theme, Input, InputFile : string;
+        Theme, Input, InputFile : string[16];
     end;
 
 var

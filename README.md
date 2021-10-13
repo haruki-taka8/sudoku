@@ -35,6 +35,12 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
     <td>Visual elimination</td>
     <td>Swordfish</td>
   </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>Jellyfish</td>
+  </tr>
 </table>
 
 #### ❌ Not Supported

@@ -4,15 +4,9 @@ interface
 function SBA_RemoveAt (Input : string; Position : integer) : string;
 function SBA_StrToInt (Input : string) : integer;
 function SBA_IntToStr (Input : integer) : string;
-
-// Auxiliary functions because Pascal has poor type support
-// If done in a .NET-compatible language, these functions are not required
-//      SBA_RemoveAt => '0123456'.Remove(at, 1)
-//      SBA_StrToInt => [Convert]::ToInt16('str')  or  [Int] 'str'
-//      SBA_IntToStr => [String] int               or  "int"
+function MergeHint (HintsInHouse : string) : string;
 
 implementation
-
 function SBA_RemoveAt (Input : string; Position : integer) : string;
 var Result : string;
 begin
@@ -38,5 +32,32 @@ begin
     Str(Input, Temp);
     SBA_IntToStr := Temp;
 end;
+
+function MergeHint (HintsInHouse : string) : string;
+var i, j : integer;
+    Temp : char;
+    Result : string;
+begin
+    // = UNIQUE(SORT(HintsInHouse))
+    // Concatenate hints
+    
+    // Sort (bubble, per char)
+    for i := 1 to length(HintsInHouse)-1 do
+        for j := 1 to length(HintsInHouse)-i do
+            if HintsInHouse[j] > HintsInHouse[j+1] then
+            begin
+                Temp := HintsInHouse[j+1];
+                HintsInHouse[j+1] := HintsInHouse[j];
+                HintsInHouse[j] := Temp;
+            end;
+        
+    // Remove duplicates
+    Result := '';
+    for Temp in HintsInHouse do
+        if pos(Temp, Result) = 0 then
+            Result := Result + Temp;
+    MergeHint := Result;
+end;
+
 
 end.

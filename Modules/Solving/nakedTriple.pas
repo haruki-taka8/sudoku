@@ -1,7 +1,7 @@
 unit NakedTriple;
 
 interface
-uses triple, types, auxiliary, io;
+uses combination, types, auxiliary, io;
 procedure RemoveHint (var hint : TStringGrid);
 
 
@@ -33,7 +33,7 @@ begin
         for p := 0 to 8 do Hints := Hints + hint[y, p];
         Hints := MergeHint(Hints);
 
-        for ThisCombo in GetThreeCombination(Hints) do
+        for ThisCombo in GetCombination(Hints, 3) do
             if ThisCombo <> '' then
             begin
                 // If a cell contains anything other than the combination, it is ineligible for naked triples
@@ -113,7 +113,7 @@ begin
         for p := 0 to 8 do Hints := Hints + hint[p, x];
         Hints := MergeHint(Hints);
 
-        for ThisCombo in GetThreeCombination(Hints) do
+        for ThisCombo in GetCombination(Hints, 3) do
             if ThisCombo <> '' then
             begin
                 // If a cell contains anything other than the combination, it is ineligible for naked triples
@@ -200,7 +200,7 @@ begin
                 Hints := MergeHint(Hints);
 
 
-                for ThisCombo in GetThreeCombination(Hints) do
+                for ThisCombo in GetCombination(Hints, 3) do
                     if ThisCombo <> '' then
                     begin
                         // If a cell contains anything other than the combination, it is ineligible for naked triples

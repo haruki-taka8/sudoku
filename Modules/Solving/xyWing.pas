@@ -11,7 +11,6 @@ type
         x, y : integer;
         Hint : string[2];
         UniqueFromPivot : string[1];
-
     end;
 
 procedure RemoveHint (var hint : TStringGrid);

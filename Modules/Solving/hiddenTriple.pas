@@ -1,7 +1,7 @@
 unit HiddenTriple;
 
 interface
-uses triple, types, auxiliary, io;
+uses combination, types, auxiliary, io;
 procedure RemoveHint (var hint : TStringGrid);
 
 
@@ -26,7 +26,7 @@ begin
         for p := 0 to 8 do Hints := Hints + hint[y, p];
         Hints := MergeHint(Hints);
 
-        for ThisCombo in GetThreeCombination(Hints) do
+        for ThisCombo in GetCombination(Hints, 3) do
             if ThisCombo <> '' then
             begin
                 HiddenTripleCount := 0;
@@ -76,7 +76,7 @@ begin
         for p := 0 to 8 do Hints := Hints + hint[p, x];
         Hints := MergeHint(Hints);
 
-        for ThisCombo in GetThreeCombination(Hints) do
+        for ThisCombo in GetCombination(Hints, 3) do
             if ThisCombo <> '' then
             begin
                 HiddenTripleCount := 0;
@@ -131,7 +131,7 @@ begin
                     Hints := Hints + hint[r, s];
             Hints := MergeHint(Hints);
 
-            for ThisCombo in GetThreeCombination(Hints) do
+            for ThisCombo in GetCombination(Hints, 3) do
                 if ThisCombo <> '' then
                 begin
                     HiddenTripleCount := 0;

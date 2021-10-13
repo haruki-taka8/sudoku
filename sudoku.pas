@@ -3,11 +3,11 @@ program sudoku;
 uses
     crt,
     auxiliary          in 'Modules\General\auxiliary.pas',
+    combination        in 'Modules\General\combination.pas',
     endgame            in 'Modules\General\endgame.pas',
     GetHint            in 'Modules\General\getHint.pas',
     io                 in 'Modules\General\io.pas',
     ioGrid             in 'Modules\General\ioGrid.pas',
-    triple             in 'Modules\General\triple.pas',
     types              in 'Modules\General\types.pas',
      
     NakedPair          in 'Modules\Solving\nakedPair.pas',
@@ -16,11 +16,9 @@ uses
     HiddenTriple       in 'Modules\Solving\hiddenTriple.pas',
     PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas',
     ClaimingPair       in 'Modules\Solving\claimingPair.pas',
-    XWing              in 'Modules\Solving\xWing.pas',
+    Wing               in 'Modules\Solving\wing.pas',
     XYWing             in 'Modules\Solving\xyWing.pas',
     XYZWing            in 'Modules\Solving\xyzWing.pas',
-    Swordfish          in 'Modules\Solving\swordfish.pas',
-    Jellyfish          in 'Modules\Solving\jellyfish.pas',
 
     NakedSingle        in 'Modules\Solving\nakedSingle.pas',
     HiddenSingle       in 'Modules\Solving\hiddenSingle.pas',
@@ -46,11 +44,11 @@ begin
         HiddenTriple.RemoveHint(hint);
         PointingPairTriple.RemoveHint(hint);
         ClaimingPair.RemoveHint(hint);
-        XWing.RemoveHint(hint);
+        Wing.RemoveHint(hint, 2); // X-Wing
+        Wing.RemoveHint(hint, 3); // Swordfish
+        Wing.RemoveHint(hint, 4); // Jellyfish
         XYWing.RemoveHint(hint);
         XYZWing.RemoveHint(hint);
-        Swordfish.RemoveHint(hint);
-        Jellyfish.RemoveHint(hint);
         
         NakedSingle.SolveCell(grid, hint);
         HiddenSingle.SolveCell(grid, hint);
@@ -78,7 +76,7 @@ begin
         StopTranscript(fileHandler);
     end;
         
-    writeln('Press ENTER to exit.');
+    write('Press ENTER to exit.');
     readln();
     readln(); // No clue why, but two readln; are required
 end.

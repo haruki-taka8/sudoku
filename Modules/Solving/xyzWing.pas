@@ -145,7 +145,7 @@ begin
                                             begin
                                                 LeftX := 3*(Wings[q].x div 3);
                                                 LeftY := 3*(Wings[q].y div 3);
-                                                if (Wings[q].y <> LeftY+s) and (Wings[q].x <> LeftX+r) then
+                                                if (Wings[q].y <> LeftY+s) and (Wings[q].x <> LeftX+r) and ((Pivot.y <> LeftY+s) or (Pivot.x <> LeftX+r)) then
                                                 begin
                                                     QCandidates[u].y := LeftY+s;
                                                     QCandidates[u].x := LeftX+r;
@@ -154,7 +154,7 @@ begin
 
                                                 LeftX := 3*(Wings[p].x div 3);
                                                 LeftY := 3*(Wings[p].y div 3);
-                                                if (Wings[p].y <> LeftY+s) and (Wings[p].x <> LeftX+r) then
+                                                if (Wings[p].y <> LeftY+s) and (Wings[p].x <> LeftX+r) and ((Pivot.y <> LeftY+s) or (Pivot.x <> LeftX+r)) then
                                                 begin
                                                     PCandidates[v].y := LeftY+s;
                                                     PCandidates[v].x := LeftX+r;
@@ -166,11 +166,12 @@ begin
                                             for r := 0 to 26 do
                                                 if (QCandidates[s].x = PCandidates[r].x) and (QCandidates[s].y = PCandidates[r].y) then
                                                     if (QCandidates[s].y <> -1) or (PCandidates[r].y <> -1) then
-                                                    begin
-                                                        if pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]) <> 0 then
-                                                            WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XYZ-Wing', '-['+CommonWithPivot+'] due to ('+SBA_IntToStr(Wings[q].y)+','+SBA_IntToStr(Wings[q].x)+')+('+SBA_IntToStr(Pivot.y)+','+SBA_IntToStr(Pivot.x)+')+('+SBA_IntToStr(Wings[p].y)+','+SBA_IntToStr(Wings[p].x)+')');
-                                                        hint[QCandidates[s].y, QCandidates[s].x] := SBA_RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]));
-                                                    end;
+                                                        if (QCandidates[s].y div 3 = Pivot.y div 3) and (QCandidates[s].x div 3 = Pivot.x div 3) then
+                                                        begin
+                                                            if pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]) <> 0 then
+                                                                WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XYZ-Wing', '-['+CommonWithPivot+'] due to ('+SBA_IntToStr(Wings[q].y)+','+SBA_IntToStr(Wings[q].x)+')+('+SBA_IntToStr(Pivot.y)+','+SBA_IntToStr(Pivot.x)+')+('+SBA_IntToStr(Wings[p].y)+','+SBA_IntToStr(Wings[p].x)+')');
+                                                            hint[QCandidates[s].y, QCandidates[s].x] := SBA_RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]));
+                                                        end;
 
                                     end;
                                         
