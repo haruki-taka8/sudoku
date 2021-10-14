@@ -34,7 +34,9 @@ begin
         Hints := MergeHint(Hints);
 
         for ThisCombo in GetCombination(Hints, 3) do
-            if ThisCombo <> '' then
+            if ThisCombo = '' then
+                break
+            else
             begin
                 // If a cell contains anything other than the combination, it is ineligible for naked triples
                 NakedTripleCount := 0;
@@ -114,7 +116,9 @@ begin
         Hints := MergeHint(Hints);
 
         for ThisCombo in GetCombination(Hints, 3) do
-            if ThisCombo <> '' then
+            if ThisCombo = '' then
+                break
+            else
             begin
                 // If a cell contains anything other than the combination, it is ineligible for naked triples
                 NakedTripleCount := 0;
@@ -201,7 +205,9 @@ begin
 
 
                 for ThisCombo in GetCombination(Hints, 3) do
-                    if ThisCombo <> '' then
+                    if ThisCombo = '' then
+                        break
+                    else
                     begin
                         // If a cell contains anything other than the combination, it is ineligible for naked triples
                         NakedTripleCount := 0;

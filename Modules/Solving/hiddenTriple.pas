@@ -27,7 +27,9 @@ begin
         Hints := MergeHint(Hints);
 
         for ThisCombo in GetCombination(Hints, 3) do
-            if ThisCombo <> '' then
+            if ThisCombo = '' then
+                break
+            else
             begin
                 HiddenTripleCount := 0;
 
@@ -77,7 +79,9 @@ begin
         Hints := MergeHint(Hints);
 
         for ThisCombo in GetCombination(Hints, 3) do
-            if ThisCombo <> '' then
+            if ThisCombo = '' then
+                break
+            else
             begin
                 HiddenTripleCount := 0;
 
@@ -132,7 +136,9 @@ begin
             Hints := MergeHint(Hints);
 
             for ThisCombo in GetCombination(Hints, 3) do
-                if ThisCombo <> '' then
+                if ThisCombo = '' then
+                    break
+                else
                 begin
                     HiddenTripleCount := 0;
                     SubgridCellID := 0;
