@@ -16,22 +16,22 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
     <td>Naked single</td>
     <td>Hidden single</td>
     <td>Pointing pair</td>
+    <td>XY-Wing</td>
     <td>X-Wing</td>
-    <td>Swordfish</td>
   </tr>
   <tr>
     <td>Naked pair</td>
     <td>Hidden pair</td>
     <td>Pointing triple</td>
-    <td>XY-Wing</td>
-    <td>Jellyfish</td>
+    <td>XYZ-Wing</td>
+    <td>Swordfish</td>
   </tr>
   <tr>
     <td>Naked triple</td>
     <td>Hidden triple</td>
     <td>Claiming pair</td>
-    <td>XYZ-Wing</td>
     <td></td>
+    <td>Jellyfish</td>
   </tr>
   <tr>
     <td>Locked triple</td>
@@ -39,12 +39,6 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
     <td>Visual elimination</td>
     <td></td>
     <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>Jellyfish</td>
   </tr>
 </table>
 
