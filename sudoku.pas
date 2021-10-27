@@ -31,30 +31,26 @@ begin
 
     if Config.Verbose then StartTranscript(fileHandler, grid);
     // Solving loop
-    for i := 1 to 8 do
+    while (true) do
     begin
-        // Solve
-        // Took me an hour to realize the Unit.Implementation convention
-        // ALL ONLINE DOCUMENTATIONS ARE COMPLETELY WRONG!
-        GetHint.RemoveSolved(grid, hint);
+        if GetHint.RemoveSolved(grid, hint)    then continue;
         
-        NakedPair.RemoveHint(hint);
-        HiddenPair.RemoveHint(hint);
-        NakedTriple.RemoveHint(hint);
-        HiddenTriple.RemoveHint(hint);
-        PointingPairTriple.RemoveHint(hint);
-        ClaimingPair.RemoveHint(hint);
-        Wing.RemoveHint(hint, 2); // X-Wing
-        Wing.RemoveHint(hint, 3); // Swordfish
-        Wing.RemoveHint(hint, 4); // Jellyfish
-        XYWing.RemoveHint(hint);
-        XYZWing.RemoveHint(hint);
-        
-        NakedSingle.SolveCell(grid, hint);
-        HiddenSingle.SolveCell(grid, hint);
-        Visual.SolveCell(grid, hint);
+        if NakedSingle.SolveCell(grid, hint)   then continue;
+        if HiddenSingle.SolveCell(grid, hint)  then continue;
+        if Visual.SolveCell(grid, hint)        then continue;
 
-        if IsSolved(grid) then break;
+        if NakedPair.RemoveHint(hint)          then continue;
+        if HiddenPair.RemoveHint(hint)         then continue;
+        if ClaimingPair.RemoveHint(hint)       then continue;
+        if NakedTriple.RemoveHint(hint)        then continue;
+        if HiddenTriple.RemoveHint(hint)       then continue;
+        if PointingPairTriple.RemoveHint(hint) then continue;
+        if Wing.RemoveHint(hint, 2)            then continue; // X-Wing
+        if Wing.RemoveHint(hint, 3)            then continue; // Swordfish
+        if Wing.RemoveHint(hint, 4)            then continue; // Jellyfish
+        if XYWing.RemoveHint(hint)             then continue;
+        if XYZWing.RemoveHint(hint)            then continue;
+        break;
     end;
 
     WriteResult(grid, given, Config.Theme);
@@ -63,7 +59,7 @@ begin
     begin
         writeln(fileHandler);
         if IsSolved(grid) then
-            writeln(fileHandler, 'Solved in ', i, ' steps.')
+            writeln(fileHandler, 'Board is solved.')
         else
         begin
             writeln('Unable to solve board. Hints shown in log file.');

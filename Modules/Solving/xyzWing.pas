@@ -2,7 +2,7 @@ unit xyzWing;
 
 interface
 uses types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 implementation
 
@@ -13,14 +13,16 @@ type
 
     end;
 
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var x, y, p, q, r, s, i, j, u, v, LeftX, LeftY : integer;
     Pivot, Empty : TCoordinates;
     Wings : array [0..20] of TCoordinates;
     QCandidates, PCandidates : array [0..26] of TCoordinates;
     CommonWithPivot : string;
+    HasEverRemoved : boolean;
 
 begin
+    HasEverRemoved := false;
     Empty.x := -1;
     Empty.y := -1;
     Empty.Hint := '';
@@ -169,7 +171,10 @@ begin
                                                         if (QCandidates[s].y div 3 = Pivot.y div 3) and (QCandidates[s].x div 3 = Pivot.x div 3) then
                                                         begin
                                                             if pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]) <> 0 then
+                                                            begin
                                                                 WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XYZ-Wing', '-['+CommonWithPivot+'] due to ('+SBA_IntToStr(Wings[q].y)+','+SBA_IntToStr(Wings[q].x)+')+('+SBA_IntToStr(Pivot.y)+','+SBA_IntToStr(Pivot.x)+')+('+SBA_IntToStr(Wings[p].y)+','+SBA_IntToStr(Wings[p].x)+')');
+                                                                HasEverRemoved := true;
+                                                            end;
                                                             hint[QCandidates[s].y, QCandidates[s].x] := SBA_RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]));
                                                         end;
 
@@ -178,6 +183,7 @@ begin
             end;
         end;
 
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

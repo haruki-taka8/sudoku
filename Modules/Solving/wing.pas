@@ -2,15 +2,15 @@ unit wing;
 
 interface
 uses combination, types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid; IntersectionCount : integer);
+function RemoveHint (var hint : TStringGrid; IntersectionCount : integer) : boolean;
 
 implementation
-procedure RemoveHint (var hint : TStringGrid; IntersectionCount : integer);
+function RemoveHint (var hint : TStringGrid; IntersectionCount : integer) : boolean;
 var y, x, i, j : integer;
     RemoveFrom, ThisBlock, ThisCombo, PossibleIndex, Algorithm : string;
     Possible : array [0..8] of string;
     PossibleCount : integer;
-    HasRemoved : boolean;
+    HasRemoved, HasEverRemoved : boolean;
 
 begin
     case IntersectionCount of
@@ -18,6 +18,7 @@ begin
         3 : Algorithm := 'Swordfish';
         4 : Algorithm := 'Jellyfish';
     end;
+    HasEverRemoved := false;
 
     // Row -> column
     for i := 1 to 9 do
@@ -64,7 +65,11 @@ begin
                                 for x := 0 to 8 do
                                     if pos(SBA_IntToStr(x), RemoveFrom) <> 0 then
                                     begin
-                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then HasRemoved := true;
+                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
+                                        begin
+                                            HasRemoved := true;
+                                            HasEverRemoved := true;
+                                        end;
                                         hint[y, x] := SBA_RemoveAt(hint[y, x], pos(SBA_IntToStr(i), hint[y, x]));
                                     end;
                     end;
@@ -121,7 +126,11 @@ begin
                                 for y := 0 to 8 do
                                     if pos(SBA_IntToStr(y), RemoveFrom) <> 0 then
                                     begin
-                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then HasRemoved := true;
+                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
+                                        begin
+                                            HasRemoved := true;
+                                            HasEverRemoved := true;
+                                        end;
                                         hint[y, x] := SBA_RemoveAt(hint[y, x], pos(SBA_IntToStr(i), hint[y, x]));
                                     end;
                     end;
@@ -130,6 +139,8 @@ begin
                         WriteStepHint(fileHandler, y, x, Algorithm, '-['+SBA_IntToStr(i)+'] for row ['+RemoveFrom+'] due to col ['+ThisCombo+']');
                 end;
     end;
+
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

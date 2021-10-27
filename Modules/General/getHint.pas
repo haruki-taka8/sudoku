@@ -3,7 +3,7 @@ unit getHint;
 interface
 uses types;
 procedure GetHint (InputGrid : TIntegerGrid; var hint : TStringGrid);
-procedure RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid);
+function RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid) : boolean;
 
 
 implementation
@@ -38,9 +38,12 @@ begin
 end;
 
 
-procedure RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid);
+function RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid) : boolean;
 var p, q, x, y, LeftX, LeftY : integer;
+    Old1, Old2 : string[9];
+    HasRemoved : boolean;
 begin
+    HasRemoved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             if InputGrid[y, x] <> 0 then
@@ -51,8 +54,14 @@ begin
                 // Remove InputGrid[y, x] from column & row
                 for p := 0 to 8 do
                 begin
+                    Old1 := hint[y, p];
+                    Old2 := hint[p, x];
+
                     hint[y, p] := SBA_RemoveAt(hint[y, p], pos(SBA_IntToStr(InputGrid[y, x]), hint[y, p]));
                     hint[p, x] := SBA_RemoveAt(hint[p, x], pos(SBA_IntToStr(InputGrid[y, x]), hint[p, x]));
+
+                    if (hint[y, p] <> Old1) or (hint[p, x] <> Old2) then
+                        HasRemoved := true;
                 end;
 
                 // Remove InputGrid[y, x] from subgrid/block
@@ -60,8 +69,16 @@ begin
                 LeftX := 3*(x div 3);
                 for q := LeftY to LeftY+2 do
                     for p := LeftX to LeftX+2 do
+                    begin
+                        Old1 := hint[q, p];
                         hint[q, p] := SBA_RemoveAt(hint[q, p], pos(SBA_IntToStr(InputGrid[y, x]), hint[q, p]));
+
+                        if (hint[q, p] <> Old1) then
+                            HasRemoved := true;
+                    end;
             end;
+
+    RemoveSolved := HasRemoved;
 end;
 
 end.

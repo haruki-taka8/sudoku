@@ -2,18 +2,20 @@ unit HiddenTriple;
 
 interface
 uses combination, types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 implementation
 
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var y, x, p, r, s, HiddenTripleCount, SubgridCellID : integer;
     Hints, ThisCombo, ThisCell, ThisLetter : string;
     IsHiddenTriple : array [0..8] of boolean;
-    HasRemoved : boolean;
+    HasRemoved, HasEverRemoved : boolean;
 
 begin
+    HasEverRemoved := false;
+
     // Row
     y := 0;
     x := 0;
@@ -56,7 +58,11 @@ begin
                             for ThisLetter in ThisCombo do
                                 if pos(ThisLetter, hint[y, p]) <> 0 then ThisCell := ThisCell + ThisLetter;
 
-                            if hint[y, p] <> ThisCell then HasRemoved := true;
+                            if hint[y, p] <> ThisCell then
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                             hint[y, p] := ThisCell;
                         end;
 
@@ -108,7 +114,11 @@ begin
                             for ThisLetter in ThisCombo do
                                 if pos(ThisLetter, hint[p, x]) <> 0 then ThisCell := ThisCell + ThisLetter;
                             
-                            if hint[p, x] <> ThisCell then HasRemoved := true;
+                            if hint[p, x] <> ThisCell then
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                             hint[p, x] := ThisCell;                        
                         end;
 
@@ -171,7 +181,11 @@ begin
                                     for ThisLetter in ThisCombo do
                                         if pos(ThisLetter, hint[r, s]) <> 0 then ThisCell := ThisCell + ThisLetter;
 
-                                    if hint[r, s] <> ThisCell then HasRemoved := true;
+                                    if hint[r, s] <> ThisCell then
+                                    begin
+                                        HasRemoved := true;
+                                        HasEverRemoved := true;
+                                    end;
                                     hint[r, s] := ThisCell;                        
                                 end;
                                 SubgridCellID := SubgridCellID + 1;
@@ -186,6 +200,8 @@ begin
         y := y + 3;
         x := 0;
     end;
+
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

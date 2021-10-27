@@ -2,7 +2,7 @@ unit visual;
 
 interface
 uses types, auxiliary, io;
-procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
+function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
 // Remove visual, aka Visual Elimination or The Brady Bunch Technique.
 // An upgrade of RemainingOfInt
@@ -10,10 +10,13 @@ procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
 
 implementation
 
-procedure SolveCell (var grid: TIntegerGrid; InputHint : TStringGrid);
+function SolveCell (var grid: TIntegerGrid; InputHint : TStringGrid) : boolean;
 var i, x, y, p, r, s, ThisX, ThisY, CanindateCount : integer;
     Canindates : TIntegerGrid;
+    HasSolved : boolean;
+
 begin
+    HasSolved := false;
     for i := 1 to 9 do
     begin
         Canindates := Grid;
@@ -64,9 +67,12 @@ begin
                     begin
                         grid[y, x] := i;
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Visual Elimination', '');
+                        HasSolved := true;
                     end;
                 end;
     end;
+
+    SolveCell := HasSolved;
 end;
 end.
 

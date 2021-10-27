@@ -2,19 +2,19 @@ unit nakedPair;
 
 interface
 uses types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 implementation
-
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var x, y, p, r, s, i, PairX, PairY, SubX, SubY, PairSubX, PairSubY : integer;
     ThisX, ThisY : integer;
     IsLockedPair : boolean;
-    HasRemoved : boolean;
+    HasRemoved, HasEverRemoved : boolean;
     OldHint : string;
 
 begin
+    HasEverRemoved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             if length(hint[y, x]) = 2 then
@@ -44,7 +44,11 @@ begin
                             for i := 1 to 2 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
 
-                            if hint[y, p] <> OldHint then HasRemoved := true;
+                            if hint[y, p] <> OldHint then
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                         end;
 
                     if HasRemoved then
@@ -74,7 +78,11 @@ begin
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
 
-                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                    if hint[ThisY, ThisX] <> OldHint then
+                                    begin
+                                        HasRemoved := true;
+                                        HasEverRemoved := true;
+                                    end;
                                 end;
                             end;
                         
@@ -107,7 +115,11 @@ begin
                             for i := 1 to 2 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
 
-                            if hint[p, x] <> OldHint then HasRemoved := true;
+                            if hint[p, x] <> OldHint then
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                         end;
 
                     if HasRemoved then
@@ -133,10 +145,14 @@ begin
                                 
                                 if not (((ThisX = x) and (ThisY = y)) or ((ThisX = PairX) and (ThisY = PairY))) then
                                 begin
-                                    OldHint := '';
+                                    OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
-                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                    if hint[ThisY, ThisX] <> OldHint then
+                                    begin
+                                        HasRemoved := true;
+                                        HasEverRemoved := true;
+                                    end;
                                 end;
                             end;
                         
@@ -184,7 +200,11 @@ begin
                                     OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
                                         hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
-                                    if hint[ThisY, ThisX] <> OldHint then HasRemoved := true;
+                                    if hint[ThisY, ThisX] <> OldHint then
+                                    begin
+                                        HasRemoved := true;
+                                        HasEverRemoved := true;
+                                    end;
                                 end;
                             end;
 
@@ -193,6 +213,8 @@ begin
                     end;
                 end;
             end;
+
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

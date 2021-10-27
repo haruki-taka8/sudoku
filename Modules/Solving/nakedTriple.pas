@@ -2,23 +2,24 @@ unit NakedTriple;
 
 interface
 uses combination, types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 // Much thanks to Justin L. on Stack Overflow for the pseudocode of this algorithm
 // https://stackoverflow.com/a/3026236
 
 implementation
-procedure RemoveHint (var hint: TStringGrid);
+function RemoveHint (var hint: TStringGrid) : boolean;
 var y, x, p, q, r, s : integer;
     Hints, ThisCombo, ThisCell, OldHint : string;
     NakedTripleCells : array [0..8] of boolean;
     NakedTripleCount : integer;
     LockedLeftX, LockedLeftY, SubgridCellID : integer;
-    IsLockedTriple, HasNakedTriple, IsOnceLockedTriple, HasRemoved : boolean;
+    IsLockedTriple, HasNakedTriple, IsOnceLockedTriple, HasRemoved, HasEverRemoved : boolean;
 
 begin
     IsOnceLockedTriple := false;
+    HasEverRemoved := false;
 
     // Row
     y := 0;
@@ -74,7 +75,11 @@ begin
                             for q := 1 to 3 do
                                 hint[y, p] := SBA_RemoveAt(hint[y, p], pos(ThisCombo[q], hint[y, p]));
 
-                            if hint[y, p] <> OldHint then HasRemoved := true;
+                            if hint[y, p] <> OldHint then 
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                         end;
 
                         if NakedTripleCells[p] and (3*(p div 3) <> LockedLeftX) then
@@ -156,7 +161,11 @@ begin
                             for q := 1 to 3 do
                                 hint[p, x] := SBA_RemoveAt(hint[p, x], pos(ThisCombo[q], hint[p, x]));
 
-                            if hint[p, x] <> OldHint then HasRemoved := true;
+                            if hint[p, x] <> OldHint then
+                            begin
+                                HasRemoved := true;
+                                HasEverRemoved := true;
+                            end;
                         end;
 
                         if NakedTripleCells[p] and (3*(p div 3) <> LockedLeftY) then
@@ -245,7 +254,11 @@ begin
                                             for q := 1 to 3 do
                                                 hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
-                                            if hint[r, s] <> OldHint then HasRemoved := true;
+                                            if hint[r, s] <> OldHint then
+                                            begin
+                                                HasRemoved := true;
+                                                HasEverRemoved := true;
+                                            end;
                                         end;
 
                                         SubgridCellID := SubgridCellID + 1;
@@ -264,6 +277,7 @@ begin
 
     end;
 
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

@@ -12,7 +12,6 @@ type
 
 var
     // Global variables, use with caution
-    i : integer;
     grid   : TIntegerGrid;
     given  : TBooleanGrid;
     hint   : TStringGrid;

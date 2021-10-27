@@ -2,16 +2,16 @@ unit hiddenSingle;
 
 interface
 uses types, auxiliary, io;
-procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
+function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
 
 implementation
-
-procedure SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid);
+function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 var x, y, p, q, r, s, ThisX, ThisY : integer;
     ThisHint : string;
-    IsHiddenSingle : boolean;
+    IsHiddenSingle, HasSolved : boolean;
 begin
+    HasSolved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             if grid[y, x] = 0 then
@@ -32,6 +32,7 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(column)');
+                        HasSolved := true;
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -48,6 +49,7 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(row)');
+                        HasSolved := true;
                         break;
                     end;
                     IsHiddenSingle := true;
@@ -70,9 +72,12 @@ begin
                     begin
                         grid[y, x] := SBA_StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(subgrid)');
+                        HasSolved := true;
                         break;
                     end;
                 end;
+
+    SolveCell := HasSolved;
 end;
 
 end.

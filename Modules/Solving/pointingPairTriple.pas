@@ -2,16 +2,17 @@ unit pointingPairTriple;
 
 interface
 uses types, auxiliary, io;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 implementation
-procedure RemoveHint (var hint: TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var x, y, p, r, s, LeftX, LeftY : integer;
     CountInAlign, CountInSubgrid : integer;
-    HasRemoved : boolean;
+    HasRemoved, HasEverRemoved : boolean;
     RemoveMode : string;
 
 begin
+    HasEverRemoved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             for p := 1 to 9 do
@@ -42,7 +43,8 @@ begin
                         if ((y div 3) <> (r div 3)) and (pos(SBA_IntToStr(p), hint[r, x]) <> 0) then
                         begin
                             hint[r, x] := SBA_RemoveAt(hint[r, x], pos(SBA_IntToStr(p), hint[r, x]));
-                            HasRemoved := true
+                            HasRemoved := true;
+                            HasEverRemoved := true;
                         end;
 
                         if CountInAlign = 2 then
@@ -81,6 +83,7 @@ begin
                         begin
                             hint[y, r] := SBA_RemoveAt(hint[y, r], pos(SBA_IntToStr(p), hint[y, r]));
                             HasRemoved := true;
+                            HasEverRemoved := true;
                         end;
                     
                     if CountInAlign = 2 then
@@ -93,6 +96,8 @@ begin
                 end;
 
             end;
+
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

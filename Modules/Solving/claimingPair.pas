@@ -2,17 +2,18 @@ unit ClaimingPair;
 
 interface
 uses io, types, auxiliary;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 implementation
 
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var y, x, p, q, r, s, LeftX, LeftY : integer;
     SubgridTotal, Total : integer;
-    HasRemoved : boolean;
+    HasRemoved, HasEverRemoved : boolean;
 
 begin
+    HasEverRemoved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             for p := 1 to 9 do
@@ -43,6 +44,8 @@ begin
                                 begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
+                                    HasEverRemoved := true;
+                                    
                                 end;
 
                         if HasRemoved then
@@ -74,12 +77,15 @@ begin
                                 begin
                                     hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
+                                    HasEverRemoved := true;
                                 end;
 
                         if HasRemoved then
                             WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
                     end;
                 end;
+
+    RemoveHint := HasEverRemoved;
 end;
 
 end.

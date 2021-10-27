@@ -2,15 +2,17 @@ unit HiddenPair;
 
 interface
 uses combination, io, types, auxiliary;
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 implementation
-procedure RemoveHint (var hint : TStringGrid);
+function RemoveHint (var hint : TStringGrid) : boolean;
 var x, y, p, q, PairX, PairY, LeftX, LeftY, ExactTotal, Total : integer;
     ThisCombo : string;
+    HasRemoved : boolean;
 
 begin
+    HasRemoved := false;
     for y := 0 to 8 do
         for x := 0 to 8 do
             if length(hint[y, x]) > 2 then
@@ -48,6 +50,7 @@ begin
                                 // Remove other candidates from (y, x) and (PairY, PairX)
                                 hint[y, x] := ThisCombo;
                                 hint[PairY, PairX] := ThisCombo;
+                                HasRemoved := true;
 
                                 WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
                             end;
@@ -81,6 +84,7 @@ begin
                                 // Remove other candidates from (y, x) and (PairY, PairX)
                                 hint[y, x] := ThisCombo;
                                 hint[PairY, PairX] := ThisCombo;
+                                HasRemoved := true;
 
                                 WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
                             end;
@@ -122,12 +126,15 @@ begin
                                     // Remove other candidates from (y, x) and (PairY, PairX)
                                     hint[y, x] := ThisCombo;
                                     hint[PairY, PairX] := ThisCombo;
+                                    HasRemoved := true;
 
                                     WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
                                 end;
                         end;
                     end;
             end;
+
+    RemoveHint := HasRemoved;
 end;
 
 end.
