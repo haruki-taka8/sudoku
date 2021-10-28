@@ -33,7 +33,7 @@ begin
     // Solving loop
     while (true) do
     begin
-        if GetHint.RemoveSolved(grid, hint)    then continue;
+        GetHint.RemoveSolved(grid, hint);
         
         if NakedSingle.SolveCell(grid, hint)   then continue;
         if HiddenSingle.SolveCell(grid, hint)  then continue;
