@@ -27,12 +27,24 @@ uses
 begin
     ReadConfiguration(config);
     ReadGrid(grid, given, config.Input, config.InputFile);
+
+    oldGrid := grid;
     GetHint.GetHint(grid, hint);
 
-    if Config.Verbose then StartTranscript(fileHandler, grid);
+    if config.Verbose then StartTranscript(fileHandler, grid);
+    
     // Solving loop
     while (true) do
     begin
+        if config.Interactive and (not IsRepeated(oldGrid, Grid)) then
+        begin
+            WriteResult(grid, given, Config.Theme, FALSE);
+            writeln;
+            write('Press ENTER to go to next step.');
+            readln;
+        end;
+
+        oldGrid := Grid;
         GetHint.RemoveSolved(grid, hint);
         
         if NakedSingle.SolveCell(grid, hint)   then continue;
@@ -53,7 +65,7 @@ begin
         break;
     end;
 
-    WriteResult(grid, given, Config.Theme);
+    WriteResult(grid, given, Config.Theme, TRUE);
 
     if Config.Verbose then
     begin

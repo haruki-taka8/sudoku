@@ -3,8 +3,8 @@ unit ioGrid;
 interface
 uses types, auxiliary, crt;
 procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
-procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string);
-procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer);
+procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
+procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer; ToFile : boolean);
 
 implementation
 procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
@@ -80,11 +80,11 @@ begin
         close(InputHandler);
 end;
 
-procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string);
+procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
 begin
     ClrScr;
     if Theme = 'Plain' then
-        WriteGrid(InputGrid, InputGiven, 1, 1)
+        WriteGrid(InputGrid, InputGiven, 1, 1, ToFile)
 
     else if Theme = 'Switch' then
     begin
@@ -118,7 +118,7 @@ begin
         writeln('                           0 0 0 | 0 0 0 | 0 0 0              ');                                                                                                                                                                                                                                   
         writeln('                           0 0 0 | 0 0 0 | 0 0 0              ');
         writeln('           ---------------------------------------------------');
-        WriteGrid(InputGrid, InputGiven, 2, 28);
+        WriteGrid(InputGrid, InputGiven, 2, 28, ToFile);
 
         textColor(Cyan);
         gotoXY(1,1);
@@ -196,7 +196,7 @@ begin
     GotoXY(1,12);
     write('H');
 
-    WriteGrid(InputGrid, InputGiven, 3, 4);
+    WriteGrid(InputGrid, InputGiven, 3, 4, ToFile);
     
     TextColor(Blue);
     GotoXY(1,6);
@@ -209,12 +209,12 @@ begin
     GotoXY(1,17);
 end;
 
-procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer);
+procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer; ToFile : boolean);
 var x, y : integer;
 
 begin
     // Prints the grid to STDIN and file if VERBOSE
-    if Config.Verbose then writeln(fileHandler);
+    if Config.Verbose and ToFile then writeln(fileHandler);
 
     TextColor(White);
     for y := 0 to 8 do
@@ -226,7 +226,7 @@ begin
             begin
                 write('. ');
 
-                if Config.Verbose then write(fileHandler, '. ');
+                if Config.Verbose and ToFile then write(fileHandler, '. ');
             end
             else
             begin
@@ -239,13 +239,13 @@ begin
                     TextColor(White);
                 end;
 
-                if Config.Verbose then write(fileHandler, InputGrid[y, x], ' ');
+                if Config.Verbose and ToFile then write(fileHandler, InputGrid[y, x], ' ');
             end;
             if ((x = 2) or (x = 5)) then
             begin
                 write('| ');
 
-                if Config.Verbose then write(fileHandler, '| ');
+                if Config.Verbose and ToFile then write(fileHandler, '| ');
             end;
         end;
         YOffset := YOffset + 1;
@@ -255,7 +255,7 @@ begin
             writeln;
             GotoXY(XOffset, YOffset);
             writeln('------+-------+------');
-            if Config.Verbose then
+            if Config.Verbose and ToFile then
             begin
                 writeln(fileHandler);
                 writeln(fileHandler, '------+-------+------');
@@ -266,7 +266,7 @@ begin
         else
         begin
             writeln;
-            if Config.Verbose then writeln(fileHandler);
+            if Config.Verbose and ToFile then writeln(fileHandler);
         end;
     end;
 end;

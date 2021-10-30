@@ -17,10 +17,11 @@ var Defaults : text;
     DelimiterPos : integer;
 
 begin
-    Config.Verbose   := FALSE;
-    Config.Theme     := 'Switch';
-    Config.Input     := 'Space';
-    Config.InputFile := 'stdin';
+    Config.Interactive := FALSE;
+    Config.Verbose     := FALSE;
+    Config.Theme       := 'Switch';
+    Config.Input       := 'Space';
+    Config.InputFile   := 'stdin';
 
     DelimiterPos := 0;
     assign(Defaults, 'defaults.ini');
@@ -34,13 +35,13 @@ begin
         if DelimiterPos <> 0 then
         begin
             if copy(ThisLine, 1, 7) = 'verbose' then
-                if pos('TRUE', ThisLine) <> 0 then
-                    Config.Verbose := TRUE
-                else
-                    Config.Verbose := FALSE
+                Config.Verbose := pos('TRUE', ThisLine) <> 0
 
             else if copy(ThisLine, 1, 5) = 'theme' then
                 Config.Theme := copy(ThisLine, DelimiterPos+1, 6)
+
+            else if copy(ThisLine, 1, 11) = 'interactive' then
+                Config.Interactive := pos('TRUE', ThisLine) <> 0
 
             else if copy(ThisLine, 1, 9) = 'inputFile' then
                 Config.InputFile := copy(ThisLine, DelimiterPos+1, 10)
