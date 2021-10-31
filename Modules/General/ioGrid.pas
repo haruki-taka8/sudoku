@@ -27,11 +27,12 @@ begin
         for x := 0 to 8 do
             grid[y, x] := 0;
 
-    ClrScr;
-    TextColor(White);
-
     if InputFile = 'stdin' then
+    begin
+        ClrScr;
+        TextColor(White);
         writeln('Input unsolved sudoku board (', InputMode, ' mode), -1 to exit');
+    end;
 
     if InputMode = 'Space' then
         for y := 0 to 8 do
@@ -55,7 +56,7 @@ begin
         else
             read(InputHandler, ThisLine);
 
-        // Sanitize input ([ .] -> 0)
+        // Sanitize input ([ \.] -> 0)
         for i := 1 to length(ThisLine) do
             if (ThisLine[i] = ' ') or (ThisLine[i] = '.') then
                 ThisLine[i] := '0';
