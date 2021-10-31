@@ -34,8 +34,8 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
     <td>Jellyfish</td>
   </tr>
   <tr>
-    <td>Locked triple</td>
-    <td></td>
+    <td>Naked quad</td>
+    <td>Hidden quad</td>
     <td>Visual elimination</td>
     <td></td>
     <td></td>
@@ -43,7 +43,7 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
 </table>
 
 #### ❌ Not Supported
-Naked quad, hidden quad, ...
+Some even more difficult strategies...
 
 
 ## 💡 Todo

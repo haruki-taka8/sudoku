@@ -10,19 +10,21 @@ uses
     ioGrid             in 'Modules\General\ioGrid.pas',
     types              in 'Modules\General\types.pas',
      
-    NakedPair          in 'Modules\Solving\nakedPair.pas',
-    HiddenPair         in 'Modules\Solving\hiddenPair.pas',
-    NakedTriple        in 'Modules\Solving\nakedTriple.pas',
-    HiddenTriple       in 'Modules\Solving\hiddenTriple.pas',
-    PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas',
-    ClaimingPair       in 'Modules\Solving\claimingPair.pas',
-    Wing               in 'Modules\Solving\wing.pas',
-    XYWing             in 'Modules\Solving\xyWing.pas',
-    XYZWing            in 'Modules\Solving\xyzWing.pas',
-
     NakedSingle        in 'Modules\Solving\nakedSingle.pas',
     HiddenSingle       in 'Modules\Solving\hiddenSingle.pas',
-    Visual             in 'Modules\Solving\visual.pas';
+    Visual             in 'Modules\Solving\visual.pas',
+
+    NakedPair          in 'Modules\Solving\nakedPair.pas',
+    HiddenPair         in 'Modules\Solving\hiddenPair.pas',
+    ClaimingPair       in 'Modules\Solving\claimingPair.pas',
+    PointingPairTriple in 'Modules\Solving\pointingPairTriple.pas',
+    NakedTriple        in 'Modules\Solving\nakedTriple.pas',
+    HiddenTriple       in 'Modules\Solving\hiddenTriple.pas',
+    NakedQuad          in 'Modules\Solving\nakedQuad.pas',
+    HiddenQuad         in 'Modules\Solving\hiddenQuad.pas',
+    Wing               in 'Modules\Solving\wing.pas',
+    XYWing             in 'Modules\Solving\xyWing.pas',
+    XYZWing            in 'Modules\Solving\xyzWing.pas';
 
 begin
     ReadConfiguration(config);
@@ -54,9 +56,11 @@ begin
         if NakedPair.RemoveHint(hint)          then continue;
         if HiddenPair.RemoveHint(hint)         then continue;
         if ClaimingPair.RemoveHint(hint)       then continue;
+        if PointingPairTriple.RemoveHint(hint) then continue;
         if NakedTriple.RemoveHint(hint)        then continue;
         if HiddenTriple.RemoveHint(hint)       then continue;
-        if PointingPairTriple.RemoveHint(hint) then continue;
+        if NakedQuad.RemoveHint(hint)          then continue;
+        if HiddenQuad.RemoveHint(hint)         then continue;
         if Wing.RemoveHint(hint, 2)            then continue; // X-Wing
         if Wing.RemoveHint(hint, 3)            then continue; // Swordfish
         if Wing.RemoveHint(hint, 4)            then continue; // Jellyfish
