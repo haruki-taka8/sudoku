@@ -12,8 +12,6 @@ if (!(Test-Path '.\defaults.ini')) {
         'interactive=FALSE',
         'verbose=TRUE',
         'theme=Switch',
-        'input=Space',
-        'inputFile=stdin',
         '',
         '; Option values are case and space-sensitive',
         '',
@@ -30,17 +28,6 @@ if (!(Test-Path '.\defaults.ini')) {
         '; theme',
         '; --------------------------------------------------------------',
         '; DEFAULT Switch  -  ACCEPTS Plain OR Switch OR E257',
-        '',
-        '; input',
-        '; --------------------------------------------------------------',
-        '; DEFAULT Space   -  ACCEPTS Space OR Continuous',
-        '; Space       Delimit each number with space, 0 for empty cells, single or multi-line allowed',
-        '; Continuous  No delimiter between characters, use space or 0 or . for empty cells, single line only',
-        '',
-        '; inputFile',
-        '; --------------------------------------------------------------',
-        '; DEFAULT stdin   -  ACCEPTS stdin OR a valid file name',
-        '; The program will read the sudoku board from the inputFile file',
         ''
     ) | Out-File '.\defaults.ini' -Encoding ASCII
 

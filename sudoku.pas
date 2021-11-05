@@ -2,6 +2,7 @@ program sudoku;
 
 uses
     crt,
+    sysutils,
     auxiliary          in 'Modules\General\auxiliary.pas',
     combination        in 'Modules\General\combination.pas',
     endgame            in 'Modules\General\endgame.pas',
@@ -28,7 +29,7 @@ uses
 
 begin
     ReadConfiguration(config);
-    ReadGrid(grid, given, config.Input, config.InputFile);
+    ReadGrid(grid, given);
 
     oldGrid := grid;
     GetHint.GetHint(grid, hint);
@@ -88,7 +89,10 @@ begin
         StopTranscript(fileHandler);
     end;
         
-    write('Press ENTER to exit.');
-    readln();
-    readln(); // No clue why, but two readln; are required
+    if ParamCount <> 4 then
+    begin
+        write('Press ENTER to exit.');
+        readln();
+        readln(); // No clue why, but two readln; are required
+    end;
 end.

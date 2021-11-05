@@ -1,84 +1,68 @@
 unit ioGrid;
 
 interface
-uses types, auxiliary, crt;
-procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
+uses types, auxiliary, crt, sysutils;
+procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid);
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
 procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer; ToFile : boolean);
 
 implementation
-procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid; InputMode, InputFile : string);
+procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid);
 var x, y, i : integer;
-    ThisLine : string;
-    InputHandler : Text;
+    ThisLine, ThisInput : string;
 
 begin
     // Returns Grid and Given
     
     // If pascal has something like $a, $b = 1, 2
     // it will be easier to pass by value rather than ref
-    if InputFile <> 'stdin' then
+    ClrScr;
+    TextColor(White);
+    writeln('Input unsolved sudoku board, -1 to exit');
+
+    // Read input
+    ThisInput := '';
+
+    if ParamCount = 4 then
+        ThisInput := ParamStr(4);
+
+    while length(ThisInput) <> 81 do
     begin
-        assign(InputHandler, InputFile);
-        reset(InputHandler);
-    end;
-
-    for y := 0 to 8 do
-        for x := 0 to 8 do
-            grid[y, x] := 0;
-
-    if InputFile = 'stdin' then
-    begin
-        ClrScr;
-        TextColor(White);
-        writeln('Input unsolved sudoku board (', InputMode, ' mode), -1 to exit');
-    end;
-
-    if InputMode = 'Space' then
-        for y := 0 to 8 do
-            for x := 0 to 8 do
-            begin
-                if InputFile = 'stdin' then
-                    read(grid[y, x])
-                else
-                    read(InputHandler, grid[y, x]);
-
-                if grid[y, x] = -1 then
-                    halt(2)
-                else
-                    given[y, x] := grid[y, x] <> 0;
-            end
-                
-    else if InputMode = 'Continuous' then
-    begin
-        if InputFile = 'stdin' then
-            read(ThisLine)
-        else
-            read(InputHandler, ThisLine);
-
-        // Sanitize input ([ \.] -> 0)
-        for i := 1 to length(ThisLine) do
-            if (ThisLine[i] = ' ') or (ThisLine[i] = '.') then
-                ThisLine[i] := '0';
-
-        y := 0;
-        x := 0;
-        for i := 1 to length(ThisLine) do
+        // Sanitize Input (\. -> 0)
+        i := 1;
+        while i <= length(ThisInput) do
         begin
-            grid[y, x] := SBA_StrToInt(ThisLine[i]);
-            given[y, x] := grid[y, x] <> 0;
+            if ThisInput[i] = '.' then ThisInput[i] := '0';
 
-            x := x + 1;
-            if x >= 9 then
-            begin
-                x := 0;
-                y := y + 1;
-            end;
+            if ThisInput[i] = ' ' then ThisInput := SBA_RemoveAt(ThisInput, i);
+            i := i + 1;
+
+        end;
+
+        if length(ThisInput) = 81 then break;
+
+        // Read extra input if needed
+        readln(ThisLine);
+        if ThisLine = '-1' then halt(2);
+        ThisInput := ThisInput + ThisLine;
+    end;
+
+    // Convert to TIntegerGrid
+    y := 0;
+    x := 0;
+    for i := 1 to 81 do
+    begin
+        grid[y, x] := 0;
+        grid[y, x] := StrToInt(ThisInput[i]);
+        given[y, x] := grid[y, x] <> 0;
+
+        x := x + 1;
+        if x >= 9 then
+        begin
+            x := 0;
+            y := y + 1;
         end;
     end;
-
-    if InputFile <> 'stdin' then
-        close(InputHandler);
 end;
 
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
@@ -269,6 +253,17 @@ begin
             writeln;
             if Config.Verbose and ToFile then writeln(fileHandler);
         end;
+    end;
+
+    // Write resultant board in without \s
+    if Config.Verbose and ToFile then
+    begin
+        writeln(fileHandler);
+        for y := 0 to 8 do
+            for x := 0 to 8 do
+                write(fileHandler, grid[y, x]);
+
+        writeln(fileHandler);
     end;
 end;
 
