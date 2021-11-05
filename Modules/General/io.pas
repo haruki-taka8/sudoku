@@ -20,7 +20,6 @@ begin
     Config.Interactive := FALSE;
     Config.Verbose     := FALSE;
     Config.Theme       := 'Switch';
-    Config.InputFile   := 'stdin';
 
     // Read from defaults.ini
     DelimiterPos := 0;
@@ -42,9 +41,6 @@ begin
 
             else if copy(ThisLine, 1, 11) = 'interactive' then
                 Config.Interactive := pos('TRUE', copy(ThisLine, DelimiterPos+1, 4)) <> 0
-
-            else if copy(ThisLine, 1, 9) = 'inputFile' then
-                Config.InputFile := copy(ThisLine, DelimiterPos+1, 10)
         end;
     end;
 

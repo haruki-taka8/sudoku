@@ -32,11 +32,8 @@ begin
         i := 1;
         while i <= length(ThisInput) do
         begin
-            if ThisInput[i] = '.' then ThisInput[i] := '0';
-
             if ThisInput[i] = ' ' then ThisInput := SBA_RemoveAt(ThisInput, i);
             i := i + 1;
-
         end;
 
         if length(ThisInput) = 81 then break;
@@ -53,6 +50,9 @@ begin
     for i := 1 to 81 do
     begin
         grid[y, x] := 0;
+        
+        if ThisInput[i] = '.' then ThisInput[i] := '0';
+    
         grid[y, x] := StrToInt(ThisInput[i]);
         given[y, x] := grid[y, x] <> 0;
 
