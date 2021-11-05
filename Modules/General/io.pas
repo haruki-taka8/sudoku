@@ -9,7 +9,6 @@ procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Deta
 procedure StartTranscript (var fileHandler : Text; InputGrid : TIntegerGrid);
 procedure StopTranscript (var fileHandler : Text);
 
-
 implementation
 procedure ReadConfiguration (var config : TConfiguration);
 var Defaults : text;
@@ -35,13 +34,13 @@ begin
         if DelimiterPos <> 0 then
         begin
             if copy(ThisLine, 1, 7) = 'verbose' then
-                Config.Verbose := pos('TRUE', ThisLine) <> 0
+                Config.Verbose := pos('TRUE', copy(ThisLine, DelimiterPos+1, 4)) <> 0
 
             else if copy(ThisLine, 1, 5) = 'theme' then
                 Config.Theme := copy(ThisLine, DelimiterPos+1, 6)
 
             else if copy(ThisLine, 1, 11) = 'interactive' then
-                Config.Interactive := pos('TRUE', ThisLine) <> 0
+                Config.Interactive := pos('TRUE', copy(ThisLine, DelimiterPos+1, 4)) <> 0
 
             else if copy(ThisLine, 1, 9) = 'inputFile' then
                 Config.InputFile := copy(ThisLine, DelimiterPos+1, 10)
