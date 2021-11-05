@@ -1,7 +1,7 @@
 unit NakedQuad;
 
 interface
-uses combination, types, auxiliary, io;
+uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -75,7 +75,7 @@ begin
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to row '+SBA_IntToStr(y));
+                        WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to row '+IntToStr(y));
                 end;
             end;
     end;
@@ -140,7 +140,7 @@ begin
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to col '+SBA_IntToStr(x));
+                        WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to col '+IntToStr(x));
                 end;
             end;
     end;
@@ -217,7 +217,7 @@ begin
                                 end;
 
                             if HasRemoved then
-                                WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to sub '+SBA_IntToStr((3*(r div 3)+(s div 3))));
+                                WriteStepHint(fileHandler, y, x, 'Naked  Quad', '-['+ThisCombo+'] due to sub '+IntToStr((3*(r div 3)+(s div 3))));
                         end;
                 end;
 

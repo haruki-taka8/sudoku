@@ -1,7 +1,7 @@
 unit HiddenPair;
 
 interface
-uses combination, io, types, auxiliary;
+uses combination, io, types, auxiliary, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -52,7 +52,7 @@ begin
                                 hint[PairY, PairX] := ThisCombo;
                                 HasRemoved := true;
 
-                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (row)');
                             end;
                         end;
 
@@ -86,7 +86,7 @@ begin
                                 hint[PairY, PairX] := ThisCombo;
                                 HasRemoved := true;
 
-                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                                WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (column)');
                             end;
                         end;
 
@@ -128,7 +128,7 @@ begin
                                     hint[PairY, PairX] := ThisCombo;
                                     HasRemoved := true;
 
-                                    WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                                    WriteStepHint(fileHandler, y, x, 'Hidden Pair', '=['+ThisCombo+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (subgrid)');
                                 end;
                         end;
                     end;

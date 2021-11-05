@@ -1,7 +1,7 @@
 unit xyWing;
 
 interface
-uses types, auxiliary, io;
+uses types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 implementation
@@ -180,7 +180,7 @@ begin
                                                     begin
                                                         if pos(Wings[q].UniqueFromPivot, hint[QCandidates[s].y, QCandidates[s].x]) <> 0 then
                                                         begin
-                                                            WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XY-Wing', '-['+Wings[q].UniqueFromPivot+'] due to ('+SBA_IntToStr(Wings[q].y)+','+SBA_IntToStr(Wings[q].x)+')+('+SBA_IntToStr(Pivot.y)+','+SBA_IntToStr(Pivot.x)+')+('+SBA_IntToStr(Wings[p].y)+','+SBA_IntToStr(Wings[p].x)+')');
+                                                            WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XY-Wing', '-['+Wings[q].UniqueFromPivot+'] due to ('+IntToStr(Wings[q].y)+','+IntToStr(Wings[q].x)+')+('+IntToStr(Pivot.y)+','+IntToStr(Pivot.x)+')+('+IntToStr(Wings[p].y)+','+IntToStr(Wings[p].x)+')');
                                                             HasEverRemoved := true;
                                                         end;
                                                         hint[QCandidates[s].y, QCandidates[s].x] := SBA_RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(Wings[q].UniqueFromPivot, hint[QCandidates[s].y, QCandidates[s].x]));

@@ -1,7 +1,7 @@
 unit ClaimingPair;
 
 interface
-uses io, types, auxiliary;
+uses io, types, auxiliary, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -17,7 +17,7 @@ begin
     for y := 0 to 8 do
         for x := 0 to 8 do
             for p := 1 to 9 do
-                if pos(SBA_IntToStr(p), hint[y, x]) <> 0 then
+                if pos(IntToStr(p), hint[y, x]) <> 0 then
                 begin
                     // Row
                     HasRemoved := false;
@@ -27,11 +27,11 @@ begin
                     LeftY := 3*(y div 3);
 
                     for q := LeftX to LeftX+2 do
-                        if pos(SBA_IntToStr(p), hint[y, q]) <> 0 then
+                        if pos(IntToStr(p), hint[y, q]) <> 0 then
                             SubgridTotal := SubgridTotal + 1;
                     
                     for q := 0 to 8 do
-                        if pos(SBA_IntToStr(p), hint[y, q]) <> 0 then
+                        if pos(IntToStr(p), hint[y, q]) <> 0 then
                             Total := Total + 1;
 
                     // IF there are no number P outside of subgrid and in row X
@@ -40,16 +40,16 @@ begin
                     begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
-                                if (s <> y) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
+                                if (s <> y) and (pos(IntToStr(p), hint[s, r]) <> 0) then
                                 begin
-                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
+                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
                                     HasEverRemoved := true;
                                     
                                 end;
 
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to row '+SBA_IntToStr(y));
+                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+IntToStr(p)+'] for sub '+IntToStr(3*(y div 3)+(x div 3))+' due to row '+IntToStr(y));
                     end;
 
                     // Column
@@ -60,11 +60,11 @@ begin
                     LeftY := 3*(y div 3);
 
                     for q := LeftY to LeftY+2 do
-                        if pos(SBA_IntToStr(p), hint[q, x]) <> 0 then
+                        if pos(IntToStr(p), hint[q, x]) <> 0 then
                             SubgridTotal := SubgridTotal + 1;
                     
                     for q := 0 to 8 do
-                        if pos(SBA_IntToStr(p), hint[q, x]) <> 0 then
+                        if pos(IntToStr(p), hint[q, x]) <> 0 then
                             Total := Total + 1;
 
                     // IF there are no number P outside of subgrid and in row X
@@ -73,15 +73,15 @@ begin
                     begin
                         for s := LeftY to LeftY+2 do
                             for r := LeftX to LeftX+2 do
-                                if (r <> x) and (pos(SBA_IntToStr(p), hint[s, r]) <> 0) then
+                                if (r <> x) and (pos(IntToStr(p), hint[s, r]) <> 0) then
                                 begin
-                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(SBA_IntToStr(p), hint[s, r]));
+                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
                                     HasEverRemoved := true;
                                 end;
 
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+SBA_IntToStr(p)+'] for sub '+SBA_IntToStr(3*(y div 3)+(x div 3))+' due to col '+SBA_IntToStr(x));
+                            WriteStepHint(fileHandler, y, x, 'Claiming Pair', '-['+IntToStr(p)+'] for sub '+IntToStr(3*(y div 3)+(x div 3))+' due to col '+IntToStr(x));
                     end;
                 end;
 

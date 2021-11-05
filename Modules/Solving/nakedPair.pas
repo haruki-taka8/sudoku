@@ -1,7 +1,7 @@
 unit nakedPair;
 
 interface
-uses types, auxiliary, io;
+uses types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -52,7 +52,7 @@ begin
                         end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(y)+','+SBA_IntToStr(PairX)+') (row)');
+                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(y)+','+IntToStr(PairX)+') (row)');
                     
                         
                     // Remove others from subgrid
@@ -88,7 +88,7 @@ begin
                         
                         IsLockedPair := true;
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (row)');
+                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (row)');
                     end;
                 end;
                     
@@ -123,7 +123,7 @@ begin
                         end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(x)+') (column)');
+                        WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(x)+') (column)');
                     
                     // Remove others from subgrid
                     SubX := x div 3;
@@ -159,7 +159,7 @@ begin
                         
                         IsLockedPair := true;
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (column)');
+                            WriteStepHint(fileHandler, y, x, 'Locked Pair', '-['+hint[y, x]+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (column)');
                     end;
                 end;
                 
@@ -209,7 +209,7 @@ begin
                             end;
 
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+SBA_IntToStr(y)+','+SBA_IntToStr(x)+')+('+SBA_IntToStr(PairY)+','+SBA_IntToStr(PairX)+') (subgrid)');
+                            WriteStepHint(fileHandler, y, x, 'Naked  Pair', '-['+hint[y, x]+'] due to ('+IntToStr(y)+','+IntToStr(x)+')+('+IntToStr(PairY)+','+IntToStr(PairX)+') (subgrid)');
                     end;
                 end;
             end;

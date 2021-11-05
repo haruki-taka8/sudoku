@@ -1,7 +1,7 @@
 unit nakedSingle;
 
 interface
-uses types, auxiliary, io;
+uses types, auxiliary, io, sysutils;
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
 // Naked single = cell with only one hint
@@ -17,7 +17,7 @@ begin
         for x := 0 to 8 do
             if length(InputHint[y, x]) = 1 then
             begin
-                grid[y, x] := SBA_StrToInt(InputHint[y, x]);
+                grid[y, x] := StrToInt(InputHint[y, x]);
                 WriteStepCell(fileHandler, y, x, grid[y, x], 'Naked  Single', '');
                 HasSolved := true;
             end;

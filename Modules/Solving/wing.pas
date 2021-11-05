@@ -1,7 +1,7 @@
 unit wing;
 
 interface
-uses combination, types, auxiliary, io;
+uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid; IntersectionCount : integer) : boolean;
 
 implementation
@@ -33,13 +33,13 @@ begin
         begin
             ThisBlock := '';
             for x := 0 to 8 do
-                if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
-                    ThisBlock := ThisBlock + SBA_IntToStr(x);
+                if pos(IntToStr(i), hint[y, x]) <> 0 then
+                    ThisBlock := ThisBlock + IntToStr(x);
 
             if (length(ThisBlock) >= 2) and (length(ThisBlock) <= IntersectionCount) then
             begin
                 Possible[y] := ThisBlock;
-                PossibleIndex := PossibleIndex + SBA_IntToStr(y);
+                PossibleIndex := PossibleIndex + IntToStr(y);
                 PossibleCount := PossibleCount + 1;
             end;
         end;
@@ -52,30 +52,30 @@ begin
                 else
                 begin
                     HasRemoved := false;
-                    RemoveFrom := Possible[SBA_StrToInt(ThisCombo[1])];
+                    RemoveFrom := Possible[StrToInt(ThisCombo[1])];
                     for j := 2 to IntersectionCount do
-                        RemoveFrom := RemoveFrom + Possible[SBA_StrToInt(ThisCombo[j])];
+                        RemoveFrom := RemoveFrom + Possible[StrToInt(ThisCombo[j])];
                     RemoveFrom := MergeHint(RemoveFrom);    
                     
                     if length(RemoveFrom) = IntersectionCount then
                     begin
                         // X-Wing/Swordfish/Jellyfish detected
                         for y := 0 to 8 do
-                            if pos(SBA_IntToStr(y), ThisCombo) = 0 then
+                            if pos(IntToStr(y), ThisCombo) = 0 then
                                 for x := 0 to 8 do
-                                    if pos(SBA_IntToStr(x), RemoveFrom) <> 0 then
+                                    if pos(IntToStr(x), RemoveFrom) <> 0 then
                                     begin
-                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
+                                        if pos(IntToStr(i), hint[y, x]) <> 0 then
                                         begin
                                             HasRemoved := true;
                                             HasEverRemoved := true;
                                         end;
-                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(SBA_IntToStr(i), hint[y, x]));
+                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
                                     end;
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, Algorithm, '-['+SBA_IntToStr(i)+'] for col ['+RemoveFrom+'] due to row ['+ThisCombo+']');
+                        WriteStepHint(fileHandler, y, x, Algorithm, '-['+IntToStr(i)+'] for col ['+RemoveFrom+'] due to row ['+ThisCombo+']');
                 end;
     end;
 
@@ -94,13 +94,13 @@ begin
         begin
             ThisBlock := '';
             for y := 0 to 8 do
-                if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
-                    ThisBlock := ThisBlock + SBA_IntToStr(y);
+                if pos(IntToStr(i), hint[y, x]) <> 0 then
+                    ThisBlock := ThisBlock + IntToStr(y);
 
             if (length(ThisBlock) = 2) and (length(ThisBlock) <= IntersectionCount) then
             begin
                 Possible[x] := ThisBlock;
-                PossibleIndex := PossibleIndex + SBA_IntToStr(x);
+                PossibleIndex := PossibleIndex + IntToStr(x);
                 PossibleCount := PossibleCount + 1;
             end;
         end;
@@ -113,30 +113,30 @@ begin
                 else
                 begin
                     HasRemoved := false;
-                    RemoveFrom := Possible[SBA_StrToInt(ThisCombo[1])];
+                    RemoveFrom := Possible[StrToInt(ThisCombo[1])];
                     for j := 2 to IntersectionCount do
-                        RemoveFrom := RemoveFrom + Possible[SBA_StrToInt(ThisCombo[j])];
+                        RemoveFrom := RemoveFrom + Possible[StrToInt(ThisCombo[j])];
                     RemoveFrom := MergeHint(RemoveFrom);    
                     
                     if length(RemoveFrom) = IntersectionCount then
                     begin
                         // X-Wing/Swordfish/Jellyfish detected
                         for x := 0 to 8 do
-                            if pos(SBA_IntToStr(x), ThisCombo) = 0 then
+                            if pos(IntToStr(x), ThisCombo) = 0 then
                                 for y := 0 to 8 do
-                                    if pos(SBA_IntToStr(y), RemoveFrom) <> 0 then
+                                    if pos(IntToStr(y), RemoveFrom) <> 0 then
                                     begin
-                                        if pos(SBA_IntToStr(i), hint[y, x]) <> 0 then
+                                        if pos(IntToStr(i), hint[y, x]) <> 0 then
                                         begin
                                             HasRemoved := true;
                                             HasEverRemoved := true;
                                         end;
-                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(SBA_IntToStr(i), hint[y, x]));
+                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
                                     end;
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, Algorithm, '-['+SBA_IntToStr(i)+'] for row ['+RemoveFrom+'] due to col ['+ThisCombo+']');
+                        WriteStepHint(fileHandler, y, x, Algorithm, '-['+IntToStr(i)+'] for row ['+RemoveFrom+'] due to col ['+ThisCombo+']');
                 end;
     end;
 

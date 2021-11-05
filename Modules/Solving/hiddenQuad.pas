@@ -1,7 +1,7 @@
 unit HiddenQuad;
 
 interface
-uses combination, types, auxiliary, io;
+uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -68,7 +68,7 @@ begin
                         end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for row '+SBA_IntToStr(y));
+                        WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for row '+IntToStr(y));
                 end;
             end;
     end;
@@ -125,7 +125,7 @@ begin
                         end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for col '+SBA_IntToStr(x));
+                        WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for col '+IntToStr(x));
                 end;
             end;
     end;
@@ -195,7 +195,7 @@ begin
                             end;
 
                         if HasRemoved then
-                            WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for sub '+SBA_IntToStr((3*(r div 3)+(s div 3))));
+                            WriteStepHint(fileHandler, y, x, 'Hidden Quad', '-[^'+ThisCombo+'] for sub '+IntToStr((3*(r div 3)+(s div 3))));
                     end;
                 end; 
             x := x + 3;

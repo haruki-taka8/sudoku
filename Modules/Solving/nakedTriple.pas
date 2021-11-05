@@ -1,7 +1,7 @@
 unit NakedTriple;
 
 interface
-uses combination, types, auxiliary, io;
+uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 
@@ -87,7 +87,7 @@ begin
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to row '+SBA_IntToStr(y));
+                        WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to row '+IntToStr(y));
                 end;
 
                 // Locked?
@@ -100,7 +100,7 @@ begin
                                     hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                     IsOnceLockedTriple := true; 
-                    WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+SBA_IntToStr((3*(r div 3)+(s div 3)))+' (row)');
+                    WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+IntToStr((3*(r div 3)+(s div 3)))+' (row)');
                 end;
             end;
     end;
@@ -173,7 +173,7 @@ begin
                     end;
 
                     if HasRemoved then
-                        WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to col '+SBA_IntToStr(x));
+                        WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to col '+IntToStr(x));
                 end;
 
                 // Locked?
@@ -186,7 +186,7 @@ begin
                                     hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                     IsOnceLockedTriple := true;             
-                    WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+SBA_IntToStr((3*(r div 3)+(s div 3)))+' (col)');
+                    WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+IntToStr((3*(r div 3)+(s div 3)))+' (col)');
                 end;
             end;
     end;
@@ -265,7 +265,7 @@ begin
                                     end;
 
                                 if HasRemoved then
-                                    WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to sub '+SBA_IntToStr((3*(r div 3)+(s div 3))));
+                                    WriteStepHint(fileHandler, y, x, 'Naked  Triple', '-['+ThisCombo+'] due to sub '+IntToStr((3*(r div 3)+(s div 3))));
                             end;
                     end;
 

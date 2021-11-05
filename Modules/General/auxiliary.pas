@@ -2,8 +2,6 @@ unit auxiliary;
 
 interface
 function SBA_RemoveAt (Input : string; Position : integer) : string;
-function SBA_StrToInt (Input : string) : integer;
-function SBA_IntToStr (Input : integer) : string;
 function MergeHint (HintsInHouse : string) : string;
 
 implementation
@@ -13,24 +11,9 @@ begin
     if Position = 0 then
         Result := Input
     else
-        Result := copy(Input, 1, Position-1) + copy(Input, Position+1, 8);
+        Result := copy(Input, 1, Position-1) + copy(Input, Position+1, length(Input)-1);
 
     SBA_RemoveAt := Result;
-end;
-
-function SBA_StrToInt (Input : string) : integer;
-var Temp, Code : integer;
-begin
-    Val(Input, Temp, Code);
-    Code := Code; // Sorry, I have to suppress compiler warning
-    SBA_StrToInt := Temp;
-end;
-
-function SBA_IntToStr (Input : integer) : string;
-var Temp : string;
-begin
-    Str(Input, Temp);
-    SBA_IntToStr := Temp;
 end;
 
 function MergeHint (HintsInHouse : string) : string;

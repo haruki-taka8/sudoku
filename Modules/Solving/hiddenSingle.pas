@@ -1,7 +1,7 @@
 unit hiddenSingle;
 
 interface
-uses types, auxiliary, io;
+uses types, auxiliary, io, sysutils;
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
 
@@ -30,7 +30,7 @@ begin
                         
                     if IsHiddenSingle then
                     begin
-                        grid[y, x] := SBA_StrToInt(ThisHint);
+                        grid[y, x] := StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(column)');
                         HasSolved := true;
                         break;
@@ -47,7 +47,7 @@ begin
                         
                     if IsHiddenSingle then
                     begin
-                        grid[y, x] := SBA_StrToInt(ThisHint);
+                        grid[y, x] := StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(row)');
                         HasSolved := true;
                         break;
@@ -70,7 +70,7 @@ begin
                     
                     if IsHiddenSingle then
                     begin
-                        grid[y, x] := SBA_StrToInt(ThisHint);
+                        grid[y, x] := StrToInt(ThisHint);
                         WriteStepCell(fileHandler, y, x, grid[y, x], 'Hidden Single', '(subgrid)');
                         HasSolved := true;
                         break;

@@ -1,7 +1,7 @@
 unit io;
 
 interface
-uses types, auxiliary;
+uses types, auxiliary, sysutils;
 procedure ReadConfiguration (var config : TConfiguration);
 procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
@@ -16,12 +16,13 @@ var Defaults : text;
     DelimiterPos : integer;
 
 begin
+    // Defaults
     Config.Interactive := FALSE;
     Config.Verbose     := FALSE;
     Config.Theme       := 'Switch';
-    Config.Input       := 'Space';
     Config.InputFile   := 'stdin';
 
+    // Read from defaults.ini
     DelimiterPos := 0;
     assign(Defaults, 'defaults.ini');
     reset(Defaults);
@@ -44,13 +45,19 @@ begin
 
             else if copy(ThisLine, 1, 9) = 'inputFile' then
                 Config.InputFile := copy(ThisLine, DelimiterPos+1, 10)
-
-            else if copy(ThisLine, 1, 5) = 'input' then
-                Config.Input := copy(ThisLine, DelimiterPos+1, 10);
         end;
     end;
 
     close(Defaults);
+
+    // Read from command line arguments
+    // sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID
+    if ParamCount = 4 then
+    begin
+        Config.Verbose     := pos('TRUE', ParamStr(1)) <> 0;
+        Config.Theme       := ParamStr(2);
+        Config.Interactive := pos('TRUE', ParamStr(3)) <> 0;
+    end;
 end;
 
 procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
@@ -93,7 +100,7 @@ var i : integer;
 begin
     Filename := 'Sudoku_Steps_';
     for i := 0 to 8 do
-        Filename := Filename + SBA_IntToStr(InputGrid[0, i]);
+        Filename := Filename + IntToStr(InputGrid[0, i]);
     Filename := Filename + '.txt';
 
     assign(fileHandler, Filename);
