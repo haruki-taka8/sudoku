@@ -10,35 +10,34 @@ implementation
 procedure ReadGrid (var grid : TIntegerGrid; var given : TBooleanGrid);
 var x, y, i : integer;
     ThisLine, ThisInput : string;
+    HasPrinted : boolean;
 
 begin
     // Returns Grid and Given
-    
-    // If pascal has something like $a, $b = 1, 2
-    // it will be easier to pass by value rather than ref
-    ClrScr;
     TextColor(White);
+    writeln;
     writeln('Input unsolved sudoku board, -1 to exit');
 
     // Read input
+    HasPrinted := false;
     ThisInput := '';
 
-    if ParamCount = 4 then
+    if ParamCount() = 4 then
         ThisInput := ParamStr(4);
 
     while length(ThisInput) <> 81 do
     begin
-        // Sanitize Input (\. -> 0)
-        i := 1;
-        while i <= length(ThisInput) do
-        begin
-            if ThisInput[i] = ' ' then ThisInput := SBA_RemoveAt(ThisInput, i);
-            i := i + 1;
-        end;
-
+        // Remove space
+        ThisInput := StringReplace(ThisInput, ' ', '', [rfReplaceAll]);
         if length(ThisInput) = 81 then break;
 
         // Read extra input if needed
+        if (not HasPrinted) and (ParamCount() = 4) then
+        begin
+            write(ParamStr(4));
+            HasPrinted := true;
+        end;
+
         readln(ThisLine);
         if ThisLine = '-1' then halt(2);
         ThisInput := ThisInput + ThisLine;
@@ -48,12 +47,8 @@ begin
     y := 0;
     x := 0;
     for i := 1 to 81 do
-    begin
-        grid[y, x] := 0;
-        
-        if ThisInput[i] = '.' then ThisInput[i] := '0';
-    
-        grid[y, x] := StrToInt(ThisInput[i]);
+    begin            
+        grid[y, x] := StrToIntDef(ThisInput[i], 0);
         given[y, x] := grid[y, x] <> 0;
 
         x := x + 1;
