@@ -7,7 +7,6 @@ procedure WriteHint (var fileHandler : text; InputHint : TStringGrid);
 procedure WriteStepCell (var fileHandler : text; y, x, Cell : integer; Algorithm, Details : string);
 procedure WriteStepHint (var fileHandler : text; y, x : integer; Algorithm, Details : string);
 procedure StartTranscript (var fileHandler : Text; InputGrid : TIntegerGrid);
-procedure StopTranscript (var fileHandler : Text);
 
 implementation
 procedure ReadConfiguration (var config : TConfiguration);
@@ -48,7 +47,7 @@ begin
 
     // Read from command line arguments
     // sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID
-    if ParamCount = 4 then
+    if ParamCount() = 4 then
     begin
         Config.Verbose     := pos('TRUE', ParamStr(1)) <> 0;
         Config.Theme       := ParamStr(2);
@@ -101,11 +100,6 @@ begin
 
     assign(fileHandler, Filename);
     rewrite(fileHandler);
-end;
-
-procedure StopTranscript (var fileHandler : Text);
-begin
-    close(fileHandler);
 end;
 
 end.

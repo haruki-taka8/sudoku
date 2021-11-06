@@ -86,13 +86,12 @@ begin
         end;
         
         writeln(fileHandler);
-        StopTranscript(fileHandler);
+        close(fileHandler);
     end;
         
     if ParamCount <> 4 then
     begin
         write('Press ENTER to exit.');
         readln();
-        readln(); // No clue why, but two readln; are required
     end;
 end.
