@@ -14,8 +14,8 @@ var x, y, i : integer;
 
 begin
     // Returns Grid and Given
+    ClrScr;
     TextColor(White);
-    writeln;
     writeln('Input unsolved sudoku board, -1 to exit');
 
     // Read input
@@ -23,7 +23,7 @@ begin
     ThisInput := '';
 
     if ParamCount() = 4 then
-        ThisInput := ParamStr(4);
+        ThisInput := trim(ParamStr(4));
 
     while length(ThisInput) <> 81 do
     begin
@@ -63,10 +63,10 @@ end;
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
 begin
     ClrScr;
-    if Theme = 'Plain' then
+    if Theme = 'plain' then
         WriteGrid(InputGrid, InputGiven, 1, 1, ToFile)
 
-    else if Theme = 'Switch' then
+    else if Theme = 'switch' then
     begin
         textColor(Red);
         writeln('                                                              +-----------+');
@@ -117,7 +117,7 @@ begin
         writeln('+-----------+');
         TextColor(LightGray); 
     end
-    else if Theme = 'E257' then
+    else if Theme = 'e257' then
     begin    
         TextColor(DarkGray);
         TextColor(DarkGray);
@@ -187,6 +187,7 @@ begin
         
     end;
     GotoXY(1,17);
+    TextColor(White);
 end;
 
 procedure WriteGrid (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; YOffset, XOffset : integer; ToFile : boolean);

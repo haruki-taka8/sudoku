@@ -9,11 +9,11 @@ if (!(Test-Path '.\sudoku.exe')) {
 if (!(Test-Path '.\defaults.ini')) {
     Write-Warning 'Configuration file not found; creating a default file'
     (
-        'interactive=FALSE',
-        'verbose=TRUE',
-        'theme=Switch',
+        'interactive = FALSE',
+        'verbose = TRUE',
+        'theme = Switch',
         '',
-        '; Option values are case and space-sensitive',
+        '; Option values are case-insensitive',
         '',
         '; interactive',
         '; --------------------------------------------------------------',

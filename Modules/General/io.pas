@@ -28,17 +28,18 @@ begin
     while not eof(Defaults) do
     begin
         readln(Defaults, ThisLine);
+        ThisLine := StringReplace(ThisLine, ' ', '', [rfReplaceAll]);
 
         DelimiterPos := pos('=', ThisLine);
         if DelimiterPos <> 0 then
         begin
-            if copy(ThisLine, 1, 7) = 'verbose' then
+            if lowercase(trim(copy(ThisLine, 1, DelimiterPos-1))) = 'verbose' then
                 Config.Verbose := pos('TRUE', copy(ThisLine, DelimiterPos+1, 4)) <> 0
 
-            else if copy(ThisLine, 1, 5) = 'theme' then
-                Config.Theme := copy(ThisLine, DelimiterPos+1, 6)
+            else if lowercase(trim(copy(ThisLine, 1, DelimiterPos-1))) = 'theme' then
+                Config.Theme := lowercase(copy(ThisLine, DelimiterPos+1))
 
-            else if copy(ThisLine, 1, 11) = 'interactive' then
+            else if lowercase(trim(copy(ThisLine, 1, DelimiterPos-1))) = 'interactive' then
                 Config.Interactive := pos('TRUE', copy(ThisLine, DelimiterPos+1, 4)) <> 0
         end;
     end;
@@ -50,7 +51,7 @@ begin
     if ParamCount() = 4 then
     begin
         Config.Verbose     := pos('TRUE', ParamStr(1)) <> 0;
-        Config.Theme       := ParamStr(2);
+        Config.Theme       := lowercase(ParamStr(2));
         Config.Interactive := pos('TRUE', ParamStr(3)) <> 0;
     end;
 end;
