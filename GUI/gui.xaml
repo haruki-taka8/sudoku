@@ -1,0 +1,69 @@
+<Window Name="Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        FontSize="16"
+        Title="SBA Sudoku / PS-WPF GUI Wrapper" Height="482" Width="1000" ResizeMode="NoResize" FontFamily="Courier New">
+
+    <DockPanel Margin="16">
+        <Grid DockPanel.Dock="Top" Height="24" Margin="0,0,0,8" Background="#EEEEEE">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="0,0,16,0" Background="White">
+                <TextBlock Text="Enter a sudoku board" VerticalAlignment="Center" Padding="3,1" Foreground="Gray">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Hidden"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=Input, Path=Text}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBox Name="Input" Text="" VerticalContentAlignment="Center" Background="Transparent" Height="24"/>
+            </Grid>
+            <Button Grid.Column="1" Name="Solve" Content="Solve"/>
+        </Grid>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=SudokuGrid, Path=ActualHeight}"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <DataGrid
+                VerticalScrollBarVisibility="Hidden"
+                HorizontalScrollBarVisibility="Hidden"
+                DockPanel.Dock="Bottom"
+                HeadersVisibility="None"
+                Background="Transparent" BorderBrush="Black"
+                SelectionUnit="Cell" CanUserAddRows="False"
+                ColumnWidth="42"
+                RowHeight="42"
+                FontSize="24"
+                Foreground="Black"
+                Name="SudokuGrid">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.Resources>
+            </DataGrid>
+
+            <TextBox IsReadOnly="True" Grid.Column="2" Margin="16,0,0,0" Name="Steps"
+                     TextWrapping="NoWrap" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"/>
+        </Grid>
+    </DockPanel>
+</Window>
