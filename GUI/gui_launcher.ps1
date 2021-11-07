@@ -16,6 +16,7 @@ $sudoku.Solve.Add_Click({
     $InGrid = $sudoku.Input.Text -replace ' ','' -replace '\D', '0'
     if ($InGrid.Length -ne 81) {
         $sudoku.Steps.Text = 'Input must be 81 digits'
+        return
     } else {
         $sudoku.Steps.Text = ''
     }
@@ -45,8 +46,8 @@ $sudoku.Solve.Add_Click({
     $OutString = $OutString -Replace '(\d)(?=\d)', "`$1,"
     $OutGrid = $OutString | ConvertFrom-CSV
     $sudoku.SudokuGrid.ItemsSource = $OutGrid
-    Remove-Item $LogName
 
+    if (!$sudoku.KeepLog.IsChecked) {Remove-Item $LogName}
     Pop-Location
 })
 
