@@ -44,6 +44,7 @@ begin
     end;
 
     // Convert to TIntegerGrid
+    ClrScr;
     y := 0;
     x := 0;
     for i := 1 to 81 do
@@ -62,13 +63,13 @@ end;
 
 procedure WriteResult (InputGrid : TIntegerGrid; InputGiven : TBooleanGrid; Theme : string; ToFile : boolean);
 begin
-    ClrScr;
     if Theme = 'plain' then
         WriteGrid(InputGrid, InputGiven, 1, 1, ToFile)
 
     else if Theme = 'switch' then
     begin
         textColor(Red);
+        gotoXY(1,1);
         writeln('                                                              +-----------+');
         writeln('                                                              | +         |');
         writeln('                                                              |     X     |');
@@ -120,71 +121,41 @@ begin
     else if Theme = 'e257' then
     begin    
         TextColor(DarkGray);
-        TextColor(DarkGray);
-    GotoXY(1,1);
-    writeln('E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMI');
-    writeln('T                         E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRES');
-    writeln('S  6 4 1 | 3 8 5 | 2 7 9  TEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO');
-    writeln('&  9 5 2 | 1 7 6 | 4 3 8  S#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E');
-    writeln('2  7 3 8 | 2 9 4 | 5 6 1  &SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMIT');
-    writeln('E  ------+-------+------  257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS');
-    writeln('#  1 2 6 | 4 5 7 | 9 8 3  EDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&');
-    writeln('S  8 7 5 | 9 2 3 | 1 4 6  #ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E2');
-    writeln('5  3 9 4 | 8 6 1 | 7 2 5  SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITE');
-    writeln('D  ------+-------+------  57#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#');
-    writeln('O  4 1 7 | 6 3 9 | 8 5 2  DEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&S');
-    writeln('H  5 8 3 | 7 1 2 | 6 9 4  ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E25');
-    writeln('7  2 6 9 | 5 4 8 | 3 1 7  HONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITED');
-    writeln('E                         7#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#O');
-    writeln('DORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SH');
-    
-    TextColor(Blue);
-    GotoXY(27,4);
-    write('S#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E');
-    GotoXY(27,5);
-    write('&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMIT');
-    GotoXY(27,6);
-    write('257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS');
-    GotoXY(27,7);
-    write('E+-------------------------------------------------+&');
-    GotoXY(27,8);
-    write('#|                                                 |2');
-    GotoXY(29,8);
-    TextColor(White);
-    write('   E257-2000  Limited Express Odoriko & Shonan');
-    TextColor(Blue);
-    GotoXY(27,9);
-    write('S+-------------------------------------------------+E');
-    GotoXY(27,10);
-    write('57#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#');
-    GotoXY(27,11);
-    write('DEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&S');
-    GotoXY(27,12);
-    write('ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E25');
-    GotoXY(1,4);
-    write('&');
-    GotoXY(1,5);
-    write('2');
-    GotoXY(1,7);
-    write('#');
-    GotoXY(1,8);
-    write('S');
-    GotoXY(1,9);
-    write('5');
-    GotoXY(1,11);
-    write('O');
-    GotoXY(1,12);
-    write('H');
+        GotoXY(1,1);
+        writeln('E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMI');
+        writeln('T                         E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRES');
+        writeln('S                         TEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO');
+        GotoXY(1,13);
+        writeln('7                         HONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITED');
+        writeln('E                         7#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#O');
+        writeln('DORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SH');
 
-    WriteGrid(InputGrid, InputGiven, 3, 4, ToFile);
-    
-    TextColor(Blue);
-    GotoXY(1,6);
-    write('E  ------+-------+------');
-    GotoXY(1,10);
-    write('D  ------+-------+------');
+        TextColor(Blue);
+        GotoXY(1,4);
+        writeln('&                         S#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E');
+        writeln('2                         &SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMIT');
+        writeln('E                         257#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS');
+        writeln('#                         E+-------------------------------------------------+&');
 
-        
+        write('S                         #|                                                 |2');
+        GotoXY(29,8);
+        TextColor(White);
+        write('   E257-2000  Limited Express Odoriko & Shonan');
+        TextColor(Blue);
+
+        GotoXY(1,9);
+        writeln('5                         S+-------------------------------------------------+E');
+        writeln('D                         57#LIMITEDEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#');
+        writeln('O                         DEXPRESS#ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&S');
+        writeln('H                         ODORIKO&SHONAN#E257#LIMITEDEXPRESS#ODORIKO&SHONAN#E25');
+
+        WriteGrid(InputGrid, InputGiven, 3, 4, ToFile);
+
+        TextColor(Blue);
+        GotoXY(4,6);
+        write('------+-------+------');
+        GotoXY(4,10);
+        write('------+-------+------');        
     end;
     GotoXY(1,17);
     TextColor(White);
