@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         FontSize="16" FontFamily="Courier New"
         MinHeight="490" MinWidth="1000" Height="490" Width="1000"
-        Title="SBA Sudoku / PS-WPF GUI Wrapper">
+        Title="Sudoku / PS-WPF GUI Wrapper">
 
     <DockPanel Margin="16">
         <Grid DockPanel.Dock="Top" Height="24" Margin="0,0,0,12" Background="#EEEEEE">

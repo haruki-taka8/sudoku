@@ -1,11 +1,11 @@
 unit auxiliary;
 
 interface
-function SBA_RemoveAt (Input : string; Position : integer) : string;
+function RemoveAt (Input : string; Position : integer) : string;
 function MergeHint (HintsInHouse : string) : string;
 
 implementation
-function SBA_RemoveAt (Input : string; Position : integer) : string;
+function RemoveAt (Input : string; Position : integer) : string;
 var Result : string;
 begin
     if Position = 0 then
@@ -13,7 +13,7 @@ begin
     else
         Result := copy(Input, 1, Position-1) + copy(Input, Position+1, length(Input)-1);
 
-    SBA_RemoveAt := Result;
+    RemoveAt := Result;
 end;
 
 function MergeHint (HintsInHouse : string) : string;

@@ -42,7 +42,7 @@ begin
                         begin
                             OldHint := hint[y, p];
                             for i := 1 to 2 do
-                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
+                                hint[y, p] := RemoveAt(hint[y, p], pos(hint[y, x][i], hint[y, p]));
 
                             if hint[y, p] <> OldHint then
                             begin
@@ -76,7 +76,7 @@ begin
                                 begin
                                     OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                                        hint[ThisY, ThisX] := RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
 
                                     if hint[ThisY, ThisX] <> OldHint then
                                     begin
@@ -113,7 +113,7 @@ begin
                         begin
                             OldHint := hint[p, x];
                             for i := 1 to 2 do
-                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
+                                hint[p, x] := RemoveAt(hint[p, x], pos(hint[y, x][i], hint[p, x]));
 
                             if hint[p, x] <> OldHint then
                             begin
@@ -147,7 +147,7 @@ begin
                                 begin
                                     OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                                        hint[ThisY, ThisX] := RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
                                     if hint[ThisY, ThisX] <> OldHint then
                                     begin
                                         HasRemoved := true;
@@ -199,7 +199,7 @@ begin
                                 begin
                                     OldHint := hint[ThisY, ThisX];
                                     for i := 1 to 2 do
-                                        hint[ThisY, ThisX] := SBA_RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
+                                        hint[ThisY, ThisX] := RemoveAt(hint[ThisY, ThisX], pos(hint[y, x][i], hint[ThisY, ThisX]));
                                     if hint[ThisY, ThisX] <> OldHint then
                                     begin
                                         HasRemoved := true;

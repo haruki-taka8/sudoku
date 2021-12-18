@@ -70,7 +70,7 @@ begin
                                             HasRemoved := true;
                                             HasEverRemoved := true;
                                         end;
-                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
+                                        hint[y, x] := RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
                                     end;
                     end;
 
@@ -131,7 +131,7 @@ begin
                                             HasRemoved := true;
                                             HasEverRemoved := true;
                                         end;
-                                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
+                                        hint[y, x] := RemoveAt(hint[y, x], pos(IntToStr(i), hint[y, x]));
                                     end;
                     end;
 

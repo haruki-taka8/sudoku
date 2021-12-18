@@ -86,7 +86,7 @@ begin
     
         textColor(DarkGray);
         gotoXY(1,1);
-        writeln('           ------------- SBA Sudoku - Switch Theme -----------');
+        writeln('           --------------- Sudoku - Switch Theme -------------');
         writeln('                           N E V | E R 0 | 0 0 0              ');                                                                                                                                                                                                                                   
         writeln('                           0 G O | N N A | 0 0 0              ');                                                                                                                                                                                                                                   
         writeln('                           0 0 G | I V E | 0 0 0              ');                                                                                                                                                                                                                                   

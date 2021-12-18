@@ -42,7 +42,7 @@ begin
                     for r := 0 to 8 do
                         if ((y div 3) <> (r div 3)) and (pos(IntToStr(p), hint[r, x]) <> 0) then
                         begin
-                            hint[r, x] := SBA_RemoveAt(hint[r, x], pos(IntToStr(p), hint[r, x]));
+                            hint[r, x] := RemoveAt(hint[r, x], pos(IntToStr(p), hint[r, x]));
                             HasRemoved := true;
                             HasEverRemoved := true;
                         end;
@@ -81,7 +81,7 @@ begin
                     for r := 0 to 8 do
                         if ((x div 3) <> (r div 3)) and (pos(IntToStr(p), hint[y, r]) <> 0) then
                         begin
-                            hint[y, r] := SBA_RemoveAt(hint[y, r], pos(IntToStr(p), hint[y, r]));
+                            hint[y, r] := RemoveAt(hint[y, r], pos(IntToStr(p), hint[y, r]));
                             HasRemoved := true;
                             HasEverRemoved := true;
                         end;

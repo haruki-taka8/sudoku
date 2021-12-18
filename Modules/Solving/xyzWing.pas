@@ -175,7 +175,7 @@ begin
                                                                 WriteStepHint(fileHandler, QCandidates[s].y, QCandidates[s].x, 'XYZ-Wing', '-['+CommonWithPivot+'] due to ('+IntToStr(Wings[q].y)+','+IntToStr(Wings[q].x)+')+('+IntToStr(Pivot.y)+','+IntToStr(Pivot.x)+')+('+IntToStr(Wings[p].y)+','+IntToStr(Wings[p].x)+')');
                                                                 HasEverRemoved := true;
                                                             end;
-                                                            hint[QCandidates[s].y, QCandidates[s].x] := SBA_RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]));
+                                                            hint[QCandidates[s].y, QCandidates[s].x] := RemoveAt(hint[QCandidates[s].y, QCandidates[s].x], pos(CommonWithPivot, hint[QCandidates[s].y, QCandidates[s].x]));
                                                         end;
 
                                     end;

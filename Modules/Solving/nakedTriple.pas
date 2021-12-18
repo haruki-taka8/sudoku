@@ -49,7 +49,7 @@ begin
                     if ThisCell <> '' then
                     begin
                         for q := 1 to 3 do
-                            ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                            ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                         if length(ThisCell) = 0 then
                         begin
@@ -73,7 +73,7 @@ begin
                         begin
                             OldHint := hint[y, p];
                             for q := 1 to 3 do
-                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(ThisCombo[q], hint[y, p]));
+                                hint[y, p] := RemoveAt(hint[y, p], pos(ThisCombo[q], hint[y, p]));
 
                             if hint[y, p] <> OldHint then 
                             begin
@@ -97,7 +97,7 @@ begin
                         for s := LockedLeftX to LockedLeftX+2 do
                             if (r <> y) and (hint[r, s] <> '') then
                                 for q := 1 to 3 do
-                                    hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
+                                    hint[r, s] := RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                     IsOnceLockedTriple := true; 
                     WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+IntToStr((3*(r div 3)+(s div 3)))+' (row)');
@@ -135,7 +135,7 @@ begin
                     if ThisCell <> '' then
                     begin
                         for q := 1 to 3 do
-                            ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                            ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                         if length(ThisCell) = 0 then
                         begin
@@ -159,7 +159,7 @@ begin
                         begin
                             OldHint := hint[p, x];
                             for q := 1 to 3 do
-                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(ThisCombo[q], hint[p, x]));
+                                hint[p, x] := RemoveAt(hint[p, x], pos(ThisCombo[q], hint[p, x]));
 
                             if hint[p, x] <> OldHint then
                             begin
@@ -183,7 +183,7 @@ begin
                         for s := LockedLeftX to LockedLeftX+2 do
                             if (s <> x) and (hint[r, s] <> '') then
                                 for q := 1 to 3 do
-                                    hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
+                                    hint[r, s] := RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                     IsOnceLockedTriple := true;             
                     WriteStepHint(fileHandler, y, x, 'Locked Triple', '-['+ThisCombo+'] for sub '+IntToStr((3*(r div 3)+(s div 3)))+' (col)');
@@ -230,7 +230,7 @@ begin
                                 if ThisCell <> '' then
                                 begin
                                     for q := 1 to 3 do
-                                        ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                                        ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                                     if length(ThisCell) = 0 then
                                     begin
@@ -252,7 +252,7 @@ begin
                                         begin
                                             OldHint := hint[r, s];
                                             for q := 1 to 3 do
-                                                hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
+                                                hint[r, s] := RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                                             if hint[r, s] <> OldHint then
                                             begin

@@ -45,7 +45,7 @@ begin
                     if ThisCell <> '' then
                     begin
                         for q := 1 to 4 do
-                            ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                            ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                         if length(ThisCell) = 0 then
                         begin
@@ -64,7 +64,7 @@ begin
                         begin
                             OldHint := hint[y, p];
                             for q := 1 to 4 do
-                                hint[y, p] := SBA_RemoveAt(hint[y, p], pos(ThisCombo[q], hint[y, p]));
+                                hint[y, p] := RemoveAt(hint[y, p], pos(ThisCombo[q], hint[y, p]));
 
                             if hint[y, p] <> OldHint then 
                             begin
@@ -110,7 +110,7 @@ begin
                     if ThisCell <> '' then
                     begin
                         for q := 1 to 4 do
-                            ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                            ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                         if length(ThisCell) = 0 then
                         begin
@@ -129,7 +129,7 @@ begin
                         begin
                             OldHint := hint[p, x];
                             for q := 1 to 4 do
-                                hint[p, x] := SBA_RemoveAt(hint[p, x], pos(ThisCombo[q], hint[p, x]));
+                                hint[p, x] := RemoveAt(hint[p, x], pos(ThisCombo[q], hint[p, x]));
 
                             if hint[p, x] <> OldHint then
                             begin
@@ -182,7 +182,7 @@ begin
                             if ThisCell <> '' then
                             begin
                                 for q := 1 to 4 do
-                                    ThisCell := SBA_RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
+                                    ThisCell := RemoveAt(ThisCell, pos(ThisCombo[q], ThisCell));
 
                                 if length(ThisCell) = 0 then
                                 begin
@@ -204,7 +204,7 @@ begin
                                     begin
                                         OldHint := hint[r, s];
                                         for q := 1 to 4 do
-                                            hint[r, s] := SBA_RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
+                                            hint[r, s] := RemoveAt(hint[r, s], pos(ThisCombo[q], hint[r, s]));
 
                                         if hint[r, s] <> OldHint then
                                         begin

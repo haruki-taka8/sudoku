@@ -42,7 +42,7 @@ begin
                             for r := LeftX to LeftX+2 do
                                 if (s <> y) and (pos(IntToStr(p), hint[s, r]) <> 0) then
                                 begin
-                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
+                                    hint[s, r] := RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
                                     HasEverRemoved := true;
                                     
@@ -75,7 +75,7 @@ begin
                             for r := LeftX to LeftX+2 do
                                 if (r <> x) and (pos(IntToStr(p), hint[s, r]) <> 0) then
                                 begin
-                                    hint[s, r] := SBA_RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
+                                    hint[s, r] := RemoveAt(hint[s, r], pos(IntToStr(p), hint[s, r]));
                                     HasRemoved := true;
                                     HasEverRemoved := true;
                                 end;

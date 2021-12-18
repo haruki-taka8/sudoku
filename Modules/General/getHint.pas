@@ -23,13 +23,13 @@ begin
                 LeftX := 3*(x div 3);
                 for p := LeftY to LeftY+2 do
                     for q := LeftX to LeftX+2 do                
-                        hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(InputGrid[p, q]), hint[y, x]));
+                        hint[y, x] := RemoveAt(hint[y, x], pos(IntToStr(InputGrid[p, q]), hint[y, x]));
                     
                 // Elimination: column & row
                 for p := 0 to 8 do
                 begin
-                    hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(InputGrid[p, x]), hint[y, x]));
-                    hint[y, x] := SBA_RemoveAt(hint[y, x], pos(IntToStr(InputGrid[y, p]), hint[y, x]));
+                    hint[y, x] := RemoveAt(hint[y, x], pos(IntToStr(InputGrid[p, x]), hint[y, x]));
+                    hint[y, x] := RemoveAt(hint[y, x], pos(IntToStr(InputGrid[y, p]), hint[y, x]));
                 end;
             end
             else
@@ -56,8 +56,8 @@ begin
                     Old1 := hint[y, p];
                     Old2 := hint[p, x];
 
-                    hint[y, p] := SBA_RemoveAt(hint[y, p], pos(IntToStr(InputGrid[y, x]), hint[y, p]));
-                    hint[p, x] := SBA_RemoveAt(hint[p, x], pos(IntToStr(InputGrid[y, x]), hint[p, x]));
+                    hint[y, p] := RemoveAt(hint[y, p], pos(IntToStr(InputGrid[y, x]), hint[y, p]));
+                    hint[p, x] := RemoveAt(hint[p, x], pos(IntToStr(InputGrid[y, x]), hint[p, x]));
 
                     if (hint[y, p] <> Old1) or (hint[p, x] <> Old2) then
                         HasRemoved := true;
@@ -70,7 +70,7 @@ begin
                     for p := LeftX to LeftX+2 do
                     begin
                         Old1 := hint[q, p];
-                        hint[q, p] := SBA_RemoveAt(hint[q, p], pos(IntToStr(InputGrid[y, x]), hint[q, p]));
+                        hint[q, p] := RemoveAt(hint[q, p], pos(IntToStr(InputGrid[y, x]), hint[q, p]));
 
                         if (hint[q, p] <> Old1) then
                             HasRemoved := true;
