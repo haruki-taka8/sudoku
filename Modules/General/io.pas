@@ -18,7 +18,7 @@ begin
     // Defaults
     Config.Interactive := FALSE;
     Config.Verbose     := FALSE;
-    Config.Theme       := 'Switch';
+    Config.Theme       := 'Plain';
 
     // Read from defaults.ini
     DelimiterPos := 0;

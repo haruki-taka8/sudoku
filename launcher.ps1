@@ -11,7 +11,7 @@ if (!(Test-Path '.\defaults.ini')) {
     (
         'interactive = FALSE',
         'verbose = TRUE',
-        'theme = Switch',
+        'theme = Plain',
         '',
         '; Option values are case-insensitive',
         '',
@@ -27,7 +27,8 @@ if (!(Test-Path '.\defaults.ini')) {
         '',
         '; theme',
         '; --------------------------------------------------------------',
-        '; DEFAULT Switch  -  ACCEPTS Plain OR Switch OR E257',
+        '; DEFAULT Plain  -  ACCEPTS Plain',
+        '; Themes may be added by changing ioGrid.pas and rebuilding',
         ''
     ) | Out-File '.\defaults.ini' -Encoding ASCII
 
