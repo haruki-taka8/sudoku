@@ -45,9 +45,10 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
 ## 💡 How to Execute
 
 Command-line:
-* Run `sudoku.exe` in a terminal;
-* or provide arguments: `sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID`
+* Run `launcher.ps1`; or
+* Run `sudoku.exe` in a terminal; or
+* provide arguments: `sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID`
 <br>
 
 GUI Demo:
-* Run `launcher.ps1`
+* Run `GUI\GUI_launcher.ps1`
