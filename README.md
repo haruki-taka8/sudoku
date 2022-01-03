@@ -42,10 +42,12 @@ Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to s
   </tr>
 </table>
 
-#### ❌ Not Supported
-Some even more difficult strategies...
+## 💡 How to Execute
 
+Command-line:
+* Run `sudoku.exe` in a terminal;
+* or provide arguments: `sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID`
+<br>
 
-## 💡 Todo
-* Detect invalid boards
-* Cleanup
+GUI Demo:
+* Run `launcher.ps1`
