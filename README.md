@@ -1,5 +1,5 @@
 ## 📍 About
-Sudoku solver in Pascal. Enter a valid Sudoku board and the program attemps to solve it.
+Sudoku solver in Pascal. Enter a valid Sudoku board and the program attempts to solve it.
 <br><br>
 
 ## 🧪 Algorithms
