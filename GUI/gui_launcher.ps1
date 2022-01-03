@@ -55,4 +55,9 @@ $sudoku.Window.Add_Closing({
     Remove-Variable -Scope Script sudoku
 })
 
+# Hide console
+if ($Host.Name -eq 'ConsoleHost') {
+    powershell.exe -Window Minimized '#'
+}
+
 [Void] $sudoku.Window.ShowDialog()
