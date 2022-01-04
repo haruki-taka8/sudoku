@@ -4,10 +4,7 @@ interface
 uses types, auxiliary, io, sysutils;
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
-// Naked single = cell with only one hint
-
 implementation
-
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 var x, y : integer;
     HasSolved : boolean;

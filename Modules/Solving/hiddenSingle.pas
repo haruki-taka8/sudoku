@@ -4,7 +4,6 @@ interface
 uses types, auxiliary, io, sysutils;
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 
-
 implementation
 function SolveCell (var grid : TIntegerGrid; InputHint : TStringGrid) : boolean;
 var x, y, p, q, r, s, ThisX, ThisY : integer;

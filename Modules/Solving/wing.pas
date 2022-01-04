@@ -11,7 +11,6 @@ var y, x, i, j : integer;
     Possible : array [0..8] of string;
     PossibleCount : integer;
     HasRemoved, HasEverRemoved : boolean;
-
 begin
     case IntersectionCount of
         2 : Algorithm := 'X-Wing';
@@ -78,7 +77,6 @@ begin
                         WriteStepHint(fileHandler, y, x, Algorithm, '-['+IntToStr(i)+'] for col ['+RemoveFrom+'] due to row ['+ThisCombo+']');
                 end;
     end;
-
 
     // Column -> row
     for i := 1 to 9 do

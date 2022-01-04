@@ -5,7 +5,6 @@ uses types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 implementation
-
 type
     TCoordinates = record
         x, y : integer;

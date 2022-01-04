@@ -6,7 +6,6 @@ function RemoveHint (var hint : TStringGrid) : boolean;
 
 
 implementation
-
 function RemoveHint (var hint : TStringGrid) : boolean;
 var y, x, p, q, r, s, LeftX, LeftY : integer;
     SubgridTotal, Total : integer;

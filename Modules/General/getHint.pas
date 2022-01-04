@@ -5,9 +5,7 @@ uses types, auxiliary, sysutils;
 procedure GetHint (InputGrid : TIntegerGrid; var hint : TStringGrid);
 function RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid) : boolean;
 
-
 implementation
-
 procedure GetHint (InputGrid : TIntegerGrid; var hint : TStringGrid);
 var x, y, p, q, LeftX, LeftY : integer;
 begin
@@ -35,7 +33,6 @@ begin
             else
                 hint[y, x] := '';
 end;
-
 
 function RemoveSolved (InputGrid : TIntegerGrid; var hint : TStringGrid) : boolean;
 var p, q, x, y, LeftX, LeftY : integer;

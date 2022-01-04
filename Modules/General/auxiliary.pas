@@ -42,5 +42,4 @@ begin
     MergeHint := Result;
 end;
 
-
 end.

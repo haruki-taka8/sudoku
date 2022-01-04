@@ -79,8 +79,8 @@ begin
             writeln(fileHandler, 'Board is solved.')
         else
         begin
-            writeln('Unable to solve board. Hints shown in log file.');
-            writeln(fileHandler, 'Unable to solve board. Hints shown below.');
+            writeln('Unable to solve the board. Hints shown in log file.');
+            writeln(fileHandler, 'Unable to solve the board. Hints shown below.');
             writeln(fileHandler);
             WriteHint(fileHandler, hint);
         end;

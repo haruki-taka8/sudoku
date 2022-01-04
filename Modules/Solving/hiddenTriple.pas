@@ -4,9 +4,7 @@ interface
 uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
-
 implementation
-
 function RemoveHint (var hint : TStringGrid) : boolean;
 var y, x, p, r, s, HiddenTripleCount, SubgridCellID : integer;
     Hints, ThisCombo, ThisCell, ThisLetter : string;

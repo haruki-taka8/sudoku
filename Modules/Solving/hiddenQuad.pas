@@ -4,15 +4,12 @@ interface
 uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
-
 implementation
-
 function RemoveHint (var hint : TStringGrid) : boolean;
 var y, x, p, r, s, HiddenQuadCount, SubgridCellID : integer;
     Hints, ThisCombo, ThisCell, ThisLetter : string;
     IsHiddenQuad : array [0..8] of boolean;
     HasRemoved, HasEverRemoved : boolean;
-
 begin
     HasEverRemoved := false;
 

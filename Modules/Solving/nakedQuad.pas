@@ -4,7 +4,6 @@ interface
 uses combination, types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
-
 implementation
 function RemoveHint (var hint: TStringGrid) : boolean;
 var y, x, p, q, r, s : integer;

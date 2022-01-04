@@ -5,12 +5,10 @@ uses types, auxiliary, io, sysutils;
 function RemoveHint (var hint : TStringGrid) : boolean;
 
 implementation
-
 type
     TCoordinates = record
         x, y : integer;
         Hint : string[3];
-
     end;
 
 function RemoveHint (var hint : TStringGrid) : boolean;
@@ -20,7 +18,6 @@ var x, y, p, q, r, s, i, j, u, v, LeftX, LeftY : integer;
     QCandidates, PCandidates : array [0..26] of TCoordinates;
     CommonWithPivot : string;
     HasEverRemoved : boolean;
-
 begin
     HasEverRemoved := false;
     Empty.x := -1;

@@ -5,9 +5,7 @@ uses types;
 function IsSolved (InputGrid : TIntegerGrid) : boolean;
 function IsRepeated (InputGrid, InputOldGrid: TIntegerGrid) : boolean;
 
-
 implementation
-
 function IsSolved (InputGrid : TIntegerGrid) : boolean;
 var x, y : integer;
     result : boolean;
