@@ -1,9 +1,28 @@
 # Remove *.o and *.ppu files
 
-Write-Output $PSCommandPath
-Write-Output $('-' * $PSCommandPath.Length)
-Get-ChildItem ('*.o', '*.ppu') -Recurse | ForEach-Object ({
+function Remove-CompilerFile {
+    param (
+        [Parameter()] [Boolean] $Silent
+    )
 
-    Write-Output "Removing: $($_.Name)"
-    Remove-Item $_
-})
+    # Gather & display files to delete
+    [Collections.ArrayList] $ToRemove = Get-ChildItem ('*.o', '*.ppu') -Recurse
+    
+    Write-Output "Files to remove: x$($ToRemove.Count)"
+    Write-Output $('-' * $PSCommandPath.Length)
+    $ToRemove.Name
+
+    # Ask for confirmation
+    if (!$Silent -and $ToRemove) {
+        Write-Output ''
+        Read-Host 'Press ENTER to confirm removal'
+    }
+
+    # Delete files
+    foreach ($Item in $ToRemove) {Remove-Item $Item}
+
+    if ($ToRemove) {
+        Write-Output $('-' * $PSCommandPath.Length)
+        Write-Output 'Files removed'
+    }
+}
