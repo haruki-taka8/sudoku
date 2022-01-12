@@ -1,7 +1,7 @@
 ## 📍 About
 Sudoku solver in Pascal. The program will attempt to solve a user-provided sudoku board. It can also log all actions and the resultant board to an external file.
 
-Sorry, the code is horrifying, I know. The design principal was to get the algroithms working, rather than to make it clean and sustainable. Attempting to improve it may only lead to more frustration than you have now.
+Sorry, the code is horrifying, I know. The design principal was to get the algroithms working, rather than to make them clean and sustainable. Attempting to improve the code may only lead to more frustration than you have now.
 <br>
 
 ## 🧪 Algorithms
@@ -51,11 +51,11 @@ Command-line:
 * provide arguments: `sudoku.exe VERBOSE THEME INTERACTIVE SUDOKUGRID`
 <br>
 
-GUI Demo:
+GUI Demo (Windows-only):
 * Run `GUI\GUI_launcher.ps1`
 <br>
 
 ## 🖊️ Build Instructions
-Compile `sudoku.pas` with a compiler of your choice. The official Windows binary is built with [FPC](https://www.freepascal.org/). Tested on Windows 10.
+Compile `sudoku.pas` with a compiler of your choice. The official Windows binary is built with [FPC](https://www.freepascal.org/). Tested on Windows 7, 10 and 11.
 
 The GUI demo is made with Powershell and WPF. It is Windows-only. Tested on Windows 7, 10 and 11.
